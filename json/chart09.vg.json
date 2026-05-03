@@ -1,7 +1,7 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "title": {
-    "text": "Number of Inpatient and Outpatient Visits by Sector",
+    "text": "Number of Inpatient and Outpatient Visits by Sector in 2024",
     "fontSize": 16,
     "anchor": "start",
     "offset": 12
