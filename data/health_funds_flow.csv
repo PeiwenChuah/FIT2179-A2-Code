@@ -1,0 +1,27 @@
+source,target,value(M)
+MOH,PUBLIC,39148
+Other federal agencies,PUBLIC,2066
+MOE,PUBLIC,1975
+Other public sources,PUBLIC,2391
+Out-of-pocket,PRIVATE,34843
+Private insurance,PRIVATE,7112
+All corporations,PRIVATE,1461
+Other private sources,PRIVATE,831
+PUBLIC,All hospitals,32000
+PUBLIC,Providers of health care system administration and financing,8640
+PUBLIC,Providers of ambulatory health care,4940
+PRIVATE,All hospitals,16721
+PRIVATE,Providers of ambulatory health care,13941
+PRIVATE,Retail sale and other providers of medical goods,7636
+PRIVATE,All other providers,5949
+All hospitals,Services of curative care,42000
+All hospitals,Gross capital formation,6721
+Providers of ambulatory health care,Services of curative care,14554
+Providers of ambulatory health care,Preventive care,4327
+Retail sale and other providers of medical goods,Medical goods,7636
+Providers of health care system administration and financing,Governance and health system,7211
+Providers of health care system administration and financing,Medical goods,924
+Providers of health care system administration and financing,All other functions,505
+All other providers,All other functions,3107
+All other providers,Preventive care,1088
+All other providers,Gross capital formation,1754

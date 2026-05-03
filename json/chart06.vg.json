@@ -1,0 +1,98 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {
+    "text": "Inpatient and Outpatient Visits by Sector, Malaysia",
+    "subtitle": "Number of admissions and consultations",
+    "fontSize": 16,
+    "subtitleFontSize": 12,
+    "subtitleColor": "#666",
+    "anchor": "start",
+    "offset": 12
+  },
+  "width": "container",
+  "height": 420,
+  "data": {
+    "url": "data/Inpatient and Outpatient.csv"
+  },
+  "transform": [
+    {
+      "calculate": "toNumber(replace(datum.Number, ',', ''))",
+      "as": "count"
+    },
+    {
+      "calculate": "datum.Sector === 'MOH_Public' ? 'MOH Public' : datum.Sector === 'Non_MOH_Public' ? 'Non-MOH Public' : 'Private'",
+      "as": "sector_label"
+    }
+  ],
+  "mark": {
+    "type": "bar",
+    "tooltip": true
+  },
+  "encoding": {
+    "x": {
+      "field": "ServiceType",
+      "type": "nominal",
+      "title": null,
+      "axis": {
+        "labelAngle": 0,
+        "labelFontSize": 13,
+        "titleFontSize": 13
+      }
+    },
+    "xOffset": {
+      "field": "sector_label",
+      "type": "nominal",
+      "sort": ["MOH Public", "Non-MOH Public", "Private"]
+    },
+    "y": {
+      "field": "count",
+      "type": "quantitative",
+      "title": "Number of Visits",
+      "axis": {
+        "labelFontSize": 12,
+        "titleFontSize": 13,
+        "titleFontWeight": "normal",
+        "titlePadding": 10,
+        "formatType": "number",
+        "labelExpr": "format(datum.value, ',')",
+        "gridColor": "#e8e8e8",
+        "gridOpacity": 0.8
+      }
+    },
+    "color": {
+      "field": "sector_label",
+      "type": "nominal",
+      "title": "Sector",
+      "sort": ["MOH Public", "Non-MOH Public", "Private"],
+      "scale": {
+        "domain": ["MOH Public", "Non-MOH Public", "Private"],
+        "range": ["#185FA5", "#1D9E75", "#EF9F27"]
+      },
+      "legend": {
+        "orient": "top-left",
+        "titleFontSize": 12,
+        "labelFontSize": 12,
+        "symbolSize": 120,
+        "offset": 10
+      }
+    },
+    "tooltip": [
+      { "field": "ServiceType", "type": "nominal", "title": "Service Type" },
+      { "field": "sector_label", "type": "nominal", "title": "Sector" },
+      { "field": "count", "type": "quantitative", "title": "Number of Visits", "format": "," }
+    ]
+  },
+  "config": {
+    "background": "transparent",
+    "view": { "stroke": "transparent" },
+    "axis": {
+      "domainColor": "#ccc",
+      "tickColor": "#ccc"
+    },
+    "bar": {
+      "cornerRadiusTopLeft": 2,
+      "cornerRadiusTopRight": 2
+    },
+    "font": "system-ui, -apple-system, sans-serif"
+  }
+}

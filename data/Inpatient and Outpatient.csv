@@ -1,0 +1,7 @@
+Sector,ServiceType,Number
+MOH_Public,Inpatient,"2712916"
+Non_MOH_Public,Inpatient,"197530"
+Private,Inpatient,"1359910"
+MOH_Public,Outpatient,"65841887"
+Non_MOH_Public,Outpatient,"3188026"
+Private,Outpatient,"3629124"

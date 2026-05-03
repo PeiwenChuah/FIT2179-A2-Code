@@ -1,0 +1,97 @@
+state,metric,value,unit
+Johor,Pharmacists per 10000 population,4.9,per 10000 pop
+Kedah,Pharmacists per 10000 population,5.6,per 10000 pop
+Kelantan,Pharmacists per 10000 population,5,per 10000 pop
+Melaka,Pharmacists per 10000 population,6.3,per 10000 pop
+Negeri Sembilan,Pharmacists per 10000 population,6.8,per 10000 pop
+Pahang,Pharmacists per 10000 population,5.8,per 10000 pop
+Perak,Pharmacists per 10000 population,6.4,per 10000 pop
+Perlis,Pharmacists per 10000 population,7.4,per 10000 pop
+Pulau Pinang,Pharmacists per 10000 population,8.7,per 10000 pop
+Sabah,Pharmacists per 10000 population,3.3,per 10000 pop
+Sarawak,Pharmacists per 10000 population,5.8,per 10000 pop
+Selangor,Pharmacists per 10000 population,6.6,per 10000 pop
+Terengganu,Pharmacists per 10000 population,5.9,per 10000 pop
+W.P. Kuala Lumpur,Pharmacists per 10000 population,9.5,per 10000 pop
+W.P. Labuan,Pharmacists per 10000 population,6,per 10000 pop
+W.P. Putrajaya,Pharmacists per 10000 population,50,per 10000 pop
+Johor,Hospital beds per 100000 population,129839.4,per 100000 pop
+Kedah,Hospital beds per 100000 population,124577.2,per 100000 pop
+Kelantan,Hospital beds per 100000 population,157317.7,per 100000 pop
+Melaka,Hospital beds per 100000 population,138912.8,per 100000 pop
+Negeri Sembilan,Hospital beds per 100000 population,159499.8,per 100000 pop
+Pahang,Hospital beds per 100000 population,160760.3,per 100000 pop
+Pulau Pinang,Hospital beds per 100000 population,118744.8,per 100000 pop
+Perak,Hospital beds per 100000 population,229119.6,per 100000 pop
+Perlis,Hospital beds per 100000 population,171159,per 100000 pop
+Selangor,Hospital beds per 100000 population,103766.3,per 100000 pop
+Terengganu,Hospital beds per 100000 population,140479.1,per 100000 pop
+Sabah,Hospital beds per 100000 population,135034.7,per 100000 pop
+Sarawak,Hospital beds per 100000 population,163614.7,per 100000 pop
+W.P. Kuala Lumpur,Hospital beds per 100000 population,235743.7,per 100000 pop
+W.P. Labuan,Hospital beds per 100000 population,121031.7,per 100000 pop
+W.P. Putrajaya,Hospital beds per 100000 population,529509.6,per 100000 pop
+Johor,Registered nurses per 10000 population,26.3,per 10000 pop
+Kedah,Registered nurses per 10000 population,29.2,per 10000 pop
+Kelantan,Registered nurses per 10000 population,34.2,per 10000 pop
+Melaka,Registered nurses per 10000 population,40.6,per 10000 pop
+Negeri Sembilan,Registered nurses per 10000 population,35.2,per 10000 pop
+Pahang,Registered nurses per 10000 population,37.8,per 10000 pop
+Perak,Registered nurses per 10000 population,34.9,per 10000 pop
+Perlis,Registered nurses per 10000 population,36,per 10000 pop
+Pulau Pinang,Registered nurses per 10000 population,48.2,per 10000 pop
+Sabah,Registered nurses per 10000 population,24,per 10000 pop
+Sarawak,Registered nurses per 10000 population,33.6,per 10000 pop
+Selangor,Registered nurses per 10000 population,29.7,per 10000 pop
+Terengganu,Registered nurses per 10000 population,35.1,per 10000 pop
+W.P. Kuala Lumpur,Registered nurses per 10000 population,84.4,per 10000 pop
+W.P. Labuan,Registered nurses per 10000 population,27,per 10000 pop
+W.P. Putrajaya,Registered nurses per 10000 population,199.6,per 10000 pop
+Johor,Doctors per 10000 population,16.8,per 10000 pop
+Kedah,Doctors per 10000 population,17.9,per 10000 pop
+Kelantan,Doctors per 10000 population,25.1,per 10000 pop
+Melaka,Doctors per 10000 population,25.4,per 10000 pop
+Negeri Sembilan,Doctors per 10000 population,26.6,per 10000 pop
+Pahang,Doctors per 10000 population,22.8,per 10000 pop
+Perak,Doctors per 10000 population,21.4,per 10000 pop
+Perlis,Doctors per 10000 population,26,per 10000 pop
+Pulau Pinang,Doctors per 10000 population,24.3,per 10000 pop
+Sabah,Doctors per 10000 population,12.9,per 10000 pop
+Sarawak,Doctors per 10000 population,17,per 10000 pop
+Selangor,Doctors per 10000 population,21.7,per 10000 pop
+Terengganu,Doctors per 10000 population,22.9,per 10000 pop
+W.P. Kuala Lumpur,Doctors per 10000 population,49.5,per 10000 pop
+W.P. Labuan,Doctors per 10000 population,18.2,per 10000 pop
+W.P. Putrajaya,Doctors per 10000 population,536.2,per 10000 pop
+Johor,Dental practitioners per 10000 population,3.3,per 10000 pop
+Kedah,Dental practitioners per 10000 population,3.4,per 10000 pop
+Kelantan,Dental practitioners per 10000 population,4.3,per 10000 pop
+Melaka,Dental practitioners per 10000 population,5.3,per 10000 pop
+Negeri Sembilan,Dental practitioners per 10000 population,5.1,per 10000 pop
+Pahang,Dental practitioners per 10000 population,5.1,per 10000 pop
+Perak,Dental practitioners per 10000 population,3.5,per 10000 pop
+Perlis,Dental practitioners per 10000 population,6.1,per 10000 pop
+Pulau Pinang,Dental practitioners per 10000 population,4.7,per 10000 pop
+Sabah,Dental practitioners per 10000 population,2.1,per 10000 pop
+Sarawak,Dental practitioners per 10000 population,2.8,per 10000 pop
+Selangor,Dental practitioners per 10000 population,4.1,per 10000 pop
+Terengganu,Dental practitioners per 10000 population,5,per 10000 pop
+W.P. Kuala Lumpur,Dental practitioners per 10000 population,10.8,per 10000 pop
+W.P. Labuan,Dental practitioners per 10000 population,4.5,per 10000 pop
+W.P. Putrajaya,Dental practitioners per 10000 population,24.9,per 10000 pop
+Johor,Deaths per 1000 population,6,per 1000 pop
+Kedah,Deaths per 1000 population,7.6,per 1000 pop
+Kelantan,Deaths per 1000 population,6.4,per 1000 pop
+Melaka,Deaths per 1000 population,6,per 1000 pop
+Negeri Sembilan,Deaths per 1000 population,6.7,per 1000 pop
+Pahang,Deaths per 1000 population,6.4,per 1000 pop
+Perak,Deaths per 1000 population,8.2,per 1000 pop
+Perlis,Deaths per 1000 population,7.4,per 1000 pop
+Pulau Pinang,Deaths per 1000 population,6.9,per 1000 pop
+Sabah,Deaths per 1000 population,4.6,per 1000 pop
+Sarawak,Deaths per 1000 population,6.5,per 1000 pop
+Selangor,Deaths per 1000 population,4.5,per 1000 pop
+Terengganu,Deaths per 1000 population,6.5,per 1000 pop
+W.P. Kuala Lumpur,Deaths per 1000 population,4.8,per 1000 pop
+W.P. Labuan,Deaths per 1000 population,3.4,per 1000 pop
+W.P. Putrajaya,Deaths per 1000 population,2.4,per 1000 pop
