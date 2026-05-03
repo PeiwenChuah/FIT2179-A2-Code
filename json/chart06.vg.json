@@ -6,79 +6,138 @@
     "anchor": "start",
     "offset": 12
   },
-  "width": 700,
-  "height": 420,
-  "autosize": {
-    "type": "fit-x",
-    "contains": "padding"
-  },
-  "data": {
-    "values": [
-      { "ServiceType": "Inpatient",  "sector_label": "MOH Public",     "count": 2712916  },
-      { "ServiceType": "Inpatient",  "sector_label": "Non-MOH Public", "count": 197530   },
-      { "ServiceType": "Inpatient",  "sector_label": "Private",        "count": 1359910  },
-      { "ServiceType": "Outpatient", "sector_label": "MOH Public",     "count": 65841887 },
-      { "ServiceType": "Outpatient", "sector_label": "Non-MOH Public", "count": 3188026  },
-      { "ServiceType": "Outpatient", "sector_label": "Private",        "count": 3629124  }
-    ]
-  },
-  "mark": {
-    "type": "bar",
-    "tooltip": true
-  },
-  "encoding": {
-    "x": {
-      "field": "ServiceType",
-      "type": "nominal",
-      "title": null,
-      "sort": ["Inpatient", "Outpatient"],
-      "axis": {
-        "labelAngle": 0,
-        "labelFontSize": 13
-      }
-    },
-    "xOffset": {
-      "field": "sector_label",
-      "type": "nominal",
-      "sort": ["MOH Public", "Non-MOH Public", "Private"]
-    },
-    "y": {
-      "field": "count",
-      "type": "quantitative",
-      "title": "Number of Visits",
-      "axis": {
-        "labelFontSize": 12,
-        "titleFontSize": 13,
-        "titleFontWeight": "normal",
-        "titlePadding": 10,
-        "labelExpr": "datum.value >= 1000000 ? format(datum.value / 1000000, '.0f') + 'M' : datum.value >= 1000 ? format(datum.value / 1000, '.0f') + 'K' : datum.value",
-        "gridColor": "#e8e8e8",
-        "gridOpacity": 0.8
-      }
-    },
-    "color": {
-      "field": "sector_label",
-      "type": "nominal",
-      "title": "Sector",
-      "sort": ["MOH Public", "Non-MOH Public", "Private"],
-      "scale": {
-        "domain": ["MOH Public", "Non-MOH Public", "Private"],
-        "range": ["#185FA5", "#1D9E75", "#EF9F27"]
+  "hconcat": [
+    {
+      "title": {
+        "text": "Inpatient",
+        "fontSize": 14,
+        "fontWeight": "normal",
+        "color": "#444"
       },
-      "legend": {
-        "orient": "top-left",
-        "titleFontSize": 12,
-        "labelFontSize": 12,
-        "symbolSize": 120,
-        "offset": 10
+      "width": 300,
+      "height": 380,
+      "data": { "url": "data/Inpatient and Outpatient.csv" },
+      "transform": [
+        { "calculate": "toNumber(datum.Number)", "as": "count" },
+        { "calculate": "datum.Sector === 'MOH_Public' ? 'MOH Public' : datum.Sector === 'Non_MOH_Public' ? 'Non-MOH Public' : 'Private'", "as": "sector_label" },
+        { "filter": "datum.ServiceType === 'Inpatient'" }
+      ],
+      "mark": { "type": "bar", "tooltip": true },
+      "encoding": {
+        "x": {
+          "field": "sector_label",
+          "type": "nominal",
+          "sort": { "field": "count", "order": "descending" },
+          "title": "Sector",
+          "axis": {
+            "labelAngle": 0,
+            "labelFontSize": 12,
+            "titleFontSize": 13,
+            "titleFontWeight": "normal",
+            "titlePadding": 10
+          }
+        },
+        "y": {
+          "field": "count",
+          "type": "quantitative",
+          "title": "Number of Visits",
+          "axis": {
+            "labelFontSize": 12,
+            "titleFontSize": 13,
+            "titleFontWeight": "normal",
+            "titlePadding": 10,
+            "labelExpr": "datum.value >= 1000000 ? format(datum.value / 1000000, '.1f') + 'M' : datum.value >= 1000 ? format(datum.value / 1000, '.0f') + 'K' : datum.value",
+            "gridColor": "#e8e8e8",
+            "gridOpacity": 0.8
+          }
+        },
+        "color": {
+          "field": "sector_label",
+          "type": "nominal",
+          "sort": { "field": "count", "order": "descending" },
+          "scale": {
+            "domain": ["MOH Public", "Non-MOH Public", "Private"],
+            "range": ["#185FA5", "#1D9E75", "#EF9F27"]
+          },
+          "legend": {
+            "title": "Sector",
+            "titleOrient": "left",
+            "orient": "top",
+            "direction": "horizontal",
+            "titleFontSize": 12,
+            "labelFontSize": 12,
+            "symbolSize": 120,
+            "padding": 5,
+            "offset": 8
+          }
+        },
+        "tooltip": [
+          { "field": "sector_label", "type": "nominal",      "title": "Sector" },
+          { "field": "count",        "type": "quantitative", "title": "Inpatient Visits", "format": "," }
+        ]
       }
     },
-    "tooltip": [
-      { "field": "ServiceType",  "type": "nominal",      "title": "Service Type" },
-      { "field": "sector_label", "type": "nominal",      "title": "Sector" },
-      { "field": "count",        "type": "quantitative", "title": "Number of Visits", "format": "," }
-    ]
-  },
+    {
+      "title": {
+        "text": "Outpatient",
+        "fontSize": 14,
+        "fontWeight": "normal",
+        "color": "#444"
+      },
+      "width": 300,
+      "height": 380,
+      "data": { "url": "data/Inpatient and Outpatient.csv" },
+      "transform": [
+        { "calculate": "toNumber(datum.Number)", "as": "count" },
+        { "calculate": "datum.Sector === 'MOH_Public' ? 'MOH Public' : datum.Sector === 'Non_MOH_Public' ? 'Non-MOH Public' : 'Private'", "as": "sector_label" },
+        { "filter": "datum.ServiceType === 'Outpatient'" }
+      ],
+      "mark": { "type": "bar", "tooltip": true },
+      "encoding": {
+        "x": {
+          "field": "sector_label",
+          "type": "nominal",
+          "sort": { "field": "count", "order": "descending" },
+          "title": "Sector",
+          "axis": {
+            "labelAngle": 0,
+            "labelFontSize": 12,
+            "titleFontSize": 13,
+            "titleFontWeight": "normal",
+            "titlePadding": 10
+          }
+        },
+        "y": {
+          "field": "count",
+          "type": "quantitative",
+          "title": "Number of Visits",
+          "axis": {
+            "labelFontSize": 12,
+            "titleFontSize": 13,
+            "titleFontWeight": "normal",
+            "titlePadding": 10,
+            "labelExpr": "datum.value >= 1000000 ? format(datum.value / 1000000, '.0f') + 'M' : datum.value >= 1000 ? format(datum.value / 1000, '.0f') + 'K' : datum.value",
+            "gridColor": "#e8e8e8",
+            "gridOpacity": 0.8
+          }
+        },
+        "color": {
+          "field": "sector_label",
+          "type": "nominal",
+          "sort": { "field": "count", "order": "descending" },
+          "scale": {
+            "domain": ["MOH Public", "Non-MOH Public", "Private"],
+            "range": ["#185FA5", "#1D9E75", "#EF9F27"]
+          },
+          "legend": null
+        },
+        "tooltip": [
+          { "field": "sector_label", "type": "nominal",      "title": "Sector" },
+          { "field": "count",        "type": "quantitative", "title": "Outpatient Visits", "format": "," }
+        ]
+      }
+    }
+  ],
   "config": {
     "background": "transparent",
     "view": { "stroke": "transparent" },
