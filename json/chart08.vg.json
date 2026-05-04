@@ -42,30 +42,20 @@
           "field": "rank",
           "type": "quantitative",
           "title": "Rank",
-          "scale": {
-            "reverse": true,
-            "domain": [1, 10]
-          },
+          "scale": { "reverse": true, "domain": [1, 10] },
           "axis": {
             "tickMinStep": 1,
             "labelFontSize": 12,
             "titleFontSize": 13,
             "titleFontWeight": "normal",
             "titlePadding": 10,
-            "grid": false 
+            "grid": false
           }
         },
         "color": {
           "field": "cause_short",
           "type": "nominal",
-          "title": "Disease Category",
-          "legend": {
-            "orient": "top-left",
-            "titleFontSize": 12,
-            "labelFontSize": 12,
-            "symbolSize": 120,
-            "offset": 10
-          }
+          "legend": null 
         },
         "detail": {
           "field": "cause_short",
@@ -93,7 +83,7 @@
           {"field": "cause_short", "title": "Disease"},
           {"field": "year", "title": "Year"},
           {"field": "rank", "title": "Rank"},
-          {"field": "percentage", "title": "Percentage (%)", "format": ".2f"}
+          {"field": "percentage", "title": "Percentage", "format": ".2f"}
         ]
       }
     },
@@ -106,9 +96,9 @@
         "dy": -10,
         "align": "center",
         "baseline": "bottom",
-        "fill": "#1f2937",
-        "stroke": "white",
-        "strokeWidth": 0.8
+        "fill": "#000000",  
+        "stroke": "black",
+        "strokeWidth": 0.1
       },
       "encoding": {
         "x": {"field": "year", "type": "ordinal"},
@@ -119,16 +109,12 @@
   ],
 
   "config": {
-    "background": "transparent", 
+    "background": "transparent",
     "view": { "stroke": "transparent" },
 
     "axis": {
       "domainColor": "#ccc",
       "tickColor": "#ccc"
-    },
-
-    "legend": {
-      "symbolType": "circle"
     },
 
     "font": "system-ui, -apple-system, sans-serif"
