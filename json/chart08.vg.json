@@ -1,5 +1,6 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+
   "description": "Bump chart of hospitalisation cause ranks in Malaysia, 2022-2024",
 
   "width": 880,
@@ -24,6 +25,7 @@
         "strokeWidth": 3,
         "strokeCap": "round"
       },
+
       "encoding": {
         "x": {
           "field": "year",
@@ -36,6 +38,7 @@
             "titlePadding": 10
           }
         },
+
         "y": {
           "field": "rank",
           "type": "quantitative",
@@ -54,12 +57,19 @@
           "field": "cause_short",
           "type": "nominal",
           "scale": {
-            "scheme": "category20"
+            "range": [
+              "#e41a1c", "#377eb8", "#4daf4a", "#984ea3",
+              "#ff7f00", "#ffff33", "#a65628", "#f781bf",
+              "#00a6ca", "#00cc99", "#d95f02", "#7570b3",
+              "#8dd3c7", "#fb8072", "#80b1d3", "#b3de69"
+            ]
           },
           "legend": null
         },
 
-        "detail": { "field": "cause_short" }
+        "detail": {
+          "field": "cause_short"
+        }
       }
     },
 
@@ -70,6 +80,7 @@
         "stroke": "white",
         "strokeWidth": 1.5
       },
+
       "encoding": {
         "x": { "field": "year", "type": "ordinal" },
         "y": { "field": "rank", "type": "quantitative" },
@@ -78,7 +89,12 @@
           "field": "cause_short",
           "type": "nominal",
           "scale": {
-            "scheme": "category20"
+            "range": [
+              "#e41a1c", "#377eb8", "#4daf4a", "#984ea3",
+              "#ff7f00", "#ffff33", "#a65628", "#f781bf",
+              "#00a6ca", "#00cc99", "#d95f02", "#7570b3",
+              "#8dd3c7", "#fb8072", "#80b1d3", "#b3de69"
+            ]
           },
           "legend": null
         },
@@ -102,6 +118,7 @@
         "baseline": "bottom",
         "fill": "#000000"
       },
+
       "encoding": {
         "x": { "field": "year", "type": "ordinal" },
         "y": { "field": "rank", "type": "quantitative" },
