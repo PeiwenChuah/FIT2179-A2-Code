@@ -1,0 +1,100 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {
+    "text": "Healthcare Professionals per 10,000 Population in Malaysia (1990–2023)",
+    "fontSize": 16,
+    "anchor": "start",
+    "offset": 12
+  },
+  "width": "container",
+  "height": 420,
+  "data": {
+    "url": "data/staff_across_years.csv"
+  },
+  "transform": [
+    {
+      "calculate": "toNumber(datum.DIM_TIME)",
+      "as": "year"
+    },
+    {
+      "calculate": "toNumber(datum.RATE_PER_10000_N)",
+      "as": "rate"
+    },
+    {
+      "calculate": "datum.IND_NAME === 'Nurse (per 10,000 population)' ? 'Nurse' : datum.IND_NAME === 'Doctor (per 10,000 population)' ? 'Doctor' : 'Pharmacist'",
+      "as": "type_label"
+    }
+  ],
+  "mark": {
+    "type": "line",
+    "point": true,
+    "tooltip": true
+  },
+  "encoding": {
+    "x": {
+      "field": "year",
+      "type": "quantitative",
+      "title": "Year",
+      "axis": {
+        "labelAngle": 0,
+        "labelFontSize": 12,
+        "titleFontSize": 13,
+        "titleFontWeight": "normal",
+        "titlePadding": 10,
+        "grid": false
+      }
+    },
+    "y": {
+      "field": "rate",
+      "type": "quantitative",
+      "title": "Healthcare Professionals Per 10,000 population",
+      "axis": {
+        "labelFontSize": 12,
+        "titleFontSize": 13,
+        "titleFontWeight": "normal",
+        "titlePadding": 10,
+        "gridColor": "#e8e8e8",
+        "gridOpacity": 0.8,
+        "format": ".2f"
+      }
+    },
+    "color": {
+      "field": "type_label",
+      "type": "nominal",
+      "title": "Healthcare profession",
+      "scale": {
+        "domain": ["Doctor", "Nurse", "Pharmacist"],
+        "range": ["#1D9E75", "#185FA5", "#E41A1C"]
+      },
+      "legend": {
+        "orient": "top-left",
+        "titleFontSize": 12,
+        "labelFontSize": 12,
+        "symbolSize": 120,
+        "offset": 10,
+        "title": "Healthcare Profession"
+      }
+    },
+    "tooltip": [
+      { "field": "year", "type": "quantitative", "title": "Year" },
+      { "field": "type_label", "type": "nominal", "title": "Profession" },
+      { "field": "rate", "type": "quantitative", "title": "Rate per 10,000", "format": ".2f" }
+    ]
+  },
+  "config": {
+    "background": "transparent",
+    "view": { "stroke": "transparent" },
+    "axis": {
+      "domainColor": "#ccc",
+      "tickColor": "#ccc"
+    },
+    "line": {
+      "strokeWidth": 2
+    },
+    "point": {
+      "filled": true,
+      "size": 60
+    },
+    "font": "system-ui, -apple-system, sans-serif"
+  }
+}

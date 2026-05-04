@@ -1,137 +1,103 @@
 IND_NAME,DIM_TIME,RATE_PER_10000_N
-Density of nurses and midwives,1990,14.33
-Density of nurses and midwives,1991,14.18
-Density of nurses and midwives,1992,14.3
-Density of nurses and midwives,1993,15.37
-Density of nurses and midwives,1994,16.3
-Density of nurses and midwives,1995,22.46
-Density of nurses and midwives,1996,14.73
-Density of nurses and midwives,1997,21.5
-Density of nurses and midwives,1998,14.83
-Density of nurses and midwives,1999,14.45
-Density of nurses and midwives,2000,21.1
-Density of nurses and midwives,2001,20.49
-Density of nurses and midwives,2002,19.27
-Density of nurses and midwives,2003,18.38
-Density of nurses and midwives,2004,32.37
-Density of nurses and midwives,2005,40.13
-Density of nurses and midwives,2006,23.78
-Density of nurses and midwives,2007,39.25
-Density of nurses and midwives,2008,29.8
-Density of nurses and midwives,2009,39.12
-Density of nurses and midwives,2010,39.46
-Density of nurses and midwives,2011,28.04
-Density of nurses and midwives,2012,40.54
-Density of nurses and midwives,2013,38.37
-Density of nurses and midwives,2014,40.43
-Density of nurses and midwives,2015,40.26
-Density of nurses and midwives,2016,26.03
-Density of nurses and midwives,2017,37.26
-Density of nurses and midwives,2018,39.68
-Density of nurses and midwives,2019,26.58
-Density of nurses and midwives,2020,40.17
-Density of nurses and midwives,2021,25.38
-Density of nurses and midwives,2022,34.36
-Density of nurses and midwives,2023,39.03
-Density of pharmacists,1990,0.7
-Density of pharmacists,1991,0.66
-Density of pharmacists,1992,0.72
-Density of pharmacists,1993,0.69
-Density of pharmacists,1994,0.76
-Density of pharmacists,1995,0.76
-Density of pharmacists,1996,0.82
-Density of pharmacists,1997,0.82
-Density of pharmacists,1998,0.97
-Density of pharmacists,1999,1.03
-Density of pharmacists,2000,1.02
-Density of pharmacists,2001,1.09
-Density of pharmacists,2002,1.17
-Density of pharmacists,2003,1.26
-Density of pharmacists,2004,1.39
-Density of pharmacists,2005,1.55
-Density of pharmacists,2006,1.63
-Density of pharmacists,2007,1.69
-Density of pharmacists,2008,2.32
-Density of pharmacists,2009,2.41
-Density of pharmacists,2010,2.71
-Density of pharmacists,2011,2.96
-Density of pharmacists,2012,3.25
-Density of pharmacists,2013,3.34
-Density of pharmacists,2014,4.01
-Density of pharmacists,2015,3.37
-Density of pharmacists,2016,3.31
-Density of pharmacists,2017,3.57
-Density of pharmacists,2018,4.08
-Density of pharmacists,2019,5.66
-Density of pharmacists,2020,5.64
-Density of pharmacists,2021,5.42
-Density of pharmacists,2022,5.7
-Density of pharmacists,2023,6.26
-Density of doctors,1990,3.93
-Density of doctors,1991,3.92
-Density of doctors,1992,4.1
-Density of doctors,1993,4.29
-Density of doctors,1994,4.46
-Density of doctors,1995,4.73
-Density of doctors,1996,4.89
-Density of doctors,1997,6.67
-Density of doctors,1998,6.86
-Density of doctors,1999,6.91
-Density of doctors,2000,6.8
-Density of doctors,2001,6.86
-Density of doctors,2002,7.24
-Density of doctors,2003,7.37
-Density of doctors,2004,7.22
-Density of doctors,2005,7.78
-Density of doctors,2006,8.3
-Density of doctors,2007,8.79
-Density of doctors,2008,9.11
-Density of doctors,2009,10.86
-Density of doctors,2010,11.51
-Density of doctors,2011,12.55
-Density of doctors,2012,13.05
-Density of doctors,2013,15.55
-Density of doctors,2014,14.84
-Density of doctors,2015,14.89
-Density of doctors,2016,15.76
-Density of doctors,2017,17.87
-Density of doctors,2018,18.58
-Density of doctors,2019,20.21
-Density of doctors,2020,21.83
-Density of doctors,2021,22.68
-Density of doctors,2022,22.9
-Density of doctors,2023,23.41
-Population Index,1990,100
-Population Index,1991,102.4571328
-Population Index,1992,105.3313373
-Population Index,1993,108.2812224
-Population Index,1994,111.2653571
-Population Index,1995,114.2489394
-Population Index,1996,117.2363885
-Population Index,1997,120.2564301
-Population Index,1998,123.3731439
-Population Index,1999,126.5550424
-Population Index,2000,129.7888678
-Population Index,2001,132.7475915
-Population Index,2002,135.5759457
-Population Index,2003,138.3137043
-Population Index,2004,141.094551
-Population Index,2005,143.8787122
-Population Index,2006,146.6650831
-Population Index,2007,149.4741029
-Population Index,2008,152.2869896
-Population Index,2009,155.1258397
-Population Index,2010,157.9271257
-Population Index,2011,160.5422485
-Population Index,2012,163.0170585
-Population Index,2013,166.9043884
-Population Index,2014,169.6377276
-Population Index,2015,172.2760518
-Population Index,2016,174.7475473
-Population Index,2017,176.896986
-Population Index,2018,178.8840154
-Population Index,2019,179.6612604
-Population Index,2020,179.2436362
-Population Index,2021,179.9556965
-Population Index,2022,180.6285354
-Population Index,2023,184.5158653
+"Nurse (per 10,000 population)",1990,14.33
+"Nurse (per 10,000 population)",1991,14.18
+"Nurse (per 10,000 population)",1992,14.3
+"Nurse (per 10,000 population)",1993,15.37
+"Nurse (per 10,000 population)",1994,16.3
+"Nurse (per 10,000 population)",1995,22.46
+"Nurse (per 10,000 population)",1996,14.73
+"Nurse (per 10,000 population)",1997,21.5
+"Nurse (per 10,000 population)",1998,14.83
+"Nurse (per 10,000 population)",1999,14.45
+"Nurse (per 10,000 population)",2000,21.1
+"Nurse (per 10,000 population)",2001,20.49
+"Nurse (per 10,000 population)",2002,19.27
+"Nurse (per 10,000 population)",2003,18.38
+"Nurse (per 10,000 population)",2004,32.37
+"Nurse (per 10,000 population)",2005,40.13
+"Nurse (per 10,000 population)",2006,23.78
+"Nurse (per 10,000 population)",2007,39.25
+"Nurse (per 10,000 population)",2008,29.8
+"Nurse (per 10,000 population)",2009,39.12
+"Nurse (per 10,000 population)",2010,39.46
+"Nurse (per 10,000 population)",2011,28.04
+"Nurse (per 10,000 population)",2012,40.54
+"Nurse (per 10,000 population)",2013,38.37
+"Nurse (per 10,000 population)",2014,40.43
+"Nurse (per 10,000 population)",2015,40.26
+"Nurse (per 10,000 population)",2016,26.03
+"Nurse (per 10,000 population)",2017,37.26
+"Nurse (per 10,000 population)",2018,39.68
+"Nurse (per 10,000 population)",2019,26.58
+"Nurse (per 10,000 population)",2020,40.17
+"Nurse (per 10,000 population)",2021,25.38
+"Nurse (per 10,000 population)",2022,34.36
+"Nurse (per 10,000 population)",2023,39.03
+"Pharmacist (per 10,000 population)",1990,0.7
+"Pharmacist (per 10,000 population)",1991,0.66
+"Pharmacist (per 10,000 population)",1992,0.72
+"Pharmacist (per 10,000 population)",1993,0.69
+"Pharmacist (per 10,000 population)",1994,0.76
+"Pharmacist (per 10,000 population)",1995,0.76
+"Pharmacist (per 10,000 population)",1996,0.82
+"Pharmacist (per 10,000 population)",1997,0.82
+"Pharmacist (per 10,000 population)",1998,0.97
+"Pharmacist (per 10,000 population)",1999,1.03
+"Pharmacist (per 10,000 population)",2000,1.02
+"Pharmacist (per 10,000 population)",2001,1.09
+"Pharmacist (per 10,000 population)",2002,1.17
+"Pharmacist (per 10,000 population)",2003,1.26
+"Pharmacist (per 10,000 population)",2004,1.39
+"Pharmacist (per 10,000 population)",2005,1.55
+"Pharmacist (per 10,000 population)",2006,1.63
+"Pharmacist (per 10,000 population)",2007,1.69
+"Pharmacist (per 10,000 population)",2008,2.32
+"Pharmacist (per 10,000 population)",2009,2.41
+"Pharmacist (per 10,000 population)",2010,2.71
+"Pharmacist (per 10,000 population)",2011,2.96
+"Pharmacist (per 10,000 population)",2012,3.25
+"Pharmacist (per 10,000 population)",2013,3.34
+"Pharmacist (per 10,000 population)",2014,4.01
+"Pharmacist (per 10,000 population)",2015,3.37
+"Pharmacist (per 10,000 population)",2016,3.31
+"Pharmacist (per 10,000 population)",2017,3.57
+"Pharmacist (per 10,000 population)",2018,4.08
+"Pharmacist (per 10,000 population)",2019,5.66
+"Pharmacist (per 10,000 population)",2020,5.64
+"Pharmacist (per 10,000 population)",2021,5.42
+"Pharmacist (per 10,000 population)",2022,5.7
+"Pharmacist (per 10,000 population)",2023,6.26
+"Doctor (per 10,000 population)",1990,3.93
+"Doctor (per 10,000 population)",1991,3.92
+"Doctor (per 10,000 population)",1992,4.1
+"Doctor (per 10,000 population)",1993,4.29
+"Doctor (per 10,000 population)",1994,4.46
+"Doctor (per 10,000 population)",1995,4.73
+"Doctor (per 10,000 population)",1996,4.89
+"Doctor (per 10,000 population)",1997,6.67
+"Doctor (per 10,000 population)",1998,6.86
+"Doctor (per 10,000 population)",1999,6.91
+"Doctor (per 10,000 population)",2000,6.8
+"Doctor (per 10,000 population)",2001,6.86
+"Doctor (per 10,000 population)",2002,7.24
+"Doctor (per 10,000 population)",2003,7.37
+"Doctor (per 10,000 population)",2004,7.22
+"Doctor (per 10,000 population)",2005,7.78
+"Doctor (per 10,000 population)",2006,8.3
+"Doctor (per 10,000 population)",2007,8.79
+"Doctor (per 10,000 population)",2008,9.11
+"Doctor (per 10,000 population)",2009,10.86
+"Doctor (per 10,000 population)",2010,11.51
+"Doctor (per 10,000 population)",2011,12.55
+"Doctor (per 10,000 population)",2012,13.05
+"Doctor (per 10,000 population)",2013,15.55
+"Doctor (per 10,000 population)",2014,14.84
+"Doctor (per 10,000 population)",2015,14.89
+"Doctor (per 10,000 population)",2016,15.76
+"Doctor (per 10,000 population)",2017,17.87
+"Doctor (per 10,000 population)",2018,18.58
+"Doctor (per 10,000 population)",2019,20.21
+"Doctor (per 10,000 population)",2020,21.83
+"Doctor (per 10,000 population)",2021,22.68
+"Doctor (per 10,000 population)",2022,22.9
+"Doctor (per 10,000 population)",2023,23.41
