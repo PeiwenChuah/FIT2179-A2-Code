@@ -1,241 +1,176 @@
 {
-  "$schema": "https://vega.github.io/schema/vega/v5.json",
-  "width": 500,
-  "height": 500,
-  "padding": 80,
-  "background": "transparent",
+  "$schema": "https://vega.github.io/schema/vega/v6.json",
+  "width": 400,
+  "height": 400,
+  "padding": 60,
+  "autosize": {"type": "none", "contains": "padding"},
+
+  "signals": [
+    {"name": "radius", "update": "width / 2"}
+  ],
 
   "data": [
     {
-      "name": "raw",
-      "url": "data/malaysia_state_health_radar.csv",
-      "format": {"type": "csv"}
-    },
-    {
-      "name": "filtered",
-      "source": "raw",
-      "transform": [
-        {"type": "filter", "expr": "datum.state === 'Sarawak' || datum.state === 'Selangor'"}
-      ]
-    },
-    {
-      "name": "metrics",
+      "name": "table",
       "values": [
-        {"metric": "Pharmacists per 10000 population",         "label": "Pharmacists"},
-        {"metric": "Hospital beds per 100000 population",      "label": "Hospital Beds"},
-        {"metric": "Registered nurses per 10000 population",   "label": "Nurses"},
-        {"metric": "Doctors per 10000 population",             "label": "Doctors"},
-        {"metric": "Dental practitioners per 10000 population","label": "Dentists"},
-        {"metric": "Deaths per 1000 population",               "label": "Deaths (inverted)"}
-      ],
-      "transform": [
-        {"type": "window", "ops": ["rank"], "as": ["index"]},
-        {"type": "formula", "expr": "datum.index - 1", "as": "index"},
-        {"type": "formula", "expr": "6", "as": "total"},
-        {"type": "formula", "expr": "(datum.index / datum.total) * 2 * PI", "as": "angle"},
-        {"type": "formula", "expr": "datum.angle - PI / 2", "as": "angle"}
+        {"key": "Pharmacists",  "value": 0.463, "category": 0},
+        {"key": "Hospital Beds","value": 0.477, "category": 0},
+        {"key": "Nurses",       "value": 0.397, "category": 0},
+        {"key": "Doctors",      "value": 0.299, "category": 0},
+        {"key": "Dentists",     "value": 0.175, "category": 0},
+        {"key": "Low Deaths",   "value": 0.459, "category": 0},
+        {"key": "Pharmacists",  "value": 0.611, "category": 1},
+        {"key": "Hospital Beds","value": 0.000, "category": 1},
+        {"key": "Nurses",       "value": 0.236, "category": 1},
+        {"key": "Doctors",      "value": 0.642, "category": 1},
+        {"key": "Dentists",     "value": 0.500, "category": 1},
+        {"key": "Low Deaths",   "value": 1.000, "category": 1}
       ]
     },
     {
-      "name": "joined",
-      "source": "filtered",
-      "transform": [
-        {
-          "type": "lookup",
-          "from": "metrics",
-          "key": "metric",
-          "fields": ["metric"],
-          "values": ["angle", "index", "label"]
-        },
-        {
-          "type": "formula",
-          "expr": "toNumber(datum['Normalised Value'])",
-          "as": "norm"
-        },
-        {
-          "type": "formula",
-          "expr": "220 * datum.norm * cos(datum.angle)",
-          "as": "x"
-        },
-        {
-          "type": "formula",
-          "expr": "220 * datum.norm * sin(datum.angle)",
-          "as": "y"
-        }
-      ]
-    },
-    {
-      "name": "sarawak",
-      "source": "joined",
-      "transform": [{"type": "filter", "expr": "datum.state === 'Sarawak'"}]
-    },
-    {
-      "name": "selangor",
-      "source": "joined",
-      "transform": [{"type": "filter", "expr": "datum.state === 'Selangor'"}]
-    },
-    {
-      "name": "grid",
-      "values": [
-        {"level": 0.25},
-        {"level": 0.5},
-        {"level": 0.75},
-        {"level": 1.0}
-      ]
+      "name": "keys",
+      "source": "table",
+      "transform": [{"type": "aggregate", "groupby": ["key"]}]
     }
   ],
 
   "scales": [
     {
+      "name": "angular",
+      "type": "point",
+      "range": {"signal": "[-PI, PI]"},
+      "padding": 0.5,
+      "domain": {"data": "table", "field": "key"}
+    },
+    {
+      "name": "radial",
+      "type": "linear",
+      "range": {"signal": "[0, radius]"},
+      "zero": true,
+      "nice": false,
+      "domain": [0, 1],
+      "domainMin": 0
+    },
+    {
       "name": "color",
       "type": "ordinal",
-      "domain": ["Sarawak", "Selangor"],
-      "range": ["#185FA5", "#EF9F27"]
+      "domain": [0, 1],
+      "range": ["#1D9E75", "#378ADD"]
     }
   ],
 
-  "legends": [
-    {
-      "fill": "color",
-      "orient": "bottom",
-      "direction": "horizontal",
-      "title": "State",
-      "titleFontSize": 13,
-      "labelFontSize": 12,
-      "symbolSize": 120,
-      "offset": 16
+  "encode": {
+    "enter": {
+      "x": {"signal": "radius"},
+      "y": {"signal": "radius"}
     }
-  ],
-
-  "title": {
-    "text": "Healthcare Indicators: Sarawak vs Selangor",
-    "subtitle": "Normalised scores across 6 health metrics (higher = better)",
-    "anchor": "start",
-    "fontSize": 16,
-    "subtitleFontSize": 12,
-    "subtitleColor": "#666",
-    "offset": 16,
-    "dx": -80
   },
 
   "marks": [
     {
-      "type": "rule",
-      "from": {"data": "metrics"},
-      "encode": {
-        "enter": {
-          "x": {"value": 0},
-          "y": {"value": 0},
-          "x2": {"signal": "220 * cos(datum.angle)"},
-          "y2": {"signal": "220 * sin(datum.angle)"},
-          "stroke": {"value": "#ccc"},
-          "strokeWidth": {"value": 1}
-        }
-      }
-    },
-    {
       "type": "group",
-      "from": {"data": "grid"},
+      "name": "categories",
+      "zindex": 1,
+      "from": {
+        "facet": {"data": "table", "name": "facet", "groupby": ["category"]}
+      },
       "marks": [
         {
           "type": "line",
-          "from": {"data": "metrics"},
+          "name": "category-line",
+          "from": {"data": "facet"},
           "encode": {
             "enter": {
-              "x": {"signal": "parent.level * 220 * cos(datum.angle)"},
-              "y": {"signal": "parent.level * 220 * sin(datum.angle)"},
-              "stroke": {"value": "#ddd"},
-              "strokeWidth": {"value": 0.8},
-              "strokeDash": {"value": [3, 3]}
-            }
-          }
-        },
-        {
-          "type": "text",
-          "encode": {
-            "enter": {
-              "x": {"value": 4},
-              "y": {"signal": "-parent.level * 220"},
-              "text": {"signal": "format(parent.level * 100, '.0f') + '%'"},
-              "fontSize": {"value": 10},
-              "fill": {"value": "#aaa"},
-              "baseline": {"value": "middle"}
+              "interpolate": {"value": "linear-closed"},
+              "x": {"signal": "scale('radial', datum.value) * cos(scale('angular', datum.key))"},
+              "y": {"signal": "scale('radial', datum.value) * sin(scale('angular', datum.key))"},
+              "stroke": {"scale": "color", "field": "category"},
+              "strokeWidth": {"value": 2},
+              "fill": {"scale": "color", "field": "category"},
+              "fillOpacity": {"value": 0.15}
             }
           }
         }
       ]
     },
     {
-      "type": "line",
-      "from": {"data": "sarawak"},
-      "transform": [
-        {"type": "collect", "sort": {"field": "index"}}
-      ],
+      "type": "rule",
+      "name": "radial-grid",
+      "from": {"data": "keys"},
+      "zindex": 0,
       "encode": {
         "enter": {
-          "x": {"field": "x"},
-          "y": {"field": "y"},
-          "stroke": {"value": "#185FA5"},
-          "strokeWidth": {"value": 2},
-          "fill": {"value": "#185FA5"},
-          "fillOpacity": {"value": 0.15}
-        }
-      }
-    },
-    {
-      "type": "line",
-      "from": {"data": "selangor"},
-      "transform": [
-        {"type": "collect", "sort": {"field": "index"}}
-      ],
-      "encode": {
-        "enter": {
-          "x": {"field": "x"},
-          "y": {"field": "y"},
-          "stroke": {"value": "#EF9F27"},
-          "strokeWidth": {"value": 2},
-          "fill": {"value": "#EF9F27"},
-          "fillOpacity": {"value": 0.15}
-        }
-      }
-    },
-    {
-      "type": "symbol",
-      "from": {"data": "sarawak"},
-      "encode": {
-        "enter": {
-          "x": {"field": "x"},
-          "y": {"field": "y"},
-          "size": {"value": 50},
-          "fill": {"value": "#185FA5"}
-        }
-      }
-    },
-    {
-      "type": "symbol",
-      "from": {"data": "selangor"},
-      "encode": {
-        "enter": {
-          "x": {"field": "x"},
-          "y": {"field": "y"},
-          "size": {"value": 50},
-          "fill": {"value": "#EF9F27"}
+          "x": {"value": 0},
+          "y": {"value": 0},
+          "x2": {"signal": "radius * cos(scale('angular', datum.key))"},
+          "y2": {"signal": "radius * sin(scale('angular', datum.key))"},
+          "stroke": {"value": "lightgray"},
+          "strokeWidth": {"value": 1}
         }
       }
     },
     {
       "type": "text",
-      "from": {"data": "metrics"},
+      "name": "key-label",
+      "from": {"data": "keys"},
+      "zindex": 1,
       "encode": {
         "enter": {
-          "x": {"signal": "235 * cos(datum.angle)"},
-          "y": {"signal": "235 * sin(datum.angle)"},
-          "text": {"field": "label"},
-          "align": {"signal": "cos(datum.angle) > 0.1 ? 'left' : cos(datum.angle) < -0.1 ? 'right' : 'center'"},
-          "baseline": {"signal": "sin(datum.angle) > 0.1 ? 'top' : sin(datum.angle) < -0.1 ? 'bottom' : 'middle'"},
+          "x": {"signal": "(radius + 12) * cos(scale('angular', datum.key))"},
+          "y": {"signal": "(radius + 12) * sin(scale('angular', datum.key))"},
+          "text": {"field": "key"},
+          "align": [
+            {"test": "abs(scale('angular', datum.key)) > PI / 2", "value": "right"},
+            {"value": "left"}
+          ],
+          "baseline": [
+            {"test": "scale('angular', datum.key) > 0", "value": "top"},
+            {"test": "scale('angular', datum.key) == 0", "value": "middle"},
+            {"value": "bottom"}
+          ],
+          "fill": {"value": "#444444"},
           "fontSize": {"value": 12},
-          "fontWeight": {"value": "500"},
-          "fill": {"value": "#444"}
+          "fontWeight": {"value": "bold"}
+        }
+      }
+    },
+    {
+      "type": "line",
+      "name": "outer-line",
+      "from": {"data": "radial-grid"},
+      "encode": {
+        "enter": {
+          "interpolate": {"value": "linear-closed"},
+          "x": {"field": "x2"},
+          "y": {"field": "y2"},
+          "stroke": {"value": "lightgray"},
+          "strokeWidth": {"value": 1}
+        }
+      }
+    },
+    {
+      "type": "text",
+      "encode": {
+        "enter": {
+          "x": {"value": -100},
+          "y": {"signal": "radius + 40"},
+          "text": {"value": "● Sarawak"},
+          "fill": {"value": "#1D9E75"},
+          "fontSize": {"value": 13},
+          "fontWeight": {"value": "bold"}
+        }
+      }
+    },
+    {
+      "type": "text",
+      "encode": {
+        "enter": {
+          "x": {"value": 10},
+          "y": {"signal": "radius + 40"},
+          "text": {"value": "● Selangor"},
+          "fill": {"value": "#378ADD"},
+          "fontSize": {"value": 13},
+          "fontWeight": {"value": "bold"}
         }
       }
     }
