@@ -1,22 +1,18 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-
   "description": "Bump chart of hospitalisation cause ranks in Malaysia, 2022-2024",
-
   "width": 880,
   "height": 520,
-
   "data": {
     "url": "data/malaysia_hospitalisation_causes.csv"
   },
 
   "title": {
-    "text": "Rank Changes of Leading Hospitalisation Causes (2022 to 2024)",
+    "text": "Top 10 Leading Hospitalisation Causes (2022 to 2024)",
     "fontSize": 16,
     "anchor": "start",
-    "offset": 12,
-    "subtitle": "Lower rank = higher hospitalisation burden | Lines connect same disease across years"
-  },
+    "offset": 12
+    },
 
   "layer": [
     {
@@ -29,6 +25,7 @@
       "encoding": {
         "x": {
           "field": "year",
+          "title": "Year",
           "type": "ordinal",
           "axis": {
             "labelAngle": 0,
@@ -41,6 +38,7 @@
 
         "y": {
           "field": "rank",
+          "title": "Rank",
           "type": "quantitative",
           "scale": { "reverse": true, "domain": [1, 10] },
           "axis": {
