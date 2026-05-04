@@ -21,7 +21,6 @@
     {
       "mark": {
         "type": "line",
-        "point": false,
         "strokeWidth": 3,
         "strokeCap": "round"
       },
@@ -29,7 +28,6 @@
         "x": {
           "field": "year",
           "type": "ordinal",
-          "title": "Year",
           "axis": {
             "labelAngle": 0,
             "labelFontSize": 12,
@@ -41,7 +39,6 @@
         "y": {
           "field": "rank",
           "type": "quantitative",
-          "title": "Rank",
           "scale": { "reverse": true, "domain": [1, 10] },
           "axis": {
             "tickMinStep": 1,
@@ -52,15 +49,17 @@
             "grid": false
           }
         },
+
         "color": {
           "field": "cause_short",
           "type": "nominal",
-          "legend": null 
+          "scale": {
+            "scheme": "category20"
+          },
+          "legend": null
         },
-        "detail": {
-          "field": "cause_short",
-          "type": "nominal"
-        }
+
+        "detail": { "field": "cause_short" }
       }
     },
 
@@ -72,18 +71,23 @@
         "strokeWidth": 1.5
       },
       "encoding": {
-        "x": {"field": "year", "type": "ordinal"},
-        "y": {"field": "rank", "type": "quantitative"},
+        "x": { "field": "year", "type": "ordinal" },
+        "y": { "field": "rank", "type": "quantitative" },
+
         "color": {
           "field": "cause_short",
           "type": "nominal",
+          "scale": {
+            "scheme": "category20"
+          },
           "legend": null
         },
+
         "tooltip": [
-          {"field": "cause_short", "title": "Disease"},
-          {"field": "year", "title": "Year"},
-          {"field": "rank", "title": "Rank"},
-          {"field": "percentage", "title": "Percentage", "format": ".2f"}
+          { "field": "cause_short", "title": "Disease" },
+          { "field": "year", "title": "Year" },
+          { "field": "rank", "title": "Rank" },
+          { "field": "percentage", "title": "Percentage", "format": ".2f" }
         ]
       }
     },
@@ -96,14 +100,12 @@
         "dy": -10,
         "align": "center",
         "baseline": "bottom",
-        "fill": "#000000",  
-        "stroke": "black",
-        "strokeWidth": 0.1
+        "fill": "#000000"
       },
       "encoding": {
-        "x": {"field": "year", "type": "ordinal"},
-        "y": {"field": "rank", "type": "quantitative"},
-        "text": {"field": "cause_short", "type": "nominal"}
+        "x": { "field": "year", "type": "ordinal" },
+        "y": { "field": "rank", "type": "quantitative" },
+        "text": { "field": "cause_short", "type": "nominal" }
       }
     }
   ],
