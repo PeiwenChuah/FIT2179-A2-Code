@@ -20,13 +20,13 @@
         {"key": "Nurses",       "value": 0.397, "category": 0},
         {"key": "Doctors",      "value": 0.299, "category": 0},
         {"key": "Dentists",     "value": 0.175, "category": 0},
-        {"key": "Low Deaths",   "value": 0.459, "category": 0},
+        {"key": "Deaths",       "value": 0.459, "category": 0},
         {"key": "Pharmacists",  "value": 0.611, "category": 1},
         {"key": "Hospital Beds","value": 0.000, "category": 1},
         {"key": "Nurses",       "value": 0.236, "category": 1},
         {"key": "Doctors",      "value": 0.642, "category": 1},
         {"key": "Dentists",     "value": 0.500, "category": 1},
-        {"key": "Low Deaths",   "value": 1.000, "category": 1}
+        {"key": "Deaths",       "value": 1.000, "category": 1}
       ]
     },
     {
