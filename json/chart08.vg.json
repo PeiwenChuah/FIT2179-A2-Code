@@ -1,0 +1,68 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Bump chart of hospitalisation cause ranks in Malaysia, 2022-2024",
+  "width": 880,
+  "height": 520,
+  "data": {
+    "url": "data/malaysia_hospitalisation_causes.csv"
+  },
+  "title": {
+    "text": "Rank Changes of Leading Hospitalisation Causes (2022 to 2024)",
+    "anchor": "middle",
+    "fontSize": 17,
+    "fontWeight": "bold",
+    "color": "#0c4a6e",
+    "subtitle": "Lower rank = higher hospitalisation burden | Lines connect same disease across years",
+    "subtitleColor": "#334155"
+  },
+  "layer": [
+    {
+      "mark": {"type": "line", "point": false, "strokeWidth": 2.8, "strokeCap": "round"},
+      "encoding": {
+        "x": {"field": "year", "type": "ordinal", "title": "Year", "axis": {"labelFontSize": 13, "titleFontSize": 14, "grid": false, "labelAngle": 0}},
+        "y": {"field": "rank", "type": "quantitative", "title": "Rank", "scale": {"reverse": true, "domain": [1, 10]}, "axis": {"tickMinStep": 1, "grid": true, "labelFontSize": 12, "titleFontSize": 14}},
+        "color": {"field": "cause_short", "type": "nominal", "title": "Disease Category", "legend": {"orient": "top-right", "labelFontSize": 10, "titleFontSize": 11, "columns": 1}},
+        "detail": {"field": "cause_short", "type": "nominal"}
+      }
+    },
+    {
+      "mark": {"type": "circle", "size": 85, "stroke": "white", "strokeWidth": 1.5},
+      "encoding": {
+        "x": {"field": "year", "type": "ordinal"},
+        "y": {"field": "rank", "type": "quantitative"},
+        "color": {"field": "cause_short", "type": "nominal", "legend": null},
+        "tooltip": [
+          {"field": "cause_short", "title": "Disease"},
+          {"field": "year", "title": "Year"},
+          {"field": "rank", "title": "Rank"},
+          {"field": "percentage", "title": "Percentage (%)", "format": ".2f"}
+        ]
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "fontSize": 8.5,
+        "fontWeight": 500,
+        "dy": -11,
+        "align": "center",
+        "baseline": "bottom",
+        "fill": "#0f172a",
+        "stroke": "white",
+        "strokeWidth": 0.8
+      },
+      "encoding": {
+        "x": {"field": "year", "type": "ordinal"},
+        "y": {"field": "rank", "type": "quantitative"},
+        "text": {"field": "cause_short", "type": "nominal"},
+        "color": {"value": "#1e293b"}
+      }
+    }
+  ],
+  "config": {
+    "background": "#faf9f6",
+    "axis": {"domainWidth": 1.5, "titleFontWeight": 600, "labelPadding": 6},
+    "legend": {"columns": 1, "symbolType": "circle", "symbolSize": 100, "labelLimit": 180},
+    "view": {"stroke": null, "fill": "#fefcf7"}
+  }
+}
