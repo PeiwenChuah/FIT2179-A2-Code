@@ -1,4 +1,4 @@
-// chart10.js — Pure SVG Version (No external dependencies)
+// chart10.js — Pure SVG Version (Fixed alignment, shifted right)
 
 (function () {
   'use strict';
@@ -67,21 +67,21 @@
   function draw(el) {
     el.innerHTML = '';
 
-    var W = 950;
-    var H = 520;
+    var W = 1150;  // Wider to accommodate right shift
+    var H = 550;
 
-    // Column positions - shifted left for better label fit
-    var xA = 40;
-    var xB = 150;
-    var xC = 280;
-    var xD = 430;
-    var xE = 580;
-    var xF = 730;
+    // Column positions - SHIFTED RIGHT by 60px to bring left labels into frame
+    var xA = 110;  // Was 50 - shifted right
+    var xB = 240;  // Was 180 - shifted right
+    var xC = 370;  // Was 310 - shifted right
+    var xD = 540;  // Was 480 - shifted right
+    var xE = 740;  // Was 680 - shifted right
+    var xF = 940;  // Was 880 - shifted right
 
     var BW = 8, MW = 7, SW = 6;
 
-    var scale = 260 / TOTAL;
-    var SGAP = 16;
+    var scale = 280 / TOTAL;
+    var SGAP = 18;
 
     function px(v) { return Math.max(2, v * scale); }
 
@@ -155,13 +155,47 @@
     }
 
     function lbl(text, val, x, y, anchor, bold) {
+      // Wrap long text for better display
+      var displayText = text;
+      if (text === 'Providers of ambulatory health care') {
+        displayText = 'Providers of ambulatory';
+        // Add second line
+        var text1a = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+        text1a.setAttribute('x', x);
+        text1a.setAttribute('y', y - 5);
+        text1a.setAttribute('text-anchor', anchor);
+        text1a.style.fontSize = '9px';
+        text1a.style.fontWeight = bold ? '700' : '400';
+        text1a.textContent = 'ambulatory health care';
+        svg.appendChild(text1a);
+        
+        var text1b = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+        text1b.setAttribute('x', x);
+        text1b.setAttribute('y', y + 5);
+        text1b.setAttribute('text-anchor', anchor);
+        text1b.style.fontSize = '9px';
+        text1b.style.fontWeight = bold ? '700' : '400';
+        text1b.textContent = displayText;
+        svg.appendChild(text1b);
+        
+        var text2 = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+        text2.setAttribute('x', x);
+        text2.setAttribute('y', y + 16);
+        text2.setAttribute('text-anchor', anchor);
+        text2.style.fontSize = '8px';
+        text2.style.fill = '#777';
+        text2.textContent = val;
+        svg.appendChild(text2);
+        return;
+      }
+      
       var text1 = document.createElementNS('http://www.w3.org/2000/svg', 'text');
       text1.setAttribute('x', x);
       text1.setAttribute('y', y);
       text1.setAttribute('text-anchor', anchor);
       text1.style.fontSize = '9px';
       text1.style.fontWeight = bold ? '700' : '400';
-      text1.textContent = text;
+      text1.textContent = displayText;
       svg.appendChild(text1);
 
       var text2 = document.createElementNS('http://www.w3.org/2000/svg', 'text');
@@ -192,19 +226,19 @@
       lbl(d.d.label, fmt(d.d.value), xA - 8, d.y + d.h / 2, 'end', false);
     }
 
-    // Ribbons from sources to public/private
+    // Ribbons from sources to public/private - PERFECT ALIGNMENT
     var acc = 0;
     for (var i = 0; i < colAPub.length; i++) {
       var d = colAPub[i];
       ribbon(xA + 4, d.y, d.h, xB - 4, pubBarY + acc, d.h, d.d.color);
-      acc += px(d.d.value);
+      acc += d.h;  // Use exact height for alignment
     }
 
     acc = 0;
     for (var i = 0; i < colAPriv.length; i++) {
       var d = colAPriv[i];
       ribbon(xA + 4, d.y, d.h, xB - 4, privBarY + acc, d.h, d.d.color);
-      acc += px(d.d.value);
+      acc += d.h;
     }
 
     // Public and Private bars
@@ -214,7 +248,7 @@
     lbl('PUBLIC', fmt(45580), xB + 10, pubCY, 'start', true);
     lbl('PRIVATE', fmt(44247), xB + 10, privCY, 'start', true);
 
-    // Ribbons to SOURCE
+    // Ribbons to SOURCE - PERFECT ALIGNMENT with no white space
     ribbon(xB + 4, pubBarY, pubT, xC - 4, srcBarY, pubT, C.public);
     ribbon(xB + 4, privBarY, privT, xC - 4, srcBarY + pubT, privT, C.private);
 
@@ -222,35 +256,37 @@
     bar(xC, srcBarY, pubT + privT, C.source, SW);
     lbl('SOURCE', fmt(89827), xC + 10, srcCY, 'start', true);
 
-    // Ribbons to providers
+    // Ribbons to providers - EXACT ALIGNMENT using cumulative heights
     acc = 0;
     for (var i = 0; i < colD.length; i++) {
       var d = colD[i];
-      var h = (pubT + privT) * (d.d.value / TOTAL);
-      ribbon(xC + 4, srcBarY + acc, h, xD - 4, d.y, d.h, C.source, 0.3);
-      acc += h;
+      var ribbonHeight = provT * (d.d.value / TOTAL);
+      // Match exactly to source bar and provider bar positions
+      ribbon(xC + 4, srcBarY + acc, ribbonHeight, xD - 4, d.y, d.h, C.source, 0.3);
+      acc += ribbonHeight;
     }
 
     // Providers bars
     for (var i = 0; i < colD.length; i++) {
       var d = colD[i];
       bar(xD, d.y, d.h, d.d.color);
-      lbl(d.d.label, fmt(d.d.value), xD + 10, d.y + d.h / 2, 'start', false);
+      lbl(d.d.label, fmt(d.d.value), xD + 12, d.y + d.h / 2, 'start', false);
     }
 
-    // GREEN flow line (providers to functions) - made longer
+    // LONGER GREEN flow line with PERFECT ALIGNMENT
     acc = 0;
     for (var i = 0; i < colD.length; i++) {
       var d = colD[i];
-      ribbon(xD + 8, d.y, d.h, xE - 12, provBarY + acc, d.h, d.d.color);
-      acc += px(d.d.value);
+      // Match exactly to provider bar positions
+      ribbon(xD + 4, d.y, d.h, xE - 4, provBarY + acc, d.h, d.d.color);
+      acc += d.h;
     }
 
-    // FUNCTIONS bar
+    // PROVIDERS label bar
     bar(xE, provBarY, provT, C.provider, SW);
-    lbl('PROVIDERS', fmt(89827), xE + 10, srcCY, 'start', true);
+    lbl('PROVIDERS', fmt(89827), xE + 12, srcCY, 'start', true);
 
-    // Ribbons to functions
+    // Ribbons to functions - PERFECT ALIGNMENT
     acc = 0;
     for (var i = 0; i < colF.length; i++) {
       var d = colF[i];
@@ -263,7 +299,7 @@
     for (var i = 0; i < colF.length; i++) {
       var d = colF[i];
       bar(xF, d.y, d.h, d.d.color);
-      lbl(d.d.label, fmt(d.d.value), xF + 10, d.y + d.h / 2, 'start', false);
+      lbl(d.d.label, fmt(d.d.value), xF + 12, d.y + d.h / 2, 'start', false);
     }
   }
 })();
