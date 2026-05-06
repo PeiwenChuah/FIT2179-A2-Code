@@ -1,249 +1,251 @@
 // chart10.js — Flow of Health Funds (D3 Sankey)
-// Exact 4-column structure matching original diagram:
-// Col 0: Individual sources
-// Col 1: PUBLIC / PRIVATE aggregate
-// Col 2: Provider groups
-// Col 3: Functions
+// 6-column structure:
+//  Col 0  Individual sources
+//  Col 1  PUBLIC / PRIVATE buckets
+//  Col 2  SOURCE hub  (RM89,827M)
+//  Col 3  Provider-group nodes
+//  Col 4  PROVIDERS hub  (RM89,827M)
+//  Col 5  Function nodes
 
 (function () {
-  // ── Load D3 and d3-sankey dynamically ──────────────────────────
+  'use strict';
+
   function loadScript(src, cb) {
     var s = document.createElement('script');
-    s.src = src;
+    s.src  = src;
     s.onload = cb;
     document.head.appendChild(s);
   }
 
   loadScript('https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js', function () {
-    loadScript('https://cdn.jsdelivr.net/npm/d3-sankey@0.12.3/dist/d3-sankey.min.js', buildChart);
+    loadScript('https://cdn.jsdelivr.net/npm/d3-sankey@0.12.3/dist/d3-sankey.min.js', init);
   });
 
-  function buildChart() {
-    // ── Nodes (fixed columns) ──────────────────────────────────
-    // col 0: sources, col 1: PUBLIC/PRIVATE, col 2: providers, col 3: functions
-    var nodes = [
-      // col 0 – public sources
-      { id: 0,  label: 'MOH',                          value: 39148, col: 0, group: 'pub-src' },
-      { id: 1,  label: 'Other federal agencies',       value:  2066, col: 0, group: 'pub-src' },
-      { id: 2,  label: 'MOE',                          value:  1975, col: 0, group: 'pub-src' },
-      { id: 3,  label: 'Other public sources',         value:  2391, col: 0, group: 'pub-src' },
-      // col 0 – private sources
-      { id: 4,  label: 'Out-of-pocket',                value: 34843, col: 0, group: 'prv-src' },
-      { id: 5,  label: 'Private insurance',            value:  7112, col: 0, group: 'prv-src' },
-      { id: 6,  label: 'All corporations',             value:  1461, col: 0, group: 'prv-src' },
-      { id: 7,  label: 'Other private sources',        value:   831, col: 0, group: 'prv-src' },
+  // ── Colour tokens ────────────────────────────────────────────
+  var COL = {
+    pubSrc  : '#7ab4dc',
+    public  : '#4a88c0',
+    privSrc : '#e8a070',
+    private : '#c85a28',
+    source  : '#7a8898',
+    provider: '#6aaa6a',
+    func    : '#9464b4',
+  };
 
-      // col 1 – aggregate buckets
-      { id: 8,  label: 'PUBLIC\nRM45,580M',            value: 45580, col: 1, group: 'public'  },
-      { id: 9,  label: 'PRIVATE\nRM44,247M',           value: 44247, col: 1, group: 'private' },
+  // ── Data ─────────────────────────────────────────────────────
+  var NODES = [
+    // col 0 – public individual sources (id 0–3)
+    { id:  0, label: 'MOH',                    value: 39148, sub: 'RM39,148M', col: 0, color: COL.pubSrc  },
+    { id:  1, label: 'Other federal agencies', value:  2066, sub: 'RM2,066M',  col: 0, color: COL.pubSrc  },
+    { id:  2, label: 'MOE',                    value:  1975, sub: 'RM1,975M',  col: 0, color: COL.pubSrc  },
+    { id:  3, label: 'Other public sources',   value:  2391, sub: 'RM2,391M',  col: 0, color: COL.pubSrc  },
+    // col 0 – private individual sources (id 4–7)
+    { id:  4, label: 'Out-of-pocket',          value: 34843, sub: 'RM44,843M', col: 0, color: COL.privSrc },
+    { id:  5, label: 'Private insurance',      value:  7112, sub: 'RM7,112M',  col: 0, color: COL.privSrc },
+    { id:  6, label: 'All corporations',       value:  1461, sub: 'RM1,461M',  col: 0, color: COL.privSrc },
+    { id:  7, label: 'Other private sources',  value:   831, sub: 'RM831M',    col: 0, color: COL.privSrc },
 
-      // col 2 – providers
-      { id: 10, label: 'All hospitals',                value: 48721, col: 2, group: 'provider' },
-      { id: 11, label: 'Providers of ambulatory\nhealth care', value: 18881, col: 2, group: 'provider' },
-      { id: 12, label: 'Providers of health care\nsystem administration\n& financing', value: 8640, col: 2, group: 'provider' },
-      { id: 13, label: 'Retail sale & other\nproviders of medical goods', value: 7636, col: 2, group: 'provider' },
-      { id: 14, label: 'All other providers',          value:  5049, col: 2, group: 'provider' },
+    // col 1 – aggregate buckets (id 8–9)
+    { id:  8, label: 'PUBLIC',                 value: 45580, sub: 'RM45,580M', col: 1, color: COL.public  },
+    { id:  9, label: 'PRIVATE',                value: 44247, sub: 'RM44,247M', col: 1, color: COL.private },
 
-      // col 3 – functions
-      { id: 15, label: 'Services of curative care',   value: 56554, col: 3, group: 'function' },
-      { id: 16, label: 'Medical goods',               value:  8560, col: 3, group: 'function' },
-      { id: 17, label: 'Gross capital formation',     value:  8475, col: 3, group: 'function' },
-      { id: 18, label: 'Governance & health system',  value:  7211, col: 3, group: 'function' },
-      { id: 19, label: 'Preventive care',             value:  5415, col: 3, group: 'function' },
-      { id: 20, label: 'All other functions',         value:  3612, col: 3, group: 'function' },
-    ];
+    // col 2 – SOURCE hub (id 10)
+    { id: 10, label: 'SOURCE',                 value: 89827, sub: 'RM89,827M', col: 2, color: COL.source  },
 
-    // ── Links ─────────────────────────────────────────────────
+    // col 3 – provider groups (id 11–15, order matches original diagram top→bottom)
+    { id: 11, label: ['All hospitals'],                                          value: 48721, sub: 'RM48,721M', col: 3, color: COL.provider },
+    { id: 12, label: ['Providers of ambulatory health care'],                    value: 18881, sub: 'RM18,881M', col: 3, color: COL.provider },
+    { id: 13, label: ['All other providers'],                                    value:  5049, sub: 'RM5,049M',  col: 3, color: COL.provider },
+    { id: 14, label: ['Retail sale and other providers of medical goods'],       value:  7636, sub: 'RM7,636M',  col: 3, color: COL.provider },
+    { id: 15, label: ['Providers of health care system administration and financing'], value: 8640, sub: 'RM8,640M', col: 3, color: COL.provider },
+
+    // col 4 – PROVIDERS hub (id 16)
+    { id: 16, label: 'PROVIDERS',              value: 89827, sub: 'RM89,827M', col: 4, color: COL.provider },
+
+    // col 5 – functions (id 17–22, order matches original diagram top→bottom)
+    { id: 17, label: ['Services of curative care'],   value: 56554, sub: 'RM56,554M', col: 5, color: COL.func },
+    { id: 18, label: ['Medical goods'],               value:  8560, sub: 'RM8,560M',  col: 5, color: COL.func },
+    { id: 19, label: ['Gross capital formation'],     value:  8475, sub: 'RM8,475M',  col: 5, color: COL.func },
+    { id: 20, label: ['Governance and health system'],value:  7211, sub: 'RM7,211M',  col: 5, color: COL.func },
+    { id: 21, label: ['Preventive care'],             value:  5415, sub: 'RM5,415M',  col: 5, color: COL.func },
+    { id: 22, label: ['All other functions'],         value:  3612, sub: 'RM3,612M',  col: 5, color: COL.func },
+  ];
+
+  var LINKS = [
     // Col 0 → Col 1
-    var links = [
-      { source: 0, target: 8,  value: 39148 },
-      { source: 1, target: 8,  value:  2066 },
-      { source: 2, target: 8,  value:  1975 },
-      { source: 3, target: 8,  value:  2391 },
+    { source:  0, target:  8, value: 39148 },
+    { source:  1, target:  8, value:  2066 },
+    { source:  2, target:  8, value:  1975 },
+    { source:  3, target:  8, value:  2391 },
+    { source:  4, target:  9, value: 34843 },
+    { source:  5, target:  9, value:  7112 },
+    { source:  6, target:  9, value:  1461 },
+    { source:  7, target:  9, value:   831 },
 
-      { source: 4, target: 9,  value: 34843 },
-      { source: 5, target: 9,  value:  7112 },
-      { source: 6, target: 9,  value:  1461 },
-      { source: 7, target: 9,  value:   831 },
+    // Col 1 → Col 2 (SOURCE)
+    { source:  8, target: 10, value: 45580 },
+    { source:  9, target: 10, value: 44247 },
 
-      // Col 1 → Col 2  (distribute PUBLIC and PRIVATE proportionally to each provider)
-      // Proportions based on each provider's share of total 89,827
-      // All hospitals 48721 → pub share = 48721*(45580/89827)=24726, prv=23995
-      { source: 8,  target: 10, value: 24726 },
-      { source: 9,  target: 10, value: 23995 },
-      // Ambulatory 18881 → pub 9584, prv 9297
-      { source: 8,  target: 11, value:  9584 },
-      { source: 9,  target: 11, value:  9297 },
-      // Admin/finance 8640 → pub 4383, prv 4257
-      { source: 8,  target: 12, value:  4383 },
-      { source: 9,  target: 12, value:  4257 },
-      // Retail 7636 → pub 3875, prv 3761
-      { source: 8,  target: 13, value:  3875 },
-      { source: 9,  target: 13, value:  3761 },
-      // Other providers 5049 → pub 2562, prv 2487 (trim to match totals)
-      { source: 8,  target: 14, value:  2562 },
-      { source: 9,  target: 14, value:  2487 },
+    // Col 2 → Col 3 (provider groups)
+    { source: 10, target: 11, value: 48721 },
+    { source: 10, target: 12, value: 18881 },
+    { source: 10, target: 13, value:  5049 },
+    { source: 10, target: 14, value:  7636 },
+    { source: 10, target: 15, value:  8640 },
 
-      // Col 2 → Col 3
-      // All hospitals → mainly curative + capital + governance + preventive
-      { source: 10, target: 15, value: 33200 },
-      { source: 10, target: 17, value:  8475 },
-      { source: 10, target: 18, value:  4000 },
-      { source: 10, target: 19, value:  3046 },
+    // Col 3 → Col 4 (PROVIDERS)
+    { source: 11, target: 16, value: 48721 },
+    { source: 12, target: 16, value: 18881 },
+    { source: 13, target: 16, value:  5049 },
+    { source: 14, target: 16, value:  7636 },
+    { source: 15, target: 16, value:  8640 },
 
-      // Ambulatory → curative + preventive + other
-      { source: 11, target: 15, value: 15000 },
-      { source: 11, target: 19, value:  2369 },
-      { source: 11, target: 20, value:  1512 },
+    // Col 4 → Col 5 (functions)
+    { source: 16, target: 17, value: 56554 },
+    { source: 16, target: 18, value:  8560 },
+    { source: 16, target: 19, value:  8475 },
+    { source: 16, target: 20, value:  7211 },
+    { source: 16, target: 21, value:  5415 },
+    { source: 16, target: 22, value:  3612 },
+  ];
 
-      // Admin/finance → governance + curative + other
-      { source: 12, target: 18, value:  3211 },
-      { source: 12, target: 15, value:  3529 },
-      { source: 12, target: 20, value:  1900 },
+  // ── Chart build ───────────────────────────────────────────────
+  function init() {
+    var el = document.getElementById('chart10');
+    if (!el) return;
+    drawChart(el);
+    var timer;
+    window.addEventListener('resize', function () {
+      clearTimeout(timer);
+      timer = setTimeout(function () { drawChart(el); }, 200);
+    });
+  }
 
-      // Retail → medical goods exclusively
-      { source: 13, target: 16, value:  7636 },
+  function drawChart(el) {
+    // Clear previous
+    d3.select(el).selectAll('*').remove();
 
-      // Other providers → curative + medical goods + other
-      { source: 14, target: 15, value:  4825 },
-      { source: 14, target: 16, value:   924 },
-      { source: 14, target: 20, value:   200 },
-    ];
+    var W  = Math.max(el.offsetWidth || 860, 700);
+    var H  = 580;
+    var mt = 12, mb = 12;
+    // Horizontal margins for labels
+    var ml = 148;   // left labels (cols 0–2)
+    var mr = 190;   // right labels (cols 3–5)
 
-    // ── Colour palette ─────────────────────────────────────────
-    var palette = {
-      'pub-src':  '#6aaee0',
-      'public':   '#3a78b5',
-      'prv-src':  '#e09070',
-      'private':  '#c05c30',
-      'provider': '#74b374',
-      'function': '#9b72b0',
-    };
+    var innerW = W  - ml - mr;
+    var innerH = H  - mt - mb;
 
-    // ── Dimensions ────────────────────────────────────────────
-    var container = document.getElementById('chart10');
-    var W = container.offsetWidth || 860;
-    var H = 620;
-    var margin = { top: 8, right: 180, bottom: 8, left: 170 };
+    // Fixed x fractions for 6 columns across innerW
+    // We want roughly equal spacing
+    var colFrac = [0, 0.18, 0.36, 0.55, 0.73, 1.0];
+    var nodeW   = 12;  // thin node bars
 
-    var svg = d3.select('#chart10')
-      .append('svg')
-      .attr('width', '100%')
-      .attr('height', H)
-      .attr('viewBox', '0 0 ' + W + ' ' + H);
-
-    var innerW = W - margin.left - margin.right;
-    var innerH = H - margin.top - margin.bottom;
-
-    // ── Build Sankey ──────────────────────────────────────────
+    // ── Sankey layout ──────────────────────────────────────────
     var sankey = d3.sankey()
       .nodeId(function (d) { return d.id; })
-      .nodeWidth(18)
-      .nodePadding(12)
-      .extent([[margin.left, margin.top], [W - margin.right, H - margin.bottom]])
-      .nodeSort(function (a, b) { return a.id - b.id; }); // preserve insertion order
+      .nodeWidth(nodeW)
+      .nodePadding(8)
+      .extent([[0, 0], [innerW, innerH]])
+      .nodeSort(function (a, b) { return a.id - b.id; });
 
-    // d3-sankey mutates the arrays, so clone
     var graph = sankey({
-      nodes: nodes.map(function (d) { return Object.assign({}, d); }),
-      links: links.map(function (d) { return Object.assign({}, d); }),
+      nodes: NODES.map(function (d) { return Object.assign({}, d, { label: Array.isArray(d.label) ? d.label[0] : d.label }); }),
+      links: LINKS.map(function (d) { return Object.assign({}, d); }),
     });
 
-    // ── Links ──────────────────────────────────────────────────
+    // Override x positions to enforce column layout
+    graph.nodes.forEach(function (n) {
+      n.x0 = colFrac[n.col] * innerW;
+      n.x1 = n.x0 + nodeW;
+    });
+    sankey.update(graph);
+
+    // ── SVG root ───────────────────────────────────────────────
+    var svg = d3.select(el).append('svg')
+      .attr('width', '100%')
+      .attr('height', H)
+      .attr('viewBox', '0 0 ' + W + ' ' + H)
+      .style('overflow', 'visible');
+
+    var root = svg.append('g')
+      .attr('transform', 'translate(' + ml + ',' + mt + ')');
+
+    // ── Draw links ─────────────────────────────────────────────
     var linkPath = d3.sankeyLinkHorizontal();
 
-    svg.append('g').attr('class', 'links')
+    root.append('g')
       .selectAll('path')
       .data(graph.links)
       .join('path')
         .attr('d', linkPath)
-        .attr('stroke-width', function (d) { return Math.max(1, d.width); })
-        .attr('stroke', function (d) {
-          return palette[d.source.group] || '#aaa';
-        })
-        .attr('stroke-opacity', 0.38)
         .attr('fill', 'none')
+        .attr('stroke', function (d) { return d.source.color; })
+        .attr('stroke-width', function (d) { return Math.max(0.8, d.width); })
+        .attr('stroke-opacity', 0.30)
       .append('title')
         .text(function (d) {
-          return d.source.label.replace(/\n/g,' ') +
-                 ' → ' +
-                 d.target.label.replace(/\n/g,' ') +
-                 '\nRM' + d3.format(',')(d.value) + 'M';
+          return d.source.label + ' → ' + d.target.label +
+                 '  RM' + d3.format(',')(d.value) + 'M';
         });
 
-    // ── Nodes ──────────────────────────────────────────────────
-    var nodeG = svg.append('g').attr('class', 'nodes')
-      .selectAll('g')
+    // ── Draw node rectangles ───────────────────────────────────
+    root.append('g')
+      .selectAll('rect')
       .data(graph.nodes)
-      .join('g');
-
-    nodeG.append('rect')
-      .attr('x', function (d) { return d.x0; })
-      .attr('y', function (d) { return d.y0; })
-      .attr('width', function (d) { return d.x1 - d.x0; })
-      .attr('height', function (d) { return Math.max(1, d.y1 - d.y0); })
-      .attr('fill', function (d) { return palette[d.group] || '#888'; })
-      .attr('rx', 2)
+      .join('rect')
+        .attr('x',      function (d) { return d.x0; })
+        .attr('y',      function (d) { return d.y0; })
+        .attr('width',  function (d) { return d.x1 - d.x0; })
+        .attr('height', function (d) { return Math.max(1, d.y1 - d.y0); })
+        .attr('fill',   function (d) { return d.color; })
+        .attr('rx', 2)
       .append('title')
-        .text(function (d) {
-          return d.label.replace(/\n/g,' ') + '\nRM' + d3.format(',')(d.value) + 'M';
-        });
+        .text(function (d) { return d.label + '  ' + d.sub; });
 
-    // ── Labels ────────────────────────────────────────────────
-    nodeG.each(function (d) {
-      var g = d3.select(this);
-      var isLeft  = d.col <= 1;
-      var isRight = d.col >= 2;
-      var lines   = d.label.split('\n');
-      var midY    = (d.y0 + d.y1) / 2;
-      var nodeH   = d.y1 - d.y0;
-      var lineH   = 12;
+    // ── Labels ─────────────────────────────────────────────────
+    var FONT  = "'Times New Roman', Times, serif";
+    var LH    = 11;   // line-height px
 
-      // Value string
-      var valStr = 'RM' + d3.format(',')(d.value) + 'M';
+    graph.nodes.forEach(function (n) {
+      var midY  = (n.y0 + n.y1) / 2;
+      var nodeH = n.y1 - n.y0;
 
-      // For col 0 and col 1, label left; for col 2 and col 3, label right
-      var textX, anchor;
-      if (d.col === 0) { textX = d.x0 - 6;  anchor = 'end';   }
-      if (d.col === 1) { textX = d.x0 - 6;  anchor = 'end';   }
-      if (d.col === 2) { textX = d.x1 + 6;  anchor = 'start'; }
-      if (d.col === 3) { textX = d.x1 + 6;  anchor = 'start'; }
+      // Wrap label into lines ≤ 28 chars
+      var words  = n.label.split(' ');
+      var lines  = [];
+      var cur    = '';
+      words.forEach(function (w) {
+        var test = cur ? cur + ' ' + w : w;
+        if (test.length > 28 && cur) { lines.push(cur); cur = w; }
+        else { cur = test; }
+      });
+      if (cur) lines.push(cur);
 
-      var totalLines = lines.length + 1; // +1 for value
-      var startY = midY - ((totalLines - 1) * lineH) / 2;
+      var allLines = lines.concat([n.sub]);      // label lines + value line
+      var totalH   = allLines.length * LH;
+      var startY   = midY - totalH / 2 + LH / 2;
 
-      lines.forEach(function (line, i) {
-        g.append('text')
-          .attr('x', textX)
-          .attr('y', startY + i * lineH)
+      // Cols 0, 1, 2 → label on the LEFT of the node bar
+      // Cols 3, 4, 5 → label on the RIGHT
+      var onLeft  = n.col <= 2;
+      var tx      = onLeft ? (n.x0 - 6) : (n.x1 + 6);
+      var anchor  = onLeft ? 'end' : 'start';
+      var isBold  = (n.col === 2 || n.col === 4);  // SOURCE / PROVIDERS hubs
+
+      allLines.forEach(function (line, i) {
+        var isValueLine = (i === allLines.length - 1);
+        root.append('text')
+          .attr('x', tx)
+          .attr('y', startY + i * LH)
           .attr('dy', '0.32em')
           .attr('text-anchor', anchor)
-          .style('font-family', 'Georgia, serif')
-          .style('font-size', nodeH < 14 ? '8px' : '10px')
-          .style('fill', '#1a1a2e')
+          .style('font-family', FONT)
+          .style('font-size',   isValueLine ? '8.5px' : (nodeH < 18 ? '8px' : '9.5px'))
+          .style('font-weight', isBold && !isValueLine ? '700' : '400')
+          .style('fill',        isValueLine ? '#666' : '#1a1a2e')
           .text(line);
       });
-
-      // Value line
-      g.append('text')
-        .attr('x', textX)
-        .attr('y', startY + lines.length * lineH)
-        .attr('dy', '0.32em')
-        .attr('text-anchor', anchor)
-        .style('font-family', 'Georgia, serif')
-        .style('font-size', nodeH < 14 ? '7.5px' : '9.5px')
-        .style('fill', '#555')
-        .text(valStr);
-    });
-
-    // ── Responsive redraw ──────────────────────────────────────
-    var resizeTimer;
-    window.addEventListener('resize', function () {
-      clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(function () {
-        d3.select('#chart10 svg').remove();
-        buildChart();
-      }, 200);
     });
   }
+
 })();
