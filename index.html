@@ -11,6 +11,40 @@
     <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.17.0"></script>
 
     <link rel="stylesheet" type="text/css" href="css/styles.css" media="all">
+
+    <style>
+        /* chart10 wrapper only – does not touch existing CSS */
+        #chart10-wrapper {
+            background: #ffffff;
+            border-radius: 8px;
+            padding: 1.5rem 1rem 1rem;
+            box-shadow: 0 1px 4px rgba(0,0,0,.08);
+        }
+ 
+        #chart10-wrapper h2 {
+            font-family: Georgia, 'Times New Roman', serif;
+            font-size: 1rem;
+            font-weight: 700;
+            letter-spacing: .05em;
+            text-transform: uppercase;
+            color: #1a1a2e;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+ 
+        #chart10-wrapper .subtitle {
+            font-family: Georgia, 'Times New Roman', serif;
+            font-size: 0.78rem;
+            color: #666;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+ 
+        #chart10 {
+            width: 100%;
+            min-height: 580px;
+        }
+    </style>
 </head>
 
 <body>
@@ -44,6 +78,14 @@
     </div>
 
     <div class="container">
+        <div id="chart10-wrapper">
+            <h2>Flow of Health Funds</h2>
+            <p class="subtitle">Total Health Expenditure: RM89,827M</p>
+            <div id="chart10"></div>
+        </div>
+    </div>
+
+    <div class="container">
         <div id="chart11"></div>
     </div>
 
@@ -54,6 +96,7 @@
     <script src="js/chart06.js"></script>
     <script src="js/chart08.js"></script>
     <script src="js/chart09.js"></script>
+    <script src="js/chart10.js"></script>
     <script src="js/chart11.js"></script>
     
 
