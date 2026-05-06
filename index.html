@@ -15,12 +15,14 @@
     <style>
         /* chart10 wrapper only – does not touch existing CSS */
         #chart10-wrapper-container {
-            max-width: 1100px;          /* CHANGED: wider than default 900px */
+            max-width: 1150px;          /* INCREASED: wider to fit shifted chart */
+            margin: 0 auto;
+            overflow-x: auto;           /* Allow horizontal scroll if needed */
         }
         #chart10-wrapper {
             background: #ffffff;
             border-radius: 8px;
-            padding: 1.5rem 1rem 1rem;
+            padding: 1.5rem 1rem 1rem 0.5rem;  /* Reduced left padding for more space */
             box-shadow: 0 1px 4px rgba(0,0,0,.08);
         }
  
@@ -33,6 +35,7 @@
             color: #1a1a2e;
             text-align: left;
             margin-bottom: 1rem;
+            margin-left: 0.5rem;
         }
  
         #chart10-wrapper .subtitle {
@@ -41,11 +44,20 @@
             color: #666;
             text-align: left;
             margin-bottom: 1rem;
+            margin-left: 0.5rem;
         }
  
         #chart10 {
             width: 100%;
             min-height: 620px;
+            overflow: visible;           /* Ensure SVG isn't clipped */
+        }
+        
+        /* Ensure SVG within chart10 has proper spacing */
+        #chart10 svg {
+            display: block;
+            margin-left: 0;              /* Align to left edge */
+            overflow: visible;
         }
     </style>
 </head>
@@ -71,7 +83,6 @@
         <div id="chart06"></div>
     </div>
 
-
     <div class="container">
         <div id="chart08"></div>
     </div>
@@ -92,7 +103,6 @@
         <div id="chart11"></div>
     </div>
 
-
     <script src="js/chart01.js"></script>
     <script src="js/chart02.js"></script>
     <script src="js/chart05.js"></script>
@@ -101,7 +111,6 @@
     <script src="js/chart09.js"></script>
     <script src="js/chart10.js"></script>
     <script src="js/chart11.js"></script>
-    
 
 </body>
 
