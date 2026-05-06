@@ -1,4 +1,4 @@
-// chart10.js — Pure SVG Version (Fixed alignment, shifted right)
+// chart10.js — Pure SVG Version (Perfect alignment, no scroll)
 
 (function () {
   'use strict';
@@ -67,16 +67,17 @@
   function draw(el) {
     el.innerHTML = '';
 
-    var W = 1150;  // Wider to accommodate right shift
+    // Adjusted width to fit within container without horizontal scroll
+    var W = 1000;
     var H = 550;
 
-    // Column positions - SHIFTED RIGHT by 60px to bring left labels into frame
-    var xA = 110;  // Was 50 - shifted right
-    var xB = 240;  // Was 180 - shifted right
-    var xC = 370;  // Was 310 - shifted right
-    var xD = 540;  // Was 480 - shifted right
-    var xE = 740;  // Was 680 - shifted right
-    var xF = 940;  // Was 880 - shifted right
+    // Column positions - optimized to fit in 1000px width
+    var xA = 70;   // Sources column
+    var xB = 190;  // Public/Private split
+    var xC = 310;  // Source total
+    var xD = 460;  // Providers column
+    var xE = 610;  // PROVIDERS label
+    var xF = 760;  // Functions column
 
     var BW = 8, MW = 7, SW = 6;
 
@@ -133,11 +134,11 @@
     svg.style.margin = '0 auto';
     el.appendChild(svg);
 
-    function ribbon(x1, y1, h1, x2, y2, h2, color, a) {
+    function ribbon(x1, y1, x2, y2, h, color, a) {
       var mx = (x1 + x2) / 2;
       var path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
       var d = 'M' + x1 + ',' + y1 + ' C' + mx + ',' + y1 + ' ' + mx + ',' + y2 + ' ' + x2 + ',' + y2 +
-              ' L' + x2 + ',' + (y2 + h2) + ' C' + mx + ',' + (y2 + h2) + ' ' + mx + ',' + (y1 + h1) + ' ' + x1 + ',' + (y1 + h1) + ' Z';
+              ' L' + x2 + ',' + (y2 + h) + ' C' + mx + ',' + (y2 + h) + ' ' + mx + ',' + (y1 + h) + ' ' + x1 + ',' + (y1 + h) + ' Z';
       path.setAttribute('d', d);
       path.setAttribute('fill', color);
       path.setAttribute('fill-opacity', a || 0.45);
@@ -146,7 +147,7 @@
 
     function bar(x, y, h, c, w) {
       var rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-      rect.setAttribute('x', x - (w || BW) / 2);
+      rect.setAttribute('x', x);
       rect.setAttribute('y', y);
       rect.setAttribute('width', w || BW);
       rect.setAttribute('height', h);
@@ -212,32 +213,32 @@
       return 'RM' + n.toLocaleString() + 'M';
     }
 
-    // DRAW - Public Sources
+    // DRAW - Public Sources bars (x position is exact bar start)
     for (var i = 0; i < colAPub.length; i++) {
       var d = colAPub[i];
-      bar(xA, d.y, d.h, d.d.color);
+      bar(xA, d.y, d.h, d.d.color, BW);
       lbl(d.d.label, fmt(d.d.value), xA - 8, d.y + d.h / 2, 'end', false);
     }
 
-    // DRAW - Private Sources
+    // DRAW - Private Sources bars
     for (var i = 0; i < colAPriv.length; i++) {
       var d = colAPriv[i];
-      bar(xA, d.y, d.h, d.d.color);
+      bar(xA, d.y, d.h, d.d.color, BW);
       lbl(d.d.label, fmt(d.d.value), xA - 8, d.y + d.h / 2, 'end', false);
     }
 
-    // Ribbons from sources to public/private - PERFECT ALIGNMENT
+    // Ribbons from sources to public/private - aligned to bar edges
     var acc = 0;
     for (var i = 0; i < colAPub.length; i++) {
       var d = colAPub[i];
-      ribbon(xA + 4, d.y, d.h, xB - 4, pubBarY + acc, d.h, d.d.color);
-      acc += d.h;  // Use exact height for alignment
+      ribbon(xA + BW, d.y, xB, pubBarY + acc, d.h, d.d.color);
+      acc += d.h;
     }
 
     acc = 0;
     for (var i = 0; i < colAPriv.length; i++) {
       var d = colAPriv[i];
-      ribbon(xA + 4, d.y, d.h, xB - 4, privBarY + acc, d.h, d.d.color);
+      ribbon(xA + BW, d.y, xB, privBarY + acc, d.h, d.d.color);
       acc += d.h;
     }
 
@@ -245,61 +246,68 @@
     bar(xB, pubBarY, pubT, C.public, MW);
     bar(xB, privBarY, privT, C.private, MW);
 
-    lbl('PUBLIC', fmt(45580), xB + 10, pubCY, 'start', true);
-    lbl('PRIVATE', fmt(44247), xB + 10, privCY, 'start', true);
+    lbl('PUBLIC', fmt(45580), xB + MW + 5, pubCY, 'start', true);
+    lbl('PRIVATE', fmt(44247), xB + MW + 5, privCY, 'start', true);
 
-    // Ribbons to SOURCE - PERFECT ALIGNMENT with no white space
-    ribbon(xB + 4, pubBarY, pubT, xC - 4, srcBarY, pubT, C.public);
-    ribbon(xB + 4, privBarY, privT, xC - 4, srcBarY + pubT, privT, C.private);
+    // Ribbons to SOURCE - aligned to bar edges
+    ribbon(xB + MW, pubBarY, xC, srcBarY, pubT, C.public);
+    ribbon(xB + MW, privBarY, xC, srcBarY + pubT, privT, C.private);
 
     // SOURCE bar
     bar(xC, srcBarY, pubT + privT, C.source, SW);
-    lbl('SOURCE', fmt(89827), xC + 10, srcCY, 'start', true);
+    lbl('SOURCE', fmt(89827), xC + SW + 5, srcCY, 'start', true);
 
-    // Ribbons to providers - EXACT ALIGNMENT using cumulative heights
+    // Calculate exact cumulative heights for provider ribbons
+    var providerCumulativeHeights = [];
+    var cumHeight = 0;
+    for (var i = 0; i < colD.length; i++) {
+      providerCumulativeHeights.push(cumHeight);
+      cumHeight += colD[i].h;
+    }
+
+    // Ribbons to providers - using exact source bar proportions
+    var sourceTotalHeight = pubT + privT;
     acc = 0;
     for (var i = 0; i < colD.length; i++) {
       var d = colD[i];
-      var ribbonHeight = provT * (d.d.value / TOTAL);
-      // Match exactly to source bar and provider bar positions
-      ribbon(xC + 4, srcBarY + acc, ribbonHeight, xD - 4, d.y, d.h, C.source, 0.3);
+      var ribbonHeight = sourceTotalHeight * (d.d.value / TOTAL);
+      ribbon(xC + SW, srcBarY + acc, xD, d.y, ribbonHeight, C.source, 0.3);
       acc += ribbonHeight;
     }
 
     // Providers bars
     for (var i = 0; i < colD.length; i++) {
       var d = colD[i];
-      bar(xD, d.y, d.h, d.d.color);
-      lbl(d.d.label, fmt(d.d.value), xD + 12, d.y + d.h / 2, 'start', false);
+      bar(xD, d.y, d.h, d.d.color, BW);
+      lbl(d.d.label, fmt(d.d.value), xD + BW + 8, d.y + d.h / 2, 'start', false);
     }
 
-    // LONGER GREEN flow line with PERFECT ALIGNMENT
+    // GREEN flow line (providers to functions) - aligned to bar edges
     acc = 0;
     for (var i = 0; i < colD.length; i++) {
       var d = colD[i];
-      // Match exactly to provider bar positions
-      ribbon(xD + 4, d.y, d.h, xE - 4, provBarY + acc, d.h, d.d.color);
+      ribbon(xD + BW, d.y, xE, provBarY + acc, d.h, d.d.color);
       acc += d.h;
     }
 
     // PROVIDERS label bar
     bar(xE, provBarY, provT, C.provider, SW);
-    lbl('PROVIDERS', fmt(89827), xE + 12, srcCY, 'start', true);
+    lbl('PROVIDERS', fmt(89827), xE + SW + 5, srcCY, 'start', true);
 
-    // Ribbons to functions - PERFECT ALIGNMENT
+    // Ribbons to functions - exact alignment
     acc = 0;
     for (var i = 0; i < colF.length; i++) {
       var d = colF[i];
       var h = provT * (d.d.value / TOTAL);
-      ribbon(xE + 4, provBarY + acc, h, xF - 4, d.y, d.h, C.func);
+      ribbon(xE + SW, provBarY + acc, xF, d.y, h, C.func);
       acc += h;
     }
 
     // Functions bars
     for (var i = 0; i < colF.length; i++) {
       var d = colF[i];
-      bar(xF, d.y, d.h, d.d.color);
-      lbl(d.d.label, fmt(d.d.value), xF + 12, d.y + d.h / 2, 'start', false);
+      bar(xF, d.y, d.h, d.d.color, BW);
+      lbl(d.d.label, fmt(d.d.value), xF + BW + 8, d.y + d.h / 2, 'start', false);
     }
   }
 })();
