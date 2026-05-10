@@ -12,33 +12,14 @@
     {
       "data": {
         "url": "json/state.topojson",
-        "format": {"type": "topojson", "feature": "states"}
+        "format": {"type": "topojson", "feature": "gadm41_MYS_1"}
       },
       "transform": [
         {
-          "lookup": "properties.Name",
+          "lookup": "properties.NAME_1",
           "from": {
-            "data": {
-              "values": [
-                {"state_name": "Johor",           "doctors_per_10000": 16.8},
-                {"state_name": "Kedah",           "doctors_per_10000": 17.9},
-                {"state_name": "Kelantan",        "doctors_per_10000": 25.1},
-                {"state_name": "Melaka",          "doctors_per_10000": 25.4},
-                {"state_name": "Negeri Sembilan", "doctors_per_10000": 26.6},
-                {"state_name": "Pahang",          "doctors_per_10000": 22.8},
-                {"state_name": "Perak",           "doctors_per_10000": 21.4},
-                {"state_name": "Perlis",          "doctors_per_10000": 26.0},
-                {"state_name": "Penang",          "doctors_per_10000": 24.3},
-                {"state_name": "Sabah",           "doctors_per_10000": 12.9},
-                {"state_name": "Sarawak",         "doctors_per_10000": 17.0},
-                {"state_name": "Selangor",        "doctors_per_10000": 21.7},
-                {"state_name": "Terengganu",      "doctors_per_10000": 22.9},
-                {"state_name": "Kuala Lumpur",    "doctors_per_10000": 49.5},
-                {"state_name": "Labuan",          "doctors_per_10000": 18.2},
-                {"state_name": "Putrajaya",       "doctors_per_10000": 536.2}
-              ]
-            },
-            "key": "state_name",
+            "data": {"url": "data/doctor_map.csv"},
+            "key": "state",
             "fields": ["doctors_per_10000"]
           }
         }
@@ -68,7 +49,7 @@
         },
         "tooltip": [
           {
-            "field": "properties.Name",
+            "field": "properties.NAME_1",
             "type": "nominal",
             "title": "State"
           },
@@ -84,7 +65,7 @@
     {
       "data": {
         "url": "json/state.topojson",
-        "format": {"type": "topojson", "feature": "states"}
+        "format": {"type": "topojson", "feature": "gadm41_MYS_1"}
       },
       "mark": {
         "type": "geoshape",
