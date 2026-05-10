@@ -32,12 +32,12 @@
       "encoding": {
         "color": {
           "field": "doctors_per_10000",
-          "type": "quantitative",
-          "scale": {
-            "type": "threshold",
-            "domain": [15,20,23,25,30,600],
-            "scheme": "blues"
-          },
+            "type": "quantitative",
+  "scale": {
+    "type": "threshold",
+    "domain": [15, 19, 23, 30, 60],
+    "range": ["#deebf7", "#9ecae1", "#3182bd", "#08519c", "#08306b", "#041f4a"]
+  },
           "legend": {
                 "title": "Doctors per 10,000 population",
                 "orient": "right",
