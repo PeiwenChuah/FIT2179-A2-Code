@@ -62,17 +62,15 @@
         ]
       }
     },
-    {
-      "data": {
-        "url": "json/state.topojson",
-        "format": {"type": "topojson", "feature": "gadm41_MYS_1"}
-      },
-      "mark": {
-        "type": "geoshape",
-        "fill": null,
-        "stroke": "#aaa",
-        "strokeWidth": 0.5
-      }
-    }
+  {
+  "data": {"url": "data/state_info.csv"},
+  "mark": {"type": "text", "dy": -5, "fontSize": 10},
+  "encoding": {
+    "longitude": {"field": "longitude"},
+    "latitude": {"field": "latitude"},
+    "text": {"field": "state"}
+  }
+}
+
   ]
 }
