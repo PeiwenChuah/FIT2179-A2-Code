@@ -12,7 +12,7 @@
     {
       "data": {
         "url": "json/state.topojson",
-        "format": {"type": "topojson", "feature": "gadm41_MYS_1"}
+        "format": {"type": "topojson", "feature": "adjusted_map"}
       },
       "transform": [
         {
@@ -34,8 +34,8 @@
           "field": "doctors_per_10000",
           "type": "quantitative",
           "scale": {
-            "type": "threshold",
-            "domain": [15, 20, 25, 30, 50, 100],
+            "type": "log",
+            "domain": [12, 20,23,600],
             "scheme": "blues"
           },
           "legend": {
