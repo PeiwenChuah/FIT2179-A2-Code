@@ -1,0 +1,97 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {
+    "text": "Doctors per 10,000 Population by State, Malaysia",
+    "fontSize": 16,
+    "anchor": "middle"
+  },
+  "width": 800,
+  "height": 450,
+  "projection": {"type": "mercator"},
+  "layer": [
+    {
+      "data": {
+        "url": "json/state.topojson",
+        "format": {"type": "topojson", "feature": "states"}
+      },
+      "transform": [
+        {
+          "lookup": "properties.Name",
+          "from": {
+            "data": {
+              "values": [
+                {"state_name": "Johor",           "doctors_per_10000": 16.8},
+                {"state_name": "Kedah",           "doctors_per_10000": 17.9},
+                {"state_name": "Kelantan",        "doctors_per_10000": 25.1},
+                {"state_name": "Melaka",          "doctors_per_10000": 25.4},
+                {"state_name": "Negeri Sembilan", "doctors_per_10000": 26.6},
+                {"state_name": "Pahang",          "doctors_per_10000": 22.8},
+                {"state_name": "Perak",           "doctors_per_10000": 21.4},
+                {"state_name": "Perlis",          "doctors_per_10000": 26.0},
+                {"state_name": "Penang",          "doctors_per_10000": 24.3},
+                {"state_name": "Sabah",           "doctors_per_10000": 12.9},
+                {"state_name": "Sarawak",         "doctors_per_10000": 17.0},
+                {"state_name": "Selangor",        "doctors_per_10000": 21.7},
+                {"state_name": "Terengganu",      "doctors_per_10000": 22.9},
+                {"state_name": "Kuala Lumpur",    "doctors_per_10000": 49.5},
+                {"state_name": "Labuan",          "doctors_per_10000": 18.2},
+                {"state_name": "Putrajaya",       "doctors_per_10000": 536.2}
+              ]
+            },
+            "key": "state_name",
+            "fields": ["doctors_per_10000"]
+          }
+        }
+      ],
+      "mark": {
+        "type": "geoshape",
+        "stroke": "white",
+        "strokeWidth": 0.8
+      },
+      "encoding": {
+        "color": {
+          "field": "doctors_per_10000",
+          "type": "quantitative",
+          "scale": {
+            "type": "threshold",
+            "domain": [15, 20, 25, 30, 50, 100],
+            "scheme": "blues"
+          },
+          "legend": {
+            "title": "Doctors per 10,000",
+            "orient": "bottom-right",
+            "direction": "vertical",
+            "labelFontSize": 11,
+            "titleFontSize": 12,
+            "format": ".0f"
+          }
+        },
+        "tooltip": [
+          {
+            "field": "properties.Name",
+            "type": "nominal",
+            "title": "State"
+          },
+          {
+            "field": "doctors_per_10000",
+            "type": "quantitative",
+            "title": "Doctors per 10,000",
+            "format": ".1f"
+          }
+        ]
+      }
+    },
+    {
+      "data": {
+        "url": "json/state.topojson",
+        "format": {"type": "topojson", "feature": "states"}
+      },
+      "mark": {
+        "type": "geoshape",
+        "fill": null,
+        "stroke": "#aaa",
+        "strokeWidth": 0.5
+      }
+    }
+  ]
+}
