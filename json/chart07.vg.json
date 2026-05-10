@@ -3,7 +3,7 @@
   "title": {
     "text": "Doctors per 10,000 Population by State, Malaysia",
     "fontSize": 16,
-    "anchor": "middle"
+    "anchor": "start"
   },
   "width": 800,
   "height": 450,
@@ -64,7 +64,7 @@
     },
   {
   "data": {"url": "data/state_info.csv"},
-  "mark": {"type": "text", "dy": -5, "fontSize": 10},
+  "mark": {"type": "text", "dy": -5, "fontSize": 8},
   "encoding": {
     "longitude": {"field": "longitude"},
     "latitude": {"field": "latitude"},
