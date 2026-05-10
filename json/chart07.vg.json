@@ -34,18 +34,18 @@
           "field": "doctors_per_10000",
           "type": "quantitative",
           "scale": {
-            "type": "log",
-            "domain": [12, 20,23,600],
+            "type": "threshold",
+            "domain": [15,20,23,25,30,600],
             "scheme": "blues"
           },
           "legend": {
-            "title": "Doctors per 10,000",
-            "orient": "bottom-right",
-            "direction": "vertical",
-            "labelFontSize": 11,
-            "titleFontSize": 12,
-            "format": ".0f"
-          }
+                "title": "Doctors per 10,000 population",
+                "orient": "right",
+                "direction": "vertical",
+                "labelFontSize": 11,
+                "titleFontSize": 12,
+                "format": ".0f"
+            }
         },
         "tooltip": [
           {
@@ -62,15 +62,31 @@
         ]
       }
     },
-  {
-  "data": {"url": "data/state_info.csv"},
-  "mark": {"type": "text", "dy": -5, "fontSize": 8},
-  "encoding": {
-    "longitude": {"field": "longitude"},
-    "latitude": {"field": "latitude"},
-    "text": {"field": "state"}
-  }
-}
+    {
+        "data": {"url": "data/state_info.csv"},
+        "mark": {"type": "text", "dy": -5, "fontSize": 8},
+        "encoding": {
+            "longitude": {"field": "longitude"},
+            "latitude": {"field": "latitude"},
+            "text": {"field": "state"}
+        }
+    }
 
-  ]
+  ],
+    "config": {
+    "background": "transparent",
+    "view": { "stroke": "transparent" },
+    "axis": {
+      "domainColor": "#ccc",
+      "tickColor": "#ccc"
+    },
+    "line": {
+      "strokeWidth": 2
+    },
+    "point": {
+      "filled": true,
+      "size": 60
+    },
+    "font": "system-ui, -apple-system, sans-serif"
+  }
 }
