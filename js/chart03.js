@@ -1,13 +1,15 @@
 async function renderChart03() {
     try {
         const response = await fetch('data/hospital_beds_treemap.csv');
+        if (!response.ok) throw new Error('CSV not found');
         const csvText = await response.text();
         
-        const rows = csvText.split('\n').filter(row => row.trim() !== '');
+        const rows = csvText.split(/\r?\n/).filter(row => row.trim().length > 0);
         const dataRows = rows.slice(1); 
 
         const filteredData = dataRows.map(row => {
             const cols = row.split(',');
+            if (cols.length < 5) return null;
             return {
                 date: cols[0].trim(),
                 state: cols[1].trim(),
@@ -16,13 +18,12 @@ async function renderChart03() {
                 beds: parseInt(cols[4])
             };
         }).filter(d => 
-            d.date === "2022-01-01" && 
-            d.state !== "Malaysia" && 
-            d.district !== "All Districts" && 
-            d.type !== "all" &&
-            !isNaN(d.beds) && d.beds > 0
+            d !== null && d.date === "2022-01-01" && 
+            d.state !== "Malaysia" && d.district !== "All Districts" && 
+            d.type !== "all" && !isNaN(d.beds) && d.beds > 0
         );
 
+        // State Logo Mapping (Ensuring direct HTTPS links)
         const stateLogos = {
             "Johor": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Coat_of_arms_of_Johor.svg/100px-Coat_of_arms_of_Johor.svg.png",
             "Selangor": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/Coat_of_arms_of_Selangor.svg/100px-Coat_of_arms_of_Selangor.svg.png",
@@ -45,45 +46,43 @@ async function renderChart03() {
         let chartData = [];
         let states = [...new Set(filteredData.map(d => d.state))];
 
-        // Level 1: States (The big grouping containers)
+        // Level 1: States
         states.forEach(state => {
-            chartData.push({
-                id: state,
-                name: state,
-                color: Highcharts.getOptions().colors[states.indexOf(state) % 10]
-            });
+            chartData.push({ id: state, name: state, color: '#222' });
         });
 
-        // Level 2: Districts (Nested inside States)
-        let districtKeys = [...new Set(filteredData.map(d => `${d.state}-${d.district}`))];
+        // Level 2: Districts
+        let districtKeys = [...new Set(filteredData.map(d => `${d.state}|${d.district}`))];
         districtKeys.forEach(key => {
-            const [state, district] = key.split('-');
-            chartData.push({
-                id: key,
-                name: district,
-                parent: state
-            });
+            const [state, district] = key.split('|');
+            chartData.push({ id: key, name: district, parent: state });
         });
 
-        // Level 3: Hospital Types (Leaf nodes with the actual values)
+        // Level 3: Bed types
         filteredData.forEach(d => {
             chartData.push({
                 name: d.type.replace(/_/g, ' ').toUpperCase(),
-                parent: `${d.state}-${d.district}`,
-                value: d.beds
+                parent: `${d.state}|${d.district}`,
+                value: d.beds,
+                color: Highcharts.getOptions().colors[states.indexOf(d.state) % 10]
             });
         });
 
         Highcharts.chart('chart03', {
-            chart: {
-                height: 700
+            chart: { 
+                height: 800, 
+                backgroundColor: '#111', // Dark background like image_e2ca07.jpg
+                style: { fontFamily: 'Arial' }
+            },
+            title: { 
+                text: 'MALAYSIA HOSPITAL BEDS BY STATE & DISTRICT', 
+                style: { color: '#EEE', fontWeight: 'bold' } 
             },
             series: [{
                 type: 'treemap',
                 layoutAlgorithm: 'squarified',
                 allowDrillToNode: true,
-                animationLimit: 1000,
-                // These settings create the header-style look from image_e2ca07.jpg
+                // These settings are critical for the "Finviz" look
                 levels: [{
                     level: 1,
                     layoutAlgorithm: 'squarified',
@@ -92,43 +91,45 @@ async function renderChart03() {
                         useHTML: true,
                         align: 'left',
                         verticalAlign: 'top',
-                        style: { 
-                            fontSize: '14px', 
-                            fontWeight: 'bold',
-                            textOutline: 'none'
-                        },
+                        style: { zIndex: 100, pointerEvents: 'none' },
                         formatter: function() {
-                            return `
-                                <div style="display: flex; align-items: center; background: rgba(0,0,0,0.2); padding: 2px 5px; border-radius: 3px;">
-                                    <img src="${stateLogos[this.point.name]}" style="width:18px; height:auto; margin-right:5px;">
-                                    <span style="color:white; text-transform: uppercase;">${this.point.name}</span>
+                            const logo = stateLogos[this.point.name];
+                            if (logo) {
+                                return `
+                                <div style="display: flex; align-items: center; background: rgba(0,0,0,0.8); padding: 2px 8px; border-radius: 2px; border: 1px solid #444; width: max-content;">
+                                    <img src="${logo}" style="width:16px; height:16px; margin-right:6px;" onerror="this.style.display='none'">
+                                    <span style="color:white; font-size:12px; font-weight:bold; text-transform: uppercase;">${this.point.name}</span>
                                 </div>`;
+                            }
                         }
                     },
                     borderWidth: 4,
-                    borderColor: '#222'
+                    borderColor: '#000'
                 }, {
                     level: 2,
-                    borderWidth: 2,
-                    borderColor: 'rgba(255,255,255,0.3)',
                     dataLabels: {
                         enabled: true,
-                        style: { fontSize: '10px', color: '#fff', textOutline: '1px solid #000' },
-                        align: 'center',
-                        verticalAlign: 'middle'
-                    }
+                        style: { fontSize: '9px', color: '#ddd', textOutline: 'none' },
+                        formatter: function() {
+                            // Only show district name if it has enough space
+                            return this.point.value > 100 ? this.point.name : null;
+                        }
+                    },
+                    borderWidth: 1,
+                    borderColor: 'rgba(255,255,255,0.1)'
                 }],
                 data: chartData
             }],
-            title: {
-                text: 'MALAYSIA HOSPITAL BED DISTRIBUTION',
-                style: { fontFamily: 'Arial', fontWeight: 'bold' }
-            },
             tooltip: {
+                backgroundColor: '#222',
+                style: { color: '#FFF' },
                 pointFormat: "<b>{point.name}</b>: {point.value} Beds"
             },
             credits: { enabled: false }
         });
-    } catch (e) { console.error("Chart 03 Error:", e); }
+    } catch (e) { 
+        console.error(e);
+        document.getElementById('chart03').innerHTML = "Error loading CSV or Rendering Chart";
+    }
 }
 renderChart03();
