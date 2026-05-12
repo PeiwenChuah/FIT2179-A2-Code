@@ -13,7 +13,8 @@ body {
 
 /* ── Layout ────────────────────────────────────────────────── */
 .container {
-    max-width: 900px;
+    max-width: 2000px; /* Increased from 1100px */
+    width: 95%;        /* Allow it to be fluid on smaller screens */
     margin: 2rem auto;
     padding: 0 1.5rem;
 }
