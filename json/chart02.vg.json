@@ -1,14 +1,14 @@
 {
   "$schema": "https://vega.github.io/schema/vega/v5.json",
   "width": 460,
-  "height": 480,
-  "padding": {"top": 20, "left": 20, "right": 100, "bottom": 60},
-  "autosize": {"type": "none", "contains": "padding"},
+  "height": 360,
+  "padding": {"top": 20, "left": 20, "right": 100, "bottom": 40},
+  "autosize": {"type": "fit", "contains": "padding"},
 
   "signals": [
-    {"name": "radius", "update": "155"},
+    {"name": "radius", "update": "120"},
     {"name": "cx",     "update": "230"},
-    {"name": "cy",     "update": "240"}
+    {"name": "cy",     "update": "150"}
   ],
 
   "data": [

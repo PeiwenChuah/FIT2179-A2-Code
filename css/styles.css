@@ -72,7 +72,6 @@ body {
 .dashboard-header {
     padding: 3.5rem 2rem 2.2rem;
     text-align: center;
-    border-bottom: 3px solid var(--accent-gold);
 }
 
 .dashboard-header h1 {
@@ -91,7 +90,6 @@ body {
     top: 0;
     z-index: 100;
     background: var(--bg);
-    border-bottom: 1px solid var(--border);
     padding: 0.55rem 1.5rem;
     display: flex;
     gap: 0.4rem;
@@ -222,7 +220,6 @@ body {
 
 /* ── Insight — no box, just a left rule + indented text ── */
 .insight {
-    border-left: 2px solid var(--accent-gold);
     padding: 0 0 0 0.85rem;
     margin-top: 1rem;
     font-size: 0.84rem;
@@ -379,4 +376,10 @@ body {
     color: var(--text-muted);
     margin-bottom: 0.5rem;
     font-style: italic;
+}
+
+#chart01,
+#chart02 {
+    width: 100%;
+    height: 360px;
 }

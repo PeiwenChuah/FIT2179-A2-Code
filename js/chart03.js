@@ -44,11 +44,11 @@ function renderChart03(selectedYear) {
         W.P. Labuan   deep ocean  #0d5073
     */
     const stateColorMap = {
-        "Johor":            "#d9534f",
+        "Johor":            "#60760590",
         "Kedah":            "#2e8b8b",
         "Kelantan":         "#5b3fa0",
         "Melaka":           "#5a9e3e",
-        "Negeri Sembilan":  "#c46a8a",
+        "Negeri Sembilan":  "#10bcbf",
         "Pahang":           "#4a6fa5",
         "Perak":            "#c97b2a",
         "Perlis":           "#1d7a6e",
@@ -56,7 +56,7 @@ function renderChart03(selectedYear) {
         "Sabah":            "#3a7d54",
         "Sarawak":          "#2a6699",
         "Selangor":         "#1a3a5c",
-        "Terengganu":       "#b84a2e",
+        "Terengganu":       "#634908",
         "W.P. Kuala Lumpur":"#c8972a",
         "W.P. Putrajaya":   "#7a4a78",
         "W.P. Labuan":      "#0d5073"
