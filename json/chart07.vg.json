@@ -52,7 +52,7 @@
         "type": "text",
         "dy": -5,
         "fontSize": 9,
-        "fontWeight": "600",
+        "fontWeight": 600,
         "font": "Source Sans 3, sans-serif"
       },
       "encoding": {

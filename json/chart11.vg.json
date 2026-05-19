@@ -16,61 +16,41 @@
   "mark": { "type": "bar", "tooltip": true },
   "encoding": {
     "x": {
-      "field": "Programme",
-      "type": "nominal",
-      "title": "Programme",
+      "field": "Programme", "type": "nominal", "title": "Programme",
       "sort": { "field": "budget_val", "op": "max", "order": "descending" },
       "axis": {
-        "labelAngle": -30,
-        "labelFontSize": 11,
-        "labelLimit": 130,
-        "titleFontSize": 13,
-        "titleFontWeight": "normal",
-        "titlePadding": 10,
+        "labelAngle": -30, "labelFontSize": 11, "labelLimit": 130,
+        "titleFontSize": 13, "titleFontWeight": "normal", "titlePadding": 10,
         "labelFont": "Source Sans 3, sans-serif",
         "titleFont": "Source Sans 3, sans-serif"
       }
     },
     "xOffset": {
-      "field": "type_label",
-      "type": "nominal",
+      "field": "type_label", "type": "nominal",
       "sort": ["Budget", "Actual Spending"]
     },
     "y": {
-      "field": "amount",
-      "type": "quantitative",
-      "title": "Amount (RM)",
+      "field": "amount", "type": "quantitative", "title": "Amount (RM)",
       "axis": {
-        "labelFontSize": 12,
-        "titleFontSize": 13,
-        "titleFontWeight": "normal",
-        "titlePadding": 10,
+        "labelFontSize": 12, "titleFontSize": 13,
+        "titleFontWeight": "normal", "titlePadding": 10,
         "labelExpr": "datum.value >= 1000000000 ? format(datum.value / 1000000000, '.1f') + 'B' : datum.value >= 1000000 ? format(datum.value / 1000000, '.0f') + 'M' : datum.value >= 1000 ? format(datum.value / 1000, '.0f') + 'K' : datum.value",
-        "gridColor": "#eef0f3",
-        "gridOpacity": 1,
+        "gridColor": "#eef0f3", "gridOpacity": 1,
         "labelFont": "Source Sans 3, sans-serif",
         "titleFont": "Source Sans 3, sans-serif"
       }
     },
     "color": {
-      "field": "type_label",
-      "type": "nominal",
-      "title": "Type",
+      "field": "type_label", "type": "nominal", "title": "Type",
       "sort": ["Budget", "Actual Spending"],
       "scale": {
         "domain": ["Budget", "Actual Spending"],
-        "range": ["#1a6b9a", "#c8972a"]
+        "range": ["#1a6b9a", "#e07b39"]
       },
       "legend": {
-        "title": "Type",
-        "titleOrient": "left",
-        "orient": "top",
-        "direction": "horizontal",
-        "titleFontSize": 12,
-        "labelFontSize": 12,
-        "symbolSize": 120,
-        "padding": 5,
-        "offset": 8,
+        "title": "Type", "titleOrient": "left", "orient": "top",
+        "direction": "horizontal", "titleFontSize": 12, "labelFontSize": 12,
+        "symbolSize": 120, "padding": 5, "offset": 8,
         "labelFont": "Source Sans 3, sans-serif",
         "titleFont": "Source Sans 3, sans-serif"
       }

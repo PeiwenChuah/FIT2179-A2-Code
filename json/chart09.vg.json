@@ -4,13 +4,11 @@
     {
       "title": {
         "text": "Inpatient",
-        "fontSize": 13,
-        "fontWeight": "600",
-        "color": "#3d4a5c",
+        "fontSize": 13, "fontWeight": 600, "color": "#3d4a5c",
         "font": "Source Sans 3, sans-serif"
       },
       "width": 240,
-      "height": 360,
+      "height": 340,
       "data": { "url": "data/Inpatient and Outpatient.csv" },
       "transform": [
         { "calculate": "toNumber(datum.Number)", "as": "count" },
@@ -23,54 +21,38 @@
       "mark": { "type": "bar", "tooltip": true },
       "encoding": {
         "x": {
-          "field": "sector_label",
-          "type": "nominal",
+          "field": "sector_label", "type": "nominal",
           "sort": { "field": "count", "order": "descending" },
           "title": "Sector",
           "axis": {
-            "labelAngle": 0,
-            "labelFontSize": 12,
-            "titleFontSize": 13,
-            "titleFontWeight": "normal",
-            "titlePadding": 10,
+            "labelAngle": 0, "labelFontSize": 12, "titleFontSize": 13,
+            "titleFontWeight": "normal", "titlePadding": 10,
             "labelFont": "Source Sans 3, sans-serif",
             "titleFont": "Source Sans 3, sans-serif"
           }
         },
         "y": {
-          "field": "count",
-          "type": "quantitative",
-          "title": "Number of Visits",
+          "field": "count", "type": "quantitative", "title": "Number of Visits",
           "axis": {
-            "labelFontSize": 12,
-            "titleFontSize": 13,
-            "titleFontWeight": "normal",
+            "labelFontSize": 12, "titleFontSize": 13, "titleFontWeight": "normal",
             "titlePadding": 10,
             "labelExpr": "datum.value >= 1000000 ? format(datum.value / 1000000, '.1f') + 'M' : datum.value >= 1000 ? format(datum.value / 1000, '.0f') + 'K' : datum.value",
-            "gridColor": "#eef0f3",
-            "gridOpacity": 1,
+            "gridColor": "#eef0f3", "gridOpacity": 1,
             "labelFont": "Source Sans 3, sans-serif",
             "titleFont": "Source Sans 3, sans-serif"
           }
         },
         "color": {
-          "field": "sector_label",
-          "type": "nominal",
+          "field": "sector_label", "type": "nominal",
           "sort": { "field": "count", "order": "descending" },
           "scale": {
             "domain": ["MOH Public", "Non-MOH Public", "Private"],
-            "range": ["#1a6b9a", "#5b8fa8", "#c8972a"]
+            "range": ["#1a6b9a", "#4dab91", "#c8972a"]
           },
           "legend": {
-            "title": "Sector",
-            "titleOrient": "left",
-            "orient": "top",
-            "direction": "horizontal",
-            "titleFontSize": 12,
-            "labelFontSize": 12,
-            "symbolSize": 120,
-            "padding": 5,
-            "offset": 8,
+            "title": "Sector", "titleOrient": "left", "orient": "top",
+            "direction": "horizontal", "titleFontSize": 12, "labelFontSize": 12,
+            "symbolSize": 120, "padding": 5, "offset": 8,
             "labelFont": "Source Sans 3, sans-serif",
             "titleFont": "Source Sans 3, sans-serif"
           }
@@ -84,13 +66,11 @@
     {
       "title": {
         "text": "Outpatient",
-        "fontSize": 13,
-        "fontWeight": "600",
-        "color": "#3d4a5c",
+        "fontSize": 13, "fontWeight": 600, "color": "#3d4a5c",
         "font": "Source Sans 3, sans-serif"
       },
       "width": 240,
-      "height": 360,
+      "height": 340,
       "data": { "url": "data/Inpatient and Outpatient.csv" },
       "transform": [
         { "calculate": "toNumber(datum.Number)", "as": "count" },
@@ -103,43 +83,33 @@
       "mark": { "type": "bar", "tooltip": true },
       "encoding": {
         "x": {
-          "field": "sector_label",
-          "type": "nominal",
+          "field": "sector_label", "type": "nominal",
           "sort": { "field": "count", "order": "descending" },
           "title": "Sector",
           "axis": {
-            "labelAngle": 0,
-            "labelFontSize": 12,
-            "titleFontSize": 13,
-            "titleFontWeight": "normal",
-            "titlePadding": 10,
+            "labelAngle": 0, "labelFontSize": 12, "titleFontSize": 13,
+            "titleFontWeight": "normal", "titlePadding": 10,
             "labelFont": "Source Sans 3, sans-serif",
             "titleFont": "Source Sans 3, sans-serif"
           }
         },
         "y": {
-          "field": "count",
-          "type": "quantitative",
-          "title": "Number of Visits",
+          "field": "count", "type": "quantitative", "title": "Number of Visits",
           "axis": {
-            "labelFontSize": 12,
-            "titleFontSize": 13,
-            "titleFontWeight": "normal",
+            "labelFontSize": 12, "titleFontSize": 13, "titleFontWeight": "normal",
             "titlePadding": 10,
             "labelExpr": "datum.value >= 1000000 ? format(datum.value / 1000000, '.0f') + 'M' : datum.value >= 1000 ? format(datum.value / 1000, '.0f') + 'K' : datum.value",
-            "gridColor": "#eef0f3",
-            "gridOpacity": 1,
+            "gridColor": "#eef0f3", "gridOpacity": 1,
             "labelFont": "Source Sans 3, sans-serif",
             "titleFont": "Source Sans 3, sans-serif"
           }
         },
         "color": {
-          "field": "sector_label",
-          "type": "nominal",
+          "field": "sector_label", "type": "nominal",
           "sort": { "field": "count", "order": "descending" },
           "scale": {
             "domain": ["MOH Public", "Non-MOH Public", "Private"],
-            "range": ["#1a6b9a", "#5b8fa8", "#c8972a"]
+            "range": ["#1a6b9a", "#4dab91", "#c8972a"]
           },
           "legend": null
         },

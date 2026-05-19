@@ -1,13 +1,22 @@
 (function () {
     'use strict';
 
+    /*
+      Sankey node colours — each layer uses a clearly distinct hue.
+      Source layer   → steel blue  #1a6b9a
+      Aggregation    → slate       #6b7a90
+      Centre node    → dark navy   #1a3a5c
+      Provider layer → teal-green  #4dab91
+      Agg2 layer     → burnt amber #c97b2a
+      Function layer → violet      #7a6db0
+    */
     const COL = {
-        source:    '#5b8fa8',  // muted teal — financing sources
-        agg:       '#6b7a90',  // slate grey  — aggregation nodes
-        center:    '#3d4a5c',  // dark slate  — SOURCE/PROVIDERS centre
-        provider:  '#3d8c6f',  // forest teal — provider types
-        agg2:      '#c8972a',  // gold        — second aggregation
-        function:  '#7a6db0'   // violet      — health functions
+        source:   '#1a6b9a',
+        agg:      '#6b7a90',
+        center:   '#1a3a5c',
+        provider: '#4dab91',
+        agg2:     '#c97b2a',
+        function: '#7a6db0'
     };
 
     function init() {
@@ -69,11 +78,11 @@
                     56554,8560,8475,7211,5415,3612
                 ],
                 color: [
-                    ...Array(8).fill('rgba(91,143,168,0.22)'),
-                    ...Array(2).fill('rgba(107,122,144,0.22)'),
-                    ...Array(5).fill('rgba(61,140,111,0.22)'),
-                    ...Array(5).fill('rgba(200,151,42,0.22)'),
-                    ...Array(6).fill('rgba(122,109,176,0.22)')
+                    ...Array(8).fill('rgba(26,107,154,0.18)'),
+                    ...Array(2).fill('rgba(107,122,144,0.18)'),
+                    ...Array(5).fill('rgba(77,171,145,0.18)'),
+                    ...Array(5).fill('rgba(201,123,42,0.18)'),
+                    ...Array(6).fill('rgba(122,109,176,0.18)')
                 ]
             }
         };

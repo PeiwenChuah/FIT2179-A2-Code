@@ -1,7 +1,7 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "width": "container",
-  "height": 380,
+  "height": 360,
   "data": { "url": "data/healthcare_staff.csv" },
   "transform": [
     { "calculate": "year(toDate(datum.date))", "as": "year" },
@@ -14,60 +14,40 @@
   "mark": { "type": "bar", "tooltip": true },
   "encoding": {
     "x": {
-      "field": "year",
-      "type": "ordinal",
-      "title": "Year",
+      "field": "year", "type": "ordinal", "title": "Year",
       "axis": {
-        "labelAngle": 0,
-        "labelFontSize": 12,
-        "titleFontSize": 13,
-        "titleFontWeight": "normal",
-        "titlePadding": 10,
+        "labelAngle": 0, "labelFontSize": 12, "titleFontSize": 13,
+        "titleFontWeight": "normal", "titlePadding": 10,
         "labelFont": "Source Sans 3, sans-serif",
         "titleFont": "Source Sans 3, sans-serif"
       }
     },
     "y": {
-      "field": "staff_num",
-      "type": "quantitative",
-      "title": "Number of Staff",
+      "field": "staff_num", "type": "quantitative", "title": "Number of Staff",
       "stack": "zero",
       "axis": {
-        "labelFontSize": 12,
-        "titleFontSize": 13,
-        "titleFontWeight": "normal",
-        "titlePadding": 10,
-        "format": ",",
+        "labelFontSize": 12, "titleFontSize": 13, "titleFontWeight": "normal",
+        "titlePadding": 10, "format": ",",
         "labelExpr": "format(datum.value, ',')",
-        "gridColor": "#eef0f3",
-        "gridOpacity": 1,
+        "gridColor": "#eef0f3", "gridOpacity": 1,
         "labelFont": "Source Sans 3, sans-serif",
         "titleFont": "Source Sans 3, sans-serif"
       }
     },
     "color": {
-      "field": "type_label",
-      "type": "nominal",
-      "title": "Staff type",
+      "field": "type_label", "type": "nominal", "title": "Staff type",
       "scale": {
         "domain": ["Nurse", "Doctor", "Dentist", "Pharmacist"],
-        "range": ["#5b8fa8", "#1a6b9a", "#7a6db0", "#c8972a"]
+        "range": ["#4dab91", "#1a6b9a", "#7a6db0", "#e07b39"]
       },
       "legend": {
-        "orient": "top-left",
-        "titleFontSize": 12,
-        "labelFontSize": 12,
-        "symbolSize": 120,
-        "offset": 10,
+        "orient": "top-left", "titleFontSize": 12, "labelFontSize": 12,
+        "symbolSize": 120, "offset": 10,
         "labelFont": "Source Sans 3, sans-serif",
         "titleFont": "Source Sans 3, sans-serif"
       }
     },
-    "order": {
-      "field": "staff_num",
-      "aggregate": "sum",
-      "sort": "descending"
-    },
+    "order": { "field": "staff_num", "aggregate": "sum", "sort": "descending" },
     "tooltip": [
       { "field": "year", "type": "ordinal", "title": "Year" },
       { "field": "type_label", "type": "nominal", "title": "Staff type" },

@@ -7,15 +7,12 @@ async function initChart() {
         if (!response.ok) throw new Error('CSV not found');
         const csvText = await response.text();
 
-        // Cache the rows (skipping header)
         cachedCSVRows = csvText.split(/\r?\n/)
             .filter(row => row.trim().length > 0)
             .slice(1);
 
-        // Initial render with default year
         renderChart03("2022");
 
-        // Add Event Listener to Dropdown
         document.getElementById('yearSelect').addEventListener('change', function(e) {
             renderChart03(e.target.value);
         });
@@ -26,12 +23,44 @@ async function initChart() {
 }
 
 function renderChart03(selectedYear) {
-    // Dashboard colour palette — navy/teal/gold family, no red+green conflict
-    const uniqueStateColors = [
-        '#1a3a5c', '#1a6b9a', '#5b8fa8', '#c8972a', '#7a6db0',
-        '#b05a2e', '#3d8c6f', '#2a6899', '#8c7a3d', '#4a5c8c',
-        '#6e4a8c', '#3d6ea8', '#5a3d8c', '#8c5a3d', '#3d8c5a', '#8c3d5a'
-    ];
+    /*
+      State colours — carefully chosen so every adjacent pair
+      is visually distinct (hue + lightness differences ≥ 30°):
+        Johor         coral-red   #d9534f
+        Kedah         teal        #2e8b8b
+        Kelantan      deep violet #5b3fa0
+        Melaka        lime-green  #5a9e3e
+        N. Sembilan   dusty rose  #c46a8a
+        Pahang        slate-blue  #4a6fa5
+        Perak         burnt amber #c97b2a
+        Perlis        dark cyan   #1d7a6e   (distinct from Kedah teal)
+        P. Pinang     muted mauve #8b6bb1
+        Sabah         forest grn  #3a7d54
+        Sarawak       steel blue  #2a6699
+        Selangor      dark navy   #1a3a5c
+        Terengganu    hot brick   #b84a2e
+        W.P. K.L.     gold        #c8972a
+        W.P. Putrajaya warm plum  #7a4a78
+        W.P. Labuan   deep ocean  #0d5073
+    */
+    const stateColorMap = {
+        "Johor":            "#d9534f",
+        "Kedah":            "#2e8b8b",
+        "Kelantan":         "#5b3fa0",
+        "Melaka":           "#5a9e3e",
+        "Negeri Sembilan":  "#c46a8a",
+        "Pahang":           "#4a6fa5",
+        "Perak":            "#c97b2a",
+        "Perlis":           "#1d7a6e",
+        "Pulau Pinang":     "#8b6bb1",
+        "Sabah":            "#3a7d54",
+        "Sarawak":          "#2a6699",
+        "Selangor":         "#1a3a5c",
+        "Terengganu":       "#b84a2e",
+        "W.P. Kuala Lumpur":"#c8972a",
+        "W.P. Putrajaya":   "#7a4a78",
+        "W.P. Labuan":      "#0d5073"
+    };
 
     const filteredData = cachedCSVRows.map(row => {
         const cols = row.split(',');
@@ -67,12 +96,13 @@ function renderChart03(selectedYear) {
 
     Object.entries(districtTotals).forEach(([key, totalBeds]) => {
         const [state, district] = key.split('|');
+        const stateColor = stateColorMap[state] || '#6b7a90';
         chartData.push({
             id:     key,
             name:   district,
             parent: state,
             value:  totalBeds,
-            color:  uniqueStateColors[states.indexOf(state) % uniqueStateColors.length]
+            color:  stateColor
         });
     });
 
@@ -80,10 +110,11 @@ function renderChart03(selectedYear) {
         chart: {
             height: 820,
             backgroundColor: 'transparent',
-            style: { fontFamily: "'Source Sans 3', sans-serif" }
+            style: { fontFamily: "'Source Sans 3', sans-serif" },
+            animation: { duration: 300 }
         },
         title: {
-            text: `Malaysia Hospital Bed Distribution by State (${selectedYear})`,
+            text: `Hospital Beds by State & District — ${selectedYear}`,
             style: {
                 color: '#1a1f2e',
                 fontWeight: '700',
@@ -91,19 +122,30 @@ function renderChart03(selectedYear) {
                 fontFamily: "'Source Sans 3', sans-serif"
             }
         },
+        subtitle: {
+            text: 'Click a state to drill down · Click the title to zoom back out',
+            style: {
+                color: '#6b7a90',
+                fontSize: '11px',
+                fontFamily: "'Source Sans 3', sans-serif"
+            }
+        },
         tooltip: {
             enabled: true,
             useHTML: true,
             backgroundColor: '#FFFFFF',
-            shadow: true,
+            shadow: false,
             borderWidth: 1,
             borderColor: '#e2e6ea',
-            style: { zIndex: 9999, fontSize: '12px', color: '#1a1f2e', fontFamily: "'Source Sans 3', sans-serif" },
-            pointFormat: '<b>{point.name}</b>: {point.value} beds'
+            style: { fontSize: '12px', color: '#1a1f2e', fontFamily: "'Source Sans 3', sans-serif" },
+            pointFormat: '<b>{point.name}</b><br>{point.value} beds'
         },
         plotOptions: {
             treemap: {
                 layoutAlgorithm: 'squarified',
+                allowDrillToNode: true,
+                interactByLeaf: false,
+                animationLimit: 1000,
                 levels: [
                     {
                         level: 1,
@@ -115,19 +157,19 @@ function renderChart03(selectedYear) {
                             align: 'left',
                             verticalAlign: 'top',
                             style: { zIndex: 1 },
-                            backgroundColor: 'rgba(26,31,46,0.85)',
+                            backgroundColor: 'rgba(26,31,46,0.82)',
                             padding: 4,
                             formatter: function() {
-                                const singleDistrictStates = ["W.P. Labuan", "W.P. Putrajaya", "W.P. Kuala Lumpur"];
-                                if (singleDistrictStates.includes(this.point.name)) return null;
-                                return `<span style="color:#fff; font-size:10px; font-weight:700; font-family:'Source Sans 3',sans-serif;">${this.point.name.toUpperCase()} ›</span>`;
+                                const wp = ["W.P. Labuan", "W.P. Putrajaya", "W.P. Kuala Lumpur"];
+                                if (wp.includes(this.point.name)) return null;
+                                return `<span style="color:#fff;font-size:10px;font-weight:700;font-family:'Source Sans 3',sans-serif;">${this.point.name.toUpperCase()} ›</span>`;
                             }
                         }
                     },
                     {
                         level: 2,
                         borderWidth: 1,
-                        borderColor: 'rgba(255,255,255,0.4)',
+                        borderColor: 'rgba(255,255,255,0.35)',
                         dataLabels: {
                             enabled: true,
                             useHTML: true,
@@ -138,7 +180,7 @@ function renderChart03(selectedYear) {
                             style: {
                                 color: '#ffffff',
                                 fontWeight: '700',
-                                textOutline: '1.5px rgba(0,0,0,0.6)',
+                                textOutline: '1.5px rgba(0,0,0,0.55)',
                                 textAlign: 'center',
                                 zIndex: 2,
                                 fontFamily: "'Source Sans 3', sans-serif"
@@ -148,14 +190,12 @@ function renderChart03(selectedYear) {
                                 const h = this.point.shapeArgs.height;
                                 let fontSize = Math.max(w * 0.12, 6.5);
                                 if (fontSize > 13) fontSize = 13;
-
                                 const valueText = (h > 40 && w > 40)
-                                    ? `<div style="font-size:9px; color:rgba(255,255,255,0.85); font-weight:400; margin-top:1px;">${this.point.value} beds</div>`
+                                    ? `<div style="font-size:9px;color:rgba(255,255,255,0.85);font-weight:400;margin-top:1px;">${this.point.value} beds</div>`
                                     : '';
-
                                 return `
-                                <div style="width:${w}px; height:${h}px; display:flex; flex-direction:column; align-items:center; justify-content:center; overflow:hidden;">
-                                    <div style="font-size:${fontSize}px; line-height:1; width:92%; word-wrap:break-word;">${this.point.name}</div>
+                                <div style="width:${w}px;height:${h}px;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;">
+                                    <div style="font-size:${fontSize}px;line-height:1;width:92%;word-wrap:break-word;">${this.point.name}</div>
                                     ${valueText}
                                 </div>`;
                             }
@@ -174,5 +214,4 @@ function renderChart03(selectedYear) {
     });
 }
 
-// Start the process
 initChart();

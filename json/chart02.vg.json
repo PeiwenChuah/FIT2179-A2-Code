@@ -1,14 +1,14 @@
 {
   "$schema": "https://vega.github.io/schema/vega/v5.json",
   "width": 460,
-  "height": 430,
-  "padding": {"top": 20, "left": 20, "right": 80, "bottom": 20},
+  "height": 480,
+  "padding": {"top": 20, "left": 20, "right": 100, "bottom": 60},
   "autosize": {"type": "none", "contains": "padding"},
 
   "signals": [
-    {"name": "radius", "update": "150"},
+    {"name": "radius", "update": "155"},
     {"name": "cx",     "update": "230"},
-    {"name": "cy",     "update": "215"}
+    {"name": "cy",     "update": "240"}
   ],
 
   "data": [
@@ -92,7 +92,7 @@
               "stroke": {"scale": "color", "field": "category"},
               "strokeWidth": {"value": 2.5},
               "fill": {"scale": "color", "field": "category"},
-              "fillOpacity": {"value": 0.18}
+              "fillOpacity": {"value": 0.15}
             }
           }
         }
@@ -121,22 +121,20 @@
       "zindex": 1,
       "encode": {
         "enter": {
-          "x": {
-            "signal": "datum.key === 'Dentists' ? cx + (radius + 20) * cos(scale('angular', datum.key)) - 20 : cx + (radius + 20) * cos(scale('angular', datum.key))"
-          },
-          "y": {"signal": "cy + (radius + 20) * sin(scale('angular', datum.key))"},
+          "x": {"signal": "cx + (radius + 22) * cos(scale('angular', datum.key))"},
+          "y": {"signal": "cy + (radius + 22) * sin(scale('angular', datum.key))"},
           "text": {"field": "key"},
           "align": [
             {"test": "abs(scale('angular', datum.key)) > PI / 2", "value": "right"},
             {"value": "left"}
           ],
           "baseline": [
-            {"test": "scale('angular', datum.key) > 0", "value": "top"},
-            {"test": "scale('angular', datum.key) == 0", "value": "middle"},
-            {"value": "bottom"}
+            {"test": "scale('angular', datum.key) > 0.3", "value": "top"},
+            {"test": "scale('angular', datum.key) < -0.3", "value": "bottom"},
+            {"value": "middle"}
           ],
           "fill": {"value": "#3d4a5c"},
-          "fontSize": {"value": 12},
+          "fontSize": {"value": 11.5},
           "fontWeight": {"value": "600"},
           "font": {"value": "Source Sans 3, sans-serif"}
         }
@@ -157,14 +155,47 @@
       }
     },
     {
+      "type": "symbol",
+      "from": {"data": "table"},
+      "zindex": 2,
+      "encode": {
+        "enter": {
+          "x": {"signal": "cx + scale('radial', datum.value) * cos(scale('angular', datum.key))"},
+          "y": {"signal": "cy + scale('radial', datum.value) * sin(scale('angular', datum.key))"},
+          "size": {"value": 40},
+          "fill": {"scale": "color", "field": "category"},
+          "opacity": {"value": 0.9}
+        }
+      }
+    },
+    {
+      "type": "text",
+      "from": {"data": "table"},
+      "zindex": 3,
+      "encode": {
+        "enter": {
+          "x": {"signal": "cx + scale('radial', datum.value) * cos(scale('angular', datum.key))"},
+          "y": {"signal": "cy + scale('radial', datum.value) * sin(scale('angular', datum.key))"},
+          "text": {"signal": "format(datum.value, '.2f')"},
+          "align": {"value": "center"},
+          "baseline": {"value": "bottom"},
+          "dy": {"value": -7},
+          "fill": {"scale": "color", "field": "category"},
+          "fontSize": {"value": 9},
+          "fontWeight": {"value": "700"},
+          "font": {"value": "Source Sans 3, sans-serif"}
+        }
+      }
+    },
+    {
       "type": "text",
       "encode": {
         "enter": {
           "x": {"value": 10},
-          "y": {"signal": "cy + radius + 40"},
+          "y": {"signal": "cy + radius + 55"},
           "text": {"value": "State:"},
           "fill": {"value": "#3d4a5c"},
-          "fontSize": {"value": 12},
+          "fontSize": {"value": 11},
           "fontWeight": {"value": "bold"},
           "font": {"value": "Source Sans 3, sans-serif"},
           "align": {"value": "left"},
@@ -177,10 +208,10 @@
       "encode": {
         "enter": {
           "x": {"value": 55},
-          "y": {"signal": "cy + radius + 40"},
+          "y": {"signal": "cy + radius + 55"},
           "text": {"value": "● Sarawak"},
           "fill": {"value": "#c8972a"},
-          "fontSize": {"value": 12},
+          "fontSize": {"value": 11},
           "fontWeight": {"value": "bold"},
           "font": {"value": "Source Sans 3, sans-serif"},
           "align": {"value": "left"},
@@ -192,11 +223,11 @@
       "type": "text",
       "encode": {
         "enter": {
-          "x": {"value": 145},
-          "y": {"signal": "cy + radius + 40"},
+          "x": {"value": 150},
+          "y": {"signal": "cy + radius + 55"},
           "text": {"value": "● Selangor"},
           "fill": {"value": "#1a3a5c"},
-          "fontSize": {"value": 12},
+          "fontSize": {"value": 11},
           "fontWeight": {"value": "bold"},
           "font": {"value": "Source Sans 3, sans-serif"},
           "align": {"value": "left"},

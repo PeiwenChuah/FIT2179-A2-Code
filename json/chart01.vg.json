@@ -1,71 +1,222 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+
   "width": "container",
-  "height": 380,
-  "data": { "url": "data/birth_death.csv" },
-  "mark": { "type": "line", "point": true, "tooltip": true },
-  "encoding": {
-    "x": {
-      "field": "Date",
-      "type": "temporal",
-      "title": "Year",
-      "axis": {
-        "labelAngle": 0,
-        "labelFontSize": 12,
-        "titleFontSize": 13,
-        "titleFontWeight": "normal",
-        "titlePadding": 10,
-        "grid": false,
-        "labelFont": "Source Sans 3, sans-serif",
-        "titleFont": "Source Sans 3, sans-serif"
-      }
-    },
-    "y": {
-      "field": "Rate",
-      "type": "quantitative",
-      "title": "Cases per 1,000 population",
-      "axis": {
-        "labelFontSize": 12,
-        "titleFontSize": 13,
-        "titleFontWeight": "normal",
-        "titlePadding": 10,
-        "gridColor": "#eef0f3",
-        "gridOpacity": 1,
-        "format": ".1f",
-        "labelFont": "Source Sans 3, sans-serif",
-        "titleFont": "Source Sans 3, sans-serif"
-      }
-    },
-    "color": {
-      "field": "Type",
-      "type": "nominal",
-      "title": "Indicator",
-      "scale": {
-        "domain": ["Birth", "Death"],
-        "range": ["#1a6b9a", "#b05a2e"]
-      },
-      "legend": {
-        "orient": "top-right",
-        "titleFontSize": 12,
-        "labelFontSize": 12,
-        "symbolSize": 120,
-        "offset": 10,
-        "labelFont": "Source Sans 3, sans-serif",
-        "titleFont": "Source Sans 3, sans-serif"
-      }
-    },
-    "tooltip": [
-      { "field": "Date", "type": "temporal", "title": "Year" },
-      { "field": "Type", "type": "nominal", "title": "Indicator" },
-      { "field": "Rate", "type": "quantitative", "title": "Rate", "format": ".1f" }
-    ]
+  "height": 360,
+
+  "data": {
+    "url": "data/birth_death.csv"
   },
+
+  "layer": [
+
+    {
+      "mark": {
+        "type": "rule",
+        "strokeDash": [6, 4],
+        "stroke": "#b05a2e",
+        "strokeWidth": 1.5,
+        "opacity": 0.6
+      },
+
+      "data": {
+        "values": [
+          {
+            "x": "2020-01-01"
+          }
+        ]
+      },
+
+      "encoding": {
+        "x": {
+          "field": "x",
+          "type": "temporal"
+        }
+      }
+    },
+
+    {
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "dx": 5,
+        "fontSize": 10,
+        "fontWeight": 600,
+        "fontStyle": "italic",
+        "color": "#b05a2e",
+        "font": "Source Sans 3, sans-serif"
+      },
+
+      "data": {
+        "values": [
+          {
+            "x": "2020-01-01",
+            "y": 9,
+            "label": "▲ COVID-19"
+          }
+        ]
+      },
+
+      "encoding": {
+        "x": {
+          "field": "x",
+          "type": "temporal"
+        },
+
+        "y": {
+          "field": "y",
+          "type": "quantitative"
+        },
+
+        "text": {
+          "field": "label"
+        }
+      }
+    },
+
+    {
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "dx": 5,
+        "fontSize": 9.5,
+        "color": "#b05a2e",
+        "font": "Source Sans 3, sans-serif",
+        "fontStyle": "italic"
+      },
+
+      "data": {
+        "values": [
+          {
+            "x": "2020-01-01",
+            "y": 8,
+            "label": "Death rate spiked"
+          }
+        ]
+      },
+
+      "encoding": {
+        "x": {
+          "field": "x",
+          "type": "temporal"
+        },
+
+        "y": {
+          "field": "y",
+          "type": "quantitative"
+        },
+
+        "text": {
+          "field": "label"
+        }
+      }
+    },
+
+    {
+      "mark": {
+        "type": "line",
+        "point": {
+          "size": 55,
+          "filled": true
+        },
+        "strokeWidth": 2.5,
+        "tooltip": true
+      },
+
+      "encoding": {
+
+        "x": {
+          "field": "Date",
+          "type": "temporal",
+          "title": "Year",
+
+          "axis": {
+            "labelAngle": 0,
+            "labelFontSize": 12,
+            "titleFontSize": 13,
+            "titleFontWeight": "normal",
+            "titlePadding": 10,
+            "grid": false,
+            "labelFont": "Source Sans 3, sans-serif",
+            "titleFont": "Source Sans 3, sans-serif"
+          }
+        },
+
+        "y": {
+          "field": "Rate",
+          "type": "quantitative",
+          "title": "Cases per 1,000 population",
+
+          "axis": {
+            "labelFontSize": 12,
+            "titleFontSize": 13,
+            "titleFontWeight": "normal",
+            "titlePadding": 10,
+            "gridColor": "#eef0f3",
+            "gridOpacity": 1,
+            "format": ".1f",
+            "labelFont": "Source Sans 3, sans-serif",
+            "titleFont": "Source Sans 3, sans-serif"
+          }
+        },
+
+        "color": {
+          "field": "Type",
+          "type": "nominal",
+          "title": "Indicator",
+
+          "scale": {
+            "domain": ["Birth", "Death"],
+            "range": ["#1a6b9a", "#b05a2e"]
+          },
+
+          "legend": {
+            "orient": "top-right",
+            "titleFontSize": 12,
+            "labelFontSize": 12,
+            "symbolSize": 120,
+            "offset": 10,
+            "labelFont": "Source Sans 3, sans-serif",
+            "titleFont": "Source Sans 3, sans-serif"
+          }
+        },
+
+        "tooltip": [
+          {
+            "field": "Date",
+            "type": "temporal",
+            "title": "Year"
+          },
+
+          {
+            "field": "Type",
+            "type": "nominal",
+            "title": "Indicator"
+          },
+
+          {
+            "field": "Rate",
+            "type": "quantitative",
+            "title": "Rate",
+            "format": ".1f"
+          }
+        ]
+      }
+    }
+  ],
+
   "config": {
     "background": "transparent",
-    "view": { "stroke": "transparent" },
-    "axis": { "domainColor": "#ccc", "tickColor": "#ccc" },
-    "line": { "strokeWidth": 2.5 },
-    "point": { "filled": true, "size": 55 },
+
+    "view": {
+      "stroke": "transparent"
+    },
+
+    "axis": {
+      "domainColor": "#ccc",
+      "tickColor": "#ccc"
+    },
+
     "font": "Source Sans 3, sans-serif"
   }
 }
