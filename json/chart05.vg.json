@@ -1,34 +1,17 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "title": {
-    "text": "Healthcare Staff by Type in Malaysia (2014–2022)",
-    "fontSize": 16,
-    "anchor": "start",
-    "offset": 12
-  },
   "width": "container",
-  "height": 420,
-  "data": {
-    "url": "data/healthcare_staff.csv"
-  },
+  "height": 380,
+  "data": { "url": "data/healthcare_staff.csv" },
   "transform": [
-    {
-      "calculate": "year(toDate(datum.date))",
-      "as": "year"
-    },
-    {
-      "calculate": "toNumber(datum.staff)",
-      "as": "staff_num"
-    },
+    { "calculate": "year(toDate(datum.date))", "as": "year" },
+    { "calculate": "toNumber(datum.staff)", "as": "staff_num" },
     {
       "calculate": "datum.type === 'pharmacist' ? 'Pharmacist' : datum.type === 'nurse' ? 'Nurse' : datum.type === 'doctor' ? 'Doctor' : 'Dentist'",
       "as": "type_label"
     }
   ],
-  "mark": {
-    "type": "bar",
-    "tooltip": true
-  },
+  "mark": { "type": "bar", "tooltip": true },
   "encoding": {
     "x": {
       "field": "year",
@@ -39,7 +22,9 @@
         "labelFontSize": 12,
         "titleFontSize": 13,
         "titleFontWeight": "normal",
-        "titlePadding": 10
+        "titlePadding": 10,
+        "labelFont": "Source Sans 3, sans-serif",
+        "titleFont": "Source Sans 3, sans-serif"
       }
     },
     "y": {
@@ -53,10 +38,11 @@
         "titleFontWeight": "normal",
         "titlePadding": 10,
         "format": ",",
-        "formatType": "number",
         "labelExpr": "format(datum.value, ',')",
-        "gridColor": "#e8e8e8",
-        "gridOpacity": 0.8
+        "gridColor": "#eef0f3",
+        "gridOpacity": 1,
+        "labelFont": "Source Sans 3, sans-serif",
+        "titleFont": "Source Sans 3, sans-serif"
       }
     },
     "color": {
@@ -65,14 +51,16 @@
       "title": "Staff type",
       "scale": {
         "domain": ["Nurse", "Doctor", "Dentist", "Pharmacist"],
-        "range": ["#185FA5", "#1D9E75", "#EF9F27", "#E41A1C"]
+        "range": ["#5b8fa8", "#1a6b9a", "#7a6db0", "#c8972a"]
       },
       "legend": {
         "orient": "top-left",
         "titleFontSize": 12,
         "labelFontSize": 12,
         "symbolSize": 120,
-        "offset": 10
+        "offset": 10,
+        "labelFont": "Source Sans 3, sans-serif",
+        "titleFont": "Source Sans 3, sans-serif"
       }
     },
     "order": {
@@ -89,14 +77,8 @@
   "config": {
     "background": "transparent",
     "view": { "stroke": "transparent" },
-    "axis": {
-      "domainColor": "#ccc",
-      "tickColor": "#ccc"
-    },
-    "bar": {
-      "cornerRadiusTopLeft": 2,
-      "cornerRadiusTopRight": 2
-    },
-    "font": "system-ui, -apple-system, sans-serif"
+    "axis": { "domainColor": "#ccc", "tickColor": "#ccc" },
+    "bar": { "cornerRadiusTopLeft": 2, "cornerRadiusTopRight": 2 },
+    "font": "Source Sans 3, sans-serif"
   }
 }

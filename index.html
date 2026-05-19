@@ -4,147 +4,395 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Healthcare Staff by Type, Malaysia</title>
+    <title>Healthcare In Malaysia</title>
 
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <!-- Vega-Lite -->
     <script src="https://cdn.jsdelivr.net/npm/vega@5.20.2"></script>
     <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.6.0"></script>
     <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.17.0"></script>
 
+    <!-- Plotly (Sankey) -->
     <script src="https://cdn.plot.ly/plotly-2.24.1.min.js"></script>
 
+    <!-- Highcharts (Treemap) -->
     <script src="https://code.highcharts.com/highcharts.js"></script>
     <script src="https://code.highcharts.com/modules/treemap.js"></script>
 
-    <link rel="stylesheet" type="text/css" href="css/styles.css" media="all">
-    
-
-    <style>
-        /* chart10 wrapper only – does not touch existing CSS */
-        #chart10-wrapper-container {
-            max-width: 1150px;          /* INCREASED: wider to fit shifted chart */
-            margin: 0 auto;
-            overflow-x: auto;           /* Allow horizontal scroll if needed */
-        }
-        #chart10-wrapper {
-            background: transparent;
-            padding: 1.5rem 1rem 1rem 0.5rem;  /* Reduced left padding for more space */
-        }
- 
-        #chart10-wrapper h2 {
-            font-family: Georgia, 'Times New Roman', serif;
-            font-size: 1rem;
-            font-weight: 700;
-            letter-spacing: .05em;
-            text-transform: uppercase;
-            color: #1a1a2e;
-            text-align: left;
-            margin-bottom: 1rem;
-            margin-left: 0.5rem;
-        }
- 
-        #chart10-wrapper .subtitle {
-            font-family: Georgia, 'Times New Roman', serif;
-            font-size: 0.78rem;
-            color: #666;
-            text-align: left;
-            margin-bottom: 1rem;
-            margin-left: 0.5rem;
-        }
- 
-        #chart10 {
-            width: 100%;
-            height: 600px; /* Let Plotly control the internal height */
-            margin: 0 auto;
-        }
-        
-        /* Ensure SVG within chart10 has proper spacing */
-        #chart10 svg {
-            display: block;
-            margin-left: 0;              /* Align to left edge */
-            overflow: visible;
-        }
-    </style>
+    <link rel="stylesheet" href="css/styles.css" media="all">
 </head>
 
 <body>
 
-    <div></div>
-    <div></div>
+<!-- ══════════════════════════════════════════
+     HEADER
+══════════════════════════════════════════ -->
+<header class="dashboard-header">
+    <span class="site-eyebrow">FIT2179 · Data Visualisation 2 · 2026</span>
+    <h1>Healthcare In Malaysia</h1>
+    <p class="header-sub">
+        Exploring workforce, infrastructure, disease burden,
+        and financing across Malaysia's health system.
+    </p>
+</header>
 
-    <div class="container">
-        <div id="chart01"></div>
-    </div>
-    
-    <div class="container">
-        <div id="chart02"></div>
-    </div>
+<!-- Sticky section nav -->
+<nav class="section-nav">
+    <a href="#s1">Overview</a>
+    <a href="#s2">Infrastructure</a>
+    <a href="#s3">Workforce</a>
+    <a href="#s4">Disease Burden</a>
+    <a href="#s5">Finance</a>
+</nav>
 
-    <div style="margin-bottom: 20px; font-family: Arial, sans-serif;">
-        <label for="yearSelect" style="font-weight: bold; margin-right: 10px;">Select Year:</label>
-        <select id="yearSelect" style="padding: 5px; border-radius: 4px;">
-            <option value="2022" selected>2022</option>
-            <option value="2021">2021</option>
-            <option value="2020">2020</option> <!-- Fixed display text -->
-            <option value="2019">2019</option> <!-- Fixed display text -->
-            <option value="2018">2018</option> <!-- Fixed display text -->
-            <option value="2017">2017</option> <!-- Fixed display text -->
-            <option value="2016">2016</option> <!-- Fixed display text -->
-            <option value="2015">2015</option> <!-- Fixed display text -->
-        </select>
-    </div>
+<div class="page">
 
-    <!-- REMOVE the duplicate chart03 div below this -->
-    <div id="chart03"></div>
+    <!-- ══════════════════════════════════════
+         SECTION 1 · National Overview
+    ══════════════════════════════════════ -->
+    <section class="section" id="s1">
+        <p class="section-label">Section 1</p>
+        <h2 class="section-title">National Healthcare Overview</h2>
+        <p class="section-desc">
+            Malaysia's population has grown substantially since 2000,
+            yet birth rates have fallen steadily while death rates
+            remain low and stable — reflecting an ageing, urbanising society.
+            This section compares two contrasting states to reveal how
+            access to care differs within the country.
+        </p>
 
-    <div id="chart03"></div>
-    <div class="container">
-        <div id="chart03"></div>
-    </div>
-    
+        <div class="grid-2">
 
-    <div class="container">
-        <div id="chart05"></div>
-    </div>
+            <!-- Chart 01 · Health Indicator Trend -->
+            <div class="card">
+                <p class="card-title">Health Indicator Trends (2000–2023)</p>
+                <p class="card-subtitle">
+                    Birth &amp; death rates per 1,000 population — measured annually.
+                </p>
+                <div id="chart01"></div>
+                <div class="insight">
+                    <strong>Key insight</strong>
+                    Birth rates fell from 23 to below 16 per 1,000 —
+                    a 30 % decline in two decades,
+                    signalling demographic transition.
+                    Death rates remain flat near 5,
+                    showing improved survival outcomes.
+                </div>
+            </div>
 
-    <div class="container">
-        <div id="chart06"></div>
-    </div>
+            <!-- Chart 02 · Radar -->
+            <div class="card">
+                <p class="card-title">Healthcare Indicators: Sarawak vs Selangor</p>
+                <p class="card-subtitle">
+                    Normalised scores (0 = lowest, 1 = highest)
+                    across six healthcare dimensions.
+                </p>
+                <div id="chart02"></div>
+                <div class="insight">
+                    <strong>Key insight</strong>
+                    Selangor leads in Doctors and Pharmacists,
+                    reflecting its urban advantage.
+                    Sarawak scores higher on Hospital Beds per capita —
+                    likely driven by rural facility investment
+                    to serve dispersed communities.
+                </div>
+            </div>
 
-    <div class="container">
-        <div id="chart07"></div>
-    </div>
-
-    <div class="container">
-        <div id="chart08"></div>
-    </div>
-
-    <div class="container">
-        <div id="chart09"></div>
-    </div>
-
-    <div class="container" id="chart10-wrapper-container">
-        <div id="chart10-wrapper">
-            <h2>Flow of Health Funds</h2>
-            <p class="subtitle">Total Health Expenditure: RM89,827M</p>
-            <div id="chart10"></div>
         </div>
-    </div>
+    </section>
 
-    <div class="container">
-        <div id="chart11"></div>
-    </div>
+    <!-- ══════════════════════════════════════
+         SECTION 2 · Infrastructure
+    ══════════════════════════════════════ -->
+    <section class="section" id="s2">
+        <p class="section-label">Section 2</p>
+        <h2 class="section-title">Healthcare Infrastructure</h2>
+        <p class="section-desc">
+            Hospital bed distribution reveals stark regional disparities.
+            Urban districts in Selangor and Perak hold the most beds,
+            while many rural districts in Sabah and Sarawak
+            remain significantly under-resourced.
+        </p>
 
-    <script src="js/chart01.js"></script>
-    <script src="js/chart02.js"></script>
-    <script src="js/chart03.js"></script>
-    <script src="js/chart05.js"></script>
-    <script src="js/chart06.js"></script>
-    <script src="js/chart07.js"></script>
-    <script src="js/chart08.js"></script>
-    <script src="js/chart09.js"></script>
-    <script src="js/chart10.js"></script>
-    <script src="js/chart11.js"></script>
+        <div class="grid-1">
+            <div class="card">
+                <div class="year-control">
+                    <label for="yearSelect">Filter by year:</label>
+                    <select id="yearSelect">
+                        <option value="2022" selected>2022</option>
+                        <option value="2021">2021</option>
+                        <option value="2020">2020</option>
+                        <option value="2019">2019</option>
+                        <option value="2018">2018</option>
+                        <option value="2017">2017</option>
+                        <option value="2016">2016</option>
+                        <option value="2015">2015</option>
+                    </select>
+                </div>
+                <div id="chart03"></div>
+                <div class="insight" style="margin-top:1rem;">
+                    <strong>Key insight</strong>
+                    Kinta (Ipoh) and Johor Bahru districts
+                    account for the largest single-district bed counts.
+                    Comparing years shows bed capacity grew faster
+                    in Selangor than in East Malaysia states.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ══════════════════════════════════════
+         SECTION 3 · Workforce
+    ══════════════════════════════════════ -->
+    <section class="section" id="s3">
+        <p class="section-label">Section 3</p>
+        <h2 class="section-title">Healthcare Workforce</h2>
+        <p class="section-desc">
+            Malaysia has significantly expanded its healthcare workforce
+            over the past three decades, though distribution
+            between states and professions remains uneven.
+        </p>
+
+        <!-- Row 1: Stacked bar + Line chart -->
+        <div class="grid-2" style="margin-bottom:1.5rem;">
+
+            <!-- Chart 05 · Stacked Bar -->
+            <div class="card">
+                <p class="card-title">Staff Count by Type (2014–2022)</p>
+                <p class="card-subtitle">
+                    Absolute staff numbers across four healthcare professions.
+                    Nurses form the largest share throughout.
+                </p>
+                <div id="chart05"></div>
+                <div class="insight">
+                    <strong>Key insight</strong>
+                    Total healthcare staff grew by ~50%
+                    between 2014 and 2022.
+                    Pharmacist numbers grew fastest,
+                    nearly doubling over the period.
+                </div>
+            </div>
+
+            <!-- Chart 06 · Line -->
+            <div class="card">
+                <p class="card-title">Professionals per 10,000 Population (1990–2023)</p>
+                <p class="card-subtitle">
+                    Rate-adjusted view removes population growth bias
+                    and shows true service availability trends.
+                </p>
+                <div id="chart06"></div>
+                <div class="insight">
+                    <strong>Key insight</strong>
+                    Despite a larger workforce,
+                    nurses per 10,000 showed high variation —
+                    likely due to reporting methodology changes.
+                    Doctor rates have grown steadily,
+                    from ~4 to ~18 per 10,000.
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Row 2: Choropleth map full width -->
+        <div class="grid-1">
+            <div class="card">
+                <p class="card-title">Doctors per 10,000 Population by State</p>
+                <p class="card-subtitle">
+                    Geographic distribution of registered doctors
+                    in the most recent year available.
+                    Darker shade = higher doctor density.
+                </p>
+                <div id="chart07"></div>
+                <p class="map-note">
+                    ▲ W.P. Kuala Lumpur and W.P. Putrajaya are the
+                    small territories on the west coast of Peninsular Malaysia —
+                    labelled directly on the map.
+                    Hover over a state for exact values.
+                </p>
+                <div class="insight">
+                    <strong>Key insight</strong>
+                    W.P. Kuala Lumpur has more than 60 doctors
+                    per 10,000 population — four times
+                    the national average.
+                    Sabah and Kelantan remain the most
+                    under-served states.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ══════════════════════════════════════
+         SECTION 4 · Disease Burden
+    ══════════════════════════════════════ -->
+    <section class="section" id="s4">
+        <p class="section-label">Section 4</p>
+        <h2 class="section-title">Disease Burden</h2>
+        <p class="section-desc">
+            Understanding which conditions drive the most hospital admissions
+            — and how public versus private sectors absorb patient volume —
+            is essential for resource planning.
+        </p>
+
+        <div class="grid-2">
+
+            <!-- Chart 08 · Bump chart -->
+            <div class="card">
+                <p class="card-title">Top 10 Hospitalisation Causes (2022–2024)</p>
+                <p class="card-subtitle">
+                    Rank-over-time bump chart. Each line traces
+                    one disease category. Rank 1 = most admissions.
+                </p>
+                <div id="chart08"></div>
+                <div class="insight">
+                    <strong>Key insight</strong>
+                    Respiratory conditions rose from Rank 2 in 2022
+                    to Rank 1 by 2024 — overtaking Pregnancy &amp; Childbirth.
+                    Infectious &amp; parasitic diseases climbed three places,
+                    possibly reflecting post-pandemic surveillance.
+                </div>
+            </div>
+
+            <!-- Chart 09 · Inpatient / Outpatient -->
+            <div class="card">
+                <p class="card-title">Inpatient &amp; Outpatient Visits by Sector (2024)</p>
+                <p class="card-subtitle">
+                    MOH Public facilities dominate both inpatient
+                    and outpatient volumes.
+                </p>
+                <div id="chart09"></div>
+                <div class="insight">
+                    <strong>Key insight</strong>
+                    MOH Public handles over 65 M outpatient visits —
+                    nearly 10× the private sector volume.
+                    Private facilities handle
+                    a disproportionately higher share
+                    of inpatient stays relative to outpatient.
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ══════════════════════════════════════
+         SECTION 5 · Finance
+    ══════════════════════════════════════ -->
+    <section class="section" id="s5">
+        <p class="section-label">Section 5</p>
+        <h2 class="section-title">Healthcare Finance</h2>
+        <p class="section-desc">
+            Malaysia spent RM 89.8 billion on healthcare in the latest
+            National Health Accounts period. The Sankey diagram below
+            traces how funds flow from financing sources through
+            intermediaries to providers and final functions.
+        </p>
+
+        <!-- Sankey full width -->
+        <div class="grid-1" style="margin-bottom:1.5rem;">
+            <div class="card">
+                <p class="card-title">Flow of Health Funds</p>
+                <p class="card-subtitle">
+                    Total Health Expenditure: RM 89,827 M ·
+                    Hover over a flow to see source and destination values.
+                </p>
+                <div id="chart10"></div>
+                <div class="insight">
+                    <strong>Key insight</strong>
+                    Despite public financing (RM 45.6 B)
+                    slightly exceeding private (RM 44.2 B),
+                    out-of-pocket payments (RM 34.8 B)
+                    form the single largest private source —
+                    a significant financial burden on households.
+                </div>
+            </div>
+        </div>
+
+        <!-- Budget allocation: chart + text explanation -->
+        <div class="grid-2-text">
+            <div class="card">
+                <p class="card-title">Budget vs Actual Spending by Programme (2024)</p>
+                <p class="card-subtitle">
+                    Grouped bar chart comparing approved budgets
+                    against actual disbursements by programme category.
+                </p>
+                <div id="chart11"></div>
+            </div>
+
+            <div class="text-panel">
+                <div class="stat-block">
+                    <div class="stat-number">RM 14.1B</div>
+                    <div class="stat-label">Medical Programme Budget</div>
+                    <div class="stat-note">
+                        The largest single programme.
+                        Actual spending closely matched budget —
+                        indicating strong absorption capacity
+                        in clinical services.
+                    </div>
+                </div>
+                <div class="stat-block">
+                    <div class="stat-number">~97%</div>
+                    <div class="stat-label">Average Budget Utilisation</div>
+                    <div class="stat-note">
+                        Most programmes spent
+                        close to their full allocation.
+                        Pharmaceutical Services and Research
+                        showed the largest underspend,
+                        pointing to procurement delays.
+                    </div>
+                </div>
+                <div class="stat-block">
+                    <div class="stat-number">RM 8.0B</div>
+                    <div class="stat-label">Special Programmes Budget</div>
+                    <div class="stat-note">
+                        Second-largest allocation.
+                        This covers disease-specific programmes
+                        such as dialysis subsidies and
+                        HIV/TB control.
+                    </div>
+                </div>
+                <div class="insight" style="margin-top:0;">
+                    <strong>Key insight</strong>
+                    Budget underspend is concentrated
+                    in smaller administrative programmes —
+                    not in frontline care delivery.
+                    This suggests planning accuracy
+                    improves with programme size.
+                </div>
+            </div>
+        </div>
+    </section>
+
+</div><!-- /page -->
+
+<!-- ══════════════════════════════════════
+     FOOTER
+══════════════════════════════════════ -->
+<footer class="dashboard-footer">
+    <p>
+        <strong>Healthcare In Malaysia</strong> · FIT2179 Data Visualisation 2, Monash University Malaysia · Semester 1, 2026<br>
+        Data sources: Ministry of Health Malaysia (MOHStat), Department of Statistics Malaysia (DOSM),
+        World Health Organisation Global Health Observatory.<br>
+        Visualisations created with Vega-Lite, Plotly, and Highcharts.
+        AI tools used for grammar checking and code assistance.
+    </p>
+</footer>
+
+<!-- ══════════════════════════════════════
+     SCRIPTS
+══════════════════════════════════════ -->
+<script src="js/chart01.js"></script>
+<script src="js/chart02.js"></script>
+<script src="js/chart03.js"></script>
+<script src="js/chart05.js"></script>
+<script src="js/chart06.js"></script>
+<script src="js/chart07.js"></script>
+<script src="js/chart08.js"></script>
+<script src="js/chart09.js"></script>
+<script src="js/chart10.js"></script>
+<script src="js/chart11.js"></script>
 
 </body>
-
 </html>

@@ -1,45 +1,33 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "description": "Bump chart of hospitalisation cause ranks in Malaysia, 2022-2024",
-  "width": 880,
-  "height": 520,
-  "data": {
-    "url": "data/malaysia_hospitalisation_causes.csv"
-  },
-
-  "title": {
-    "text": "Top 10 Leading Hospitalisation Causes (2022 to 2024)",
-    "fontSize": 16,
-    "anchor": "start",
-    "offset": 12
-    },
+  "description": "Bump chart of top 10 hospitalisation cause ranks in Malaysia, 2022–2024",
+  "width": "container",
+  "height": 480,
+  "data": { "url": "data/malaysia_hospitalisation_causes.csv" },
 
   "layer": [
     {
-      "mark": {
-        "type": "line",
-        "strokeWidth": 3,
-        "strokeCap": "round"
-      },
-
+      "mark": { "type": "line", "strokeWidth": 3, "strokeCap": "round" },
       "encoding": {
         "x": {
           "field": "year",
-          "title": "Year",
           "type": "ordinal",
+          "title": "Year",
           "axis": {
             "labelAngle": 0,
-            "labelFontSize": 12,
+            "labelFontSize": 13,
             "titleFontSize": 13,
             "titleFontWeight": "normal",
-            "titlePadding": 10
+            "titlePadding": 12,
+            "labelFont": "Source Sans 3, sans-serif",
+            "titleFont": "Source Sans 3, sans-serif",
+            "grid": false
           }
         },
-
         "y": {
           "field": "rank",
-          "title": "Rank",
           "type": "quantitative",
+          "title": "Rank (1 = most admissions)",
           "scale": { "reverse": true, "domain": [1, 10] },
           "axis": {
             "tickMinStep": 1,
@@ -47,80 +35,108 @@
             "titleFontSize": 13,
             "titleFontWeight": "normal",
             "titlePadding": 10,
-            "grid": false
+            "grid": true,
+            "gridColor": "#eef0f3",
+            "gridOpacity": 1,
+            "labelFont": "Source Sans 3, sans-serif",
+            "titleFont": "Source Sans 3, sans-serif"
           }
         },
-
         "color": {
           "field": "cause_short",
           "type": "nominal",
           "scale": {
             "range": [
-              "#e41a1c", "#377eb8", "#4daf4a", "#984ea3",
-              "#ff7f00", "#ffff33", "#a65628", "#f781bf",
-              "#00a6ca", "#00cc99", "#d95f02", "#7570b3",
-              "#8dd3c7", "#fb8072", "#80b1d3", "#b3de69"
+              "#1a3a5c", "#1a6b9a", "#5b8fa8", "#c8972a", "#7a6db0",
+              "#b05a2e", "#3d8c6f", "#9b3d6e", "#4a7c59", "#8c7a3d",
+              "#5a6eb0", "#b07a3d", "#6e4a8c", "#3d6ea8", "#8c3d4a"
             ]
           },
           "legend": null
         },
-
-        "detail": {
-          "field": "cause_short"
-        }
+        "detail": { "field": "cause_short" }
       }
     },
 
     {
-      "mark": {
-        "type": "circle",
-        "size": 80,
-        "stroke": "white",
-        "strokeWidth": 1.5
-      },
-
+      "mark": { "type": "circle", "size": 90, "stroke": "white", "strokeWidth": 2 },
       "encoding": {
         "x": { "field": "year", "type": "ordinal" },
         "y": { "field": "rank", "type": "quantitative" },
-
         "color": {
           "field": "cause_short",
           "type": "nominal",
           "scale": {
             "range": [
-              "#e41a1c", "#377eb8", "#4daf4a", "#984ea3",
-              "#ff7f00", "#ffff33", "#a65628", "#f781bf",
-              "#00a6ca", "#00cc99", "#d95f02", "#7570b3",
-              "#8dd3c7", "#fb8072", "#80b1d3", "#b3de69"
+              "#1a3a5c", "#1a6b9a", "#5b8fa8", "#c8972a", "#7a6db0",
+              "#b05a2e", "#3d8c6f", "#9b3d6e", "#4a7c59", "#8c7a3d",
+              "#5a6eb0", "#b07a3d", "#6e4a8c", "#3d6ea8", "#8c3d4a"
             ]
           },
           "legend": null
         },
-
         "tooltip": [
           { "field": "cause_short", "title": "Disease" },
           { "field": "year", "title": "Year" },
           { "field": "rank", "title": "Rank" },
-          { "field": "percentage", "title": "Percentage", "format": ".2f" }
+          { "field": "percentage", "title": "% of Admissions", "format": ".2f" }
         ]
       }
     },
 
     {
+      "transform": [{ "filter": "datum.year == 2022" }],
       "mark": {
         "type": "text",
-        "fontSize": 9,
-        "fontWeight": 500,
-        "dy": -10,
-        "align": "center",
-        "baseline": "bottom",
-        "fill": "#000000"
+        "fontSize": 9.5,
+        "fontWeight": 600,
+        "align": "right",
+        "dx": -10,
+        "font": "Source Sans 3, sans-serif"
       },
-
       "encoding": {
         "x": { "field": "year", "type": "ordinal" },
         "y": { "field": "rank", "type": "quantitative" },
-        "text": { "field": "cause_short", "type": "nominal" }
+        "text": { "field": "cause_short", "type": "nominal" },
+        "color": {
+          "field": "cause_short",
+          "type": "nominal",
+          "scale": {
+            "range": [
+              "#1a3a5c", "#1a6b9a", "#5b8fa8", "#c8972a", "#7a6db0",
+              "#b05a2e", "#3d8c6f", "#9b3d6e", "#4a7c59", "#8c7a3d",
+              "#5a6eb0", "#b07a3d", "#6e4a8c", "#3d6ea8", "#8c3d4a"
+            ]
+          }
+        }
+      }
+    },
+
+    {
+      "transform": [{ "filter": "datum.year == 2024" }],
+      "mark": {
+        "type": "text",
+        "fontSize": 9.5,
+        "fontWeight": 600,
+        "align": "left",
+        "dx": 10,
+        "font": "Source Sans 3, sans-serif"
+      },
+      "encoding": {
+        "x": { "field": "year", "type": "ordinal" },
+        "y": { "field": "rank", "type": "quantitative" },
+        "text": { "field": "cause_short", "type": "nominal" },
+        "color": {
+          "field": "cause_short",
+          "type": "nominal",
+          "scale": {
+            "range": [
+              "#1a3a5c", "#1a6b9a", "#5b8fa8", "#c8972a", "#7a6db0",
+              "#b05a2e", "#3d8c6f", "#9b3d6e", "#4a7c59", "#8c7a3d",
+              "#5a6eb0", "#b07a3d", "#6e4a8c", "#3d6ea8", "#8c3d4a"
+            ]
+          }
+        }
       }
     }
   ],
@@ -128,12 +144,7 @@
   "config": {
     "background": "transparent",
     "view": { "stroke": "transparent" },
-
-    "axis": {
-      "domainColor": "#ccc",
-      "tickColor": "#ccc"
-    },
-
-    "font": "system-ui, -apple-system, sans-serif"
+    "axis": { "domainColor": "#ccc", "tickColor": "#ccc" },
+    "font": "Source Sans 3, sans-serif"
   }
 }

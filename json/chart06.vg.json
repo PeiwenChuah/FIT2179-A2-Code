@@ -1,35 +1,17 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "title": {
-    "text": "Healthcare Professionals per 10,000 Population in Malaysia (1990–2023)",
-    "fontSize": 16,
-    "anchor": "start",
-    "offset": 12
-  },
   "width": "container",
-  "height": 420,
-  "data": {
-    "url": "data/staff_across_years.csv"
-  },
+  "height": 380,
+  "data": { "url": "data/staff_across_years.csv" },
   "transform": [
-    {
-      "calculate": "toNumber(datum.DIM_TIME)",
-      "as": "year"
-    },
-    {
-      "calculate": "toNumber(datum.RATE_PER_10000_N)",
-      "as": "rate"
-    },
+    { "calculate": "toNumber(datum.DIM_TIME)", "as": "year" },
+    { "calculate": "toNumber(datum.RATE_PER_10000_N)", "as": "rate" },
     {
       "calculate": "datum.IND_NAME === 'Nurse (per 10,000 population)' ? 'Nurse' : datum.IND_NAME === 'Doctor (per 10,000 population)' ? 'Doctor' : 'Pharmacist'",
       "as": "type_label"
     }
   ],
-  "mark": {
-    "type": "line",
-    "point": true,
-    "tooltip": true
-  },
+  "mark": { "type": "line", "point": true, "tooltip": true },
   "encoding": {
     "x": {
       "field": "year",
@@ -41,30 +23,35 @@
         "titleFontSize": 13,
         "titleFontWeight": "normal",
         "titlePadding": 10,
-        "grid": false
+        "grid": false,
+        "format": "d",
+        "labelFont": "Source Sans 3, sans-serif",
+        "titleFont": "Source Sans 3, sans-serif"
       }
     },
     "y": {
       "field": "rate",
       "type": "quantitative",
-      "title": "Healthcare Professionals Per 10,000 population",
+      "title": "Professionals per 10,000 population",
       "axis": {
         "labelFontSize": 12,
         "titleFontSize": 13,
         "titleFontWeight": "normal",
         "titlePadding": 10,
-        "gridColor": "#e8e8e8",
-        "gridOpacity": 0.8,
-        "format": ".2f"
+        "gridColor": "#eef0f3",
+        "gridOpacity": 1,
+        "format": ".1f",
+        "labelFont": "Source Sans 3, sans-serif",
+        "titleFont": "Source Sans 3, sans-serif"
       }
     },
     "color": {
       "field": "type_label",
       "type": "nominal",
-      "title": "Healthcare profession",
+      "title": "Profession",
       "scale": {
         "domain": ["Doctor", "Nurse", "Pharmacist"],
-        "range": ["#1D9E75", "#185FA5", "#E41A1C"]
+        "range": ["#1a6b9a", "#5b8fa8", "#c8972a"]
       },
       "legend": {
         "orient": "top-left",
@@ -72,11 +59,12 @@
         "labelFontSize": 12,
         "symbolSize": 120,
         "offset": 10,
-        "title": "Healthcare Profession"
+        "labelFont": "Source Sans 3, sans-serif",
+        "titleFont": "Source Sans 3, sans-serif"
       }
     },
     "tooltip": [
-      { "field": "year", "type": "quantitative", "title": "Year" },
+      { "field": "year", "type": "quantitative", "title": "Year", "format": "d" },
       { "field": "type_label", "type": "nominal", "title": "Profession" },
       { "field": "rate", "type": "quantitative", "title": "Rate per 10,000", "format": ".2f" }
     ]
@@ -84,17 +72,9 @@
   "config": {
     "background": "transparent",
     "view": { "stroke": "transparent" },
-    "axis": {
-      "domainColor": "#ccc",
-      "tickColor": "#ccc"
-    },
-    "line": {
-      "strokeWidth": 2
-    },
-    "point": {
-      "filled": true,
-      "size": 60
-    },
-    "font": "system-ui, -apple-system, sans-serif"
+    "axis": { "domainColor": "#ccc", "tickColor": "#ccc" },
+    "line": { "strokeWidth": 2.5 },
+    "point": { "filled": true, "size": 55 },
+    "font": "Source Sans 3, sans-serif"
   }
 }

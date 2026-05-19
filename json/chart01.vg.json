@@ -1,85 +1,71 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "title": {
-    "text": "Health Indicators Trend per 1000 population (2000–2023)",
-    "fontSize": 16,
-    "anchor": "start",
-    "offset": 12
-  },
   "width": "container",
-  "height": 420,
-  "data": {
-    "url": "data/birth_death.csv"
-  },
-  "mark": {
-    "type": "line",
-    "point": true,
-    "tooltip": true
-  },
+  "height": 380,
+  "data": { "url": "data/birth_death.csv" },
+  "mark": { "type": "line", "point": true, "tooltip": true },
   "encoding": {
     "x": {
-        "field": "Date",
-        "type": "temporal",
-        "title": "Year",
-        "axis": {
-            "labelAngle": 0,
-            "labelFontSize": 12,
-            "titleFontSize": 13,
-            "titleFontWeight": "normal",
-            "titlePadding": 10,
-            "grid": false
-        }
+      "field": "Date",
+      "type": "temporal",
+      "title": "Year",
+      "axis": {
+        "labelAngle": 0,
+        "labelFontSize": 12,
+        "titleFontSize": 13,
+        "titleFontWeight": "normal",
+        "titlePadding": 10,
+        "grid": false,
+        "labelFont": "Source Sans 3, sans-serif",
+        "titleFont": "Source Sans 3, sans-serif"
+      }
     },
     "y": {
       "field": "Rate",
       "type": "quantitative",
-      "title": "Cases per 1000 population",
+      "title": "Cases per 1,000 population",
       "axis": {
         "labelFontSize": 12,
         "titleFontSize": 13,
         "titleFontWeight": "normal",
         "titlePadding": 10,
-        "gridColor": "#e8e8e8",
-        "gridOpacity": 0.8,
-        "format": ".1f"
+        "gridColor": "#eef0f3",
+        "gridOpacity": 1,
+        "format": ".1f",
+        "labelFont": "Source Sans 3, sans-serif",
+        "titleFont": "Source Sans 3, sans-serif"
       }
     },
     "color": {
       "field": "Type",
       "type": "nominal",
-      "title": "Health Indicator",
+      "title": "Indicator",
       "scale": {
         "domain": ["Birth", "Death"],
-        "range": ["#1D9E75", "#E41A1C"]
+        "range": ["#1a6b9a", "#b05a2e"]
       },
       "legend": {
         "orient": "top-right",
         "titleFontSize": 12,
         "labelFontSize": 12,
         "symbolSize": 120,
-        "offset": 10
+        "offset": 10,
+        "labelFont": "Source Sans 3, sans-serif",
+        "titleFont": "Source Sans 3, sans-serif"
       }
     },
     "tooltip": [
-      { "field": "Date", "type": "temporal", "title": "Date" },
-      { "field": "Type", "type": "nominal", "title": "Type" },
+      { "field": "Date", "type": "temporal", "title": "Year" },
+      { "field": "Type", "type": "nominal", "title": "Indicator" },
       { "field": "Rate", "type": "quantitative", "title": "Rate", "format": ".1f" }
     ]
   },
   "config": {
     "background": "transparent",
     "view": { "stroke": "transparent" },
-    "axis": {
-      "domainColor": "#ccc",
-      "tickColor": "#ccc"
-    },
-    "line": {
-      "strokeWidth": 2
-    },
-    "point": {
-      "filled": true,
-      "size": 60
-    },
-    "font": "system-ui, -apple-system, sans-serif"
+    "axis": { "domainColor": "#ccc", "tickColor": "#ccc" },
+    "line": { "strokeWidth": 2.5 },
+    "point": { "filled": true, "size": 55 },
+    "font": "Source Sans 3, sans-serif"
   }
 }

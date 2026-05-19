@@ -1,29 +1,370 @@
-/* ── Reset ─────────────────────────────────────────────────── */
+/* ── Reset ─────────────────────────────────────────────── */
 *, *::before, *::after {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
 
-/* ── Base ──────────────────────────────────────────────────── */
+/* ── Google Fonts ──────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Source+Sans+3:wght@300;400;600;700&display=swap');
+
+/* ── CSS Variables ─────────────────────────────────────── */
+:root {
+    --bg:          #ffffff;
+    --bg-section:  #f8f9fb;
+    --bg-card:     #ffffff;
+    --border:      #e2e6ea;
+    --text-dark:   #1a1f2e;
+    --text-mid:    #3d4a5c;
+    --text-muted:  #6b7a90;
+    --text-label:  #9aa5b4;
+
+    /* Brand accent – deep navy + warm gold */
+    --accent-navy: #1a3a5c;
+    --accent-gold: #c8972a;
+
+    /* Shared chart palette — no red+green conflict */
+    --c-doctor:      #1a6b9a;   /* steel blue  – Doctor */
+    --c-nurse:       #5b8fa8;   /* muted teal  – Nurse  */
+    --c-pharmacist:  #c8972a;   /* gold        – Pharmacist */
+    --c-dentist:     #7a6db0;   /* violet      – Dentist */
+    --c-birth:       #1a6b9a;   /* steel blue  – Birth Rate */
+    --c-death:       #b05a2e;   /* burnt sienna– Death Rate */
+    --c-public:      #1a6b9a;   /* steel blue  – MOH/Public */
+    --c-private:     #c8972a;   /* gold        – Private */
+    --c-nonmoh:      #5b8fa8;   /* muted teal  – Non-MOH Public */
+
+    --radius:      10px;
+    --shadow:      0 2px 12px rgba(26,31,46,.07);
+    --shadow-lg:   0 6px 28px rgba(26,31,46,.11);
+}
+
+/* ── Base ──────────────────────────────────────────────── */
+html { scroll-behavior: smooth; }
+
 body {
-    font-family: system-ui, -apple-system, sans-serif;
-    background-color: #f5f5f3;
+    font-family: 'Source Sans 3', system-ui, sans-serif;
+    font-size: 16px;
+    line-height: 1.65;
+    background: var(--bg);
+    color: var(--text-mid);
+    -webkit-font-smoothing: antialiased;
 }
 
-/* ── Layout ────────────────────────────────────────────────── */
-.container {
-    max-width: 2000px; /* Increased from 1100px */
-    width: 95%;        /* Allow it to be fluid on smaller screens */
-    margin: 2rem auto;
-    padding: 0 1.5rem;
+/* ── Dashboard Header ──────────────────────────────────── */
+.dashboard-header {
+    background: var(--accent-navy);
+    color: #fff;
+    padding: 3.5rem 2rem 2.8rem;
+    text-align: center;
+    border-bottom: 4px solid var(--accent-gold);
 }
 
-/* ── Vega-embed ────────────────────────────────────────────── */
-.vega-embed {
+.dashboard-header .site-eyebrow {
+    display: inline-block;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent-gold);
+    margin-bottom: 0.75rem;
+}
+
+.dashboard-header h1 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: clamp(2rem, 4vw, 3.1rem);
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    color: #fff;
+    line-height: 1.18;
+    margin-bottom: 0.85rem;
+}
+
+.dashboard-header .header-sub {
+    font-size: 1rem;
+    font-weight: 300;
+    color: rgba(255,255,255,0.72);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* ── Section Nav Pills ─────────────────────────────────── */
+.section-nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+    padding: 0.6rem 1.5rem;
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.section-nav a {
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--text-muted);
+    padding: 0.35rem 0.85rem;
+    border-radius: 100px;
+    transition: background .18s, color .18s;
+}
+
+.section-nav a:hover {
+    background: var(--accent-navy);
+    color: #fff;
+}
+
+/* ── Page layout ───────────────────────────────────────── */
+.page {
+    max-width: 1280px;
+    width: 95%;
+    margin: 0 auto;
+    padding: 0 1rem 4rem;
+}
+
+/* ── Section wrapper ───────────────────────────────────── */
+.section {
+    margin-top: 3.5rem;
+    padding-top: 0.5rem;
+    border-top: 3px solid var(--accent-gold);
+}
+
+.section-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent-gold);
+    margin-bottom: 0.35rem;
+}
+
+.section-title {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: clamp(1.4rem, 2.6vw, 2rem);
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 0.5rem;
+    line-height: 1.2;
+}
+
+.section-desc {
+    font-size: 0.92rem;
+    color: var(--text-muted);
+    max-width: 720px;
+    margin-bottom: 1.8rem;
+    line-height: 1.6;
+}
+
+/* ── Grid helpers ──────────────────────────────────────── */
+.grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+}
+
+.grid-2-wide {
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 1.5rem;
+}
+
+.grid-1 {
+    display: grid;
+    grid-template-columns: 1fr;
+}
+
+.grid-2-text {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 1.5rem;
+    align-items: start;
+}
+
+@media (max-width: 900px) {
+    .grid-2, .grid-2-wide, .grid-2-text { grid-template-columns: 1fr; }
+}
+
+/* ── Card ──────────────────────────────────────────────── */
+.card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.6rem 1.8rem 1.4rem;
+    box-shadow: var(--shadow);
+}
+
+/* ── Chart header within a card ────────────────────────── */
+.card-title {
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.98rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    color: var(--text-dark);
+    margin-bottom: 0.2rem;
+}
+
+.card-subtitle {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+    line-height: 1.45;
+}
+
+/* ── Insight box (callout) ─────────────────────────────── */
+.insight {
+    background: #f0f5fb;
+    border-left: 3px solid var(--accent-navy);
+    border-radius: 0 6px 6px 0;
+    padding: 0.75rem 1rem;
+    margin-top: 1rem;
+    font-size: 0.84rem;
+    color: var(--text-mid);
+    line-height: 1.5;
+}
+
+.insight strong {
+    color: var(--text-dark);
+    display: block;
+    margin-bottom: 0.15rem;
+    font-size: 0.86rem;
+}
+
+/* ── Sidebar text panel ────────────────────────────────── */
+.text-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    justify-content: center;
+}
+
+.text-panel .stat-block {
+    background: var(--bg-section);
+    border-radius: var(--radius);
+    padding: 1.1rem 1.2rem;
+    border: 1px solid var(--border);
+}
+
+.stat-block .stat-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--accent-navy);
+    line-height: 1;
+    margin-bottom: 0.25rem;
+}
+
+.stat-block .stat-label {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+.stat-block .stat-note {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-top: 0.35rem;
+    line-height: 1.45;
+}
+
+/* ── Year selector ─────────────────────────────────────── */
+.year-control {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1.2rem;
+}
+
+.year-control label {
+    font-size: 0.84rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+.year-control select {
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    background: var(--bg);
+    border: 1.5px solid var(--border);
+    border-radius: 6px;
+    padding: 0.3rem 0.75rem;
+    cursor: pointer;
+    outline: none;
+    transition: border-color .18s;
+}
+
+.year-control select:focus {
+    border-color: var(--accent-navy);
+}
+
+/* ── Vega embed cleanup ─────────────────────────────────── */
+.vega-embed { width: 100%; }
+.vega-embed summary { display: none; }
+
+/* ── Chart10 (Sankey) wrapper ──────────────────────────── */
+#chart10 {
     width: 100%;
+    height: 600px;
 }
 
-.vega-embed summary {
-    display: none;
+#chart10 svg {
+    display: block;
+    overflow: visible;
+}
+
+/* ── Footer ────────────────────────────────────────────── */
+.dashboard-footer {
+    background: var(--bg-section);
+    border-top: 1px solid var(--border);
+    padding: 2rem 2rem;
+    margin-top: 4rem;
+    text-align: center;
+}
+
+.dashboard-footer p {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    line-height: 1.8;
+}
+
+.dashboard-footer a {
+    color: var(--accent-navy);
+    text-decoration: none;
+}
+
+/* ── Annotation badge ──────────────────────────────────── */
+.anno-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    background: var(--accent-gold);
+    color: #fff;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    padding: 0.15rem 0.55rem;
+    border-radius: 100px;
+    text-transform: uppercase;
+    vertical-align: middle;
+    margin-bottom: 0.5rem;
+}
+
+/* ── Map label note ─────────────────────────────────────── */
+.map-note {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-top: 0.5rem;
+    font-style: italic;
 }

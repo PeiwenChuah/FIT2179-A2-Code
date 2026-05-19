@@ -1,14 +1,14 @@
 {
   "$schema": "https://vega.github.io/schema/vega/v5.json",
-  "width": 500,
-  "height": 500,
+  "width": 460,
+  "height": 430,
   "padding": {"top": 20, "left": 20, "right": 80, "bottom": 20},
   "autosize": {"type": "none", "contains": "padding"},
 
   "signals": [
-    {"name": "radius", "update": "160"},
-    {"name": "cx", "update": "250"},
-    {"name": "cy", "update": "240"}
+    {"name": "radius", "update": "150"},
+    {"name": "cx",     "update": "230"},
+    {"name": "cy",     "update": "215"}
   ],
 
   "data": [
@@ -57,33 +57,15 @@
       "name": "color",
       "type": "ordinal",
       "domain": [0, 1],
-      "range": ["#1D9E75", "#378ADD"]
+      "range": ["#c8972a", "#1a3a5c"]
     }
   ],
 
   "encode": {
-    "enter": {
-      "x": {"value": 0},
-      "y": {"value": 0}
-    }
+    "enter": { "x": {"value": 0}, "y": {"value": 0} }
   },
 
   "marks": [
-    {
-      "type": "text",
-      "encode": {
-        "enter": {
-          "x": {"value": 10},
-          "y": {"value": 14},
-          "text": {"value": "Healthcare Indicators: Sarawak vs Selangor"},
-          "align": {"value": "left"},
-          "baseline": {"value": "top"},
-          "fill": {"value": "#333333"},
-          "fontSize": {"value": 15},
-          "fontWeight": {"value": "bold"}
-        }
-      }
-    },
     {
       "type": "group",
       "name": "categories",
@@ -108,9 +90,9 @@
               "x": {"signal": "scale('radial', datum.value) * cos(scale('angular', datum.key))"},
               "y": {"signal": "scale('radial', datum.value) * sin(scale('angular', datum.key))"},
               "stroke": {"scale": "color", "field": "category"},
-              "strokeWidth": {"value": 2},
+              "strokeWidth": {"value": 2.5},
               "fill": {"scale": "color", "field": "category"},
-              "fillOpacity": {"value": 0.15}
+              "fillOpacity": {"value": 0.18}
             }
           }
         }
@@ -127,7 +109,7 @@
           "y": {"signal": "cy"},
           "x2": {"signal": "cx + radius * cos(scale('angular', datum.key))"},
           "y2": {"signal": "cy + radius * sin(scale('angular', datum.key))"},
-          "stroke": {"value": "lightgray"},
+          "stroke": {"value": "#dde2ea"},
           "strokeWidth": {"value": 1}
         }
       }
@@ -140,9 +122,9 @@
       "encode": {
         "enter": {
           "x": {
-            "signal": "datum.key === 'Dentists' ? cx + (radius + 18) * cos(scale('angular', datum.key)) - 20 : cx + (radius + 18) * cos(scale('angular', datum.key))"
+            "signal": "datum.key === 'Dentists' ? cx + (radius + 20) * cos(scale('angular', datum.key)) - 20 : cx + (radius + 20) * cos(scale('angular', datum.key))"
           },
-          "y": {"signal": "cy + (radius + 18) * sin(scale('angular', datum.key))"},
+          "y": {"signal": "cy + (radius + 20) * sin(scale('angular', datum.key))"},
           "text": {"field": "key"},
           "align": [
             {"test": "abs(scale('angular', datum.key)) > PI / 2", "value": "right"},
@@ -153,9 +135,10 @@
             {"test": "scale('angular', datum.key) == 0", "value": "middle"},
             {"value": "bottom"}
           ],
-          "fill": {"value": "#444444"},
+          "fill": {"value": "#3d4a5c"},
           "fontSize": {"value": 12},
-          "fontWeight": {"value": "bold"}
+          "fontWeight": {"value": "600"},
+          "font": {"value": "Source Sans 3, sans-serif"}
         }
       }
     },
@@ -168,7 +151,7 @@
           "interpolate": {"value": "linear-closed"},
           "x": {"field": "x2"},
           "y": {"field": "y2"},
-          "stroke": {"value": "lightgray"},
+          "stroke": {"value": "#dde2ea"},
           "strokeWidth": {"value": 1}
         }
       }
@@ -178,11 +161,12 @@
       "encode": {
         "enter": {
           "x": {"value": 10},
-          "y": {"signal": "cy + radius + 44"},
+          "y": {"signal": "cy + radius + 40"},
           "text": {"value": "State:"},
-          "fill": {"value": "#444444"},
-          "fontSize": {"value": 13},
+          "fill": {"value": "#3d4a5c"},
+          "fontSize": {"value": 12},
           "fontWeight": {"value": "bold"},
+          "font": {"value": "Source Sans 3, sans-serif"},
           "align": {"value": "left"},
           "baseline": {"value": "top"}
         }
@@ -192,12 +176,13 @@
       "type": "text",
       "encode": {
         "enter": {
-          "x": {"value": 58},
-          "y": {"signal": "cy + radius + 44"},
+          "x": {"value": 55},
+          "y": {"signal": "cy + radius + 40"},
           "text": {"value": "● Sarawak"},
-          "fill": {"value": "#1D9E75"},
-          "fontSize": {"value": 13},
+          "fill": {"value": "#c8972a"},
+          "fontSize": {"value": 12},
           "fontWeight": {"value": "bold"},
+          "font": {"value": "Source Sans 3, sans-serif"},
           "align": {"value": "left"},
           "baseline": {"value": "top"}
         }
@@ -207,12 +192,13 @@
       "type": "text",
       "encode": {
         "enter": {
-          "x": {"value": 152},
-          "y": {"signal": "cy + radius + 44"},
+          "x": {"value": 145},
+          "y": {"signal": "cy + radius + 40"},
           "text": {"value": "● Selangor"},
-          "fill": {"value": "#378ADD"},
-          "fontSize": {"value": 13},
+          "fill": {"value": "#1a3a5c"},
+          "fontSize": {"value": 12},
           "fontWeight": {"value": "bold"},
+          "font": {"value": "Source Sans 3, sans-serif"},
           "align": {"value": "left"},
           "baseline": {"value": "top"}
         }

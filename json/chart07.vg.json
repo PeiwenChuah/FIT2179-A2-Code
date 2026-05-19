@@ -1,12 +1,7 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "title": {
-    "text": "Doctors per 10,000 Population by State, Malaysia",
-    "fontSize": 16,
-    "anchor": "start"
-  },
-  "width": 800,
-  "height": 450,
+  "width": "container",
+  "height": 500,
   "projection": {"type": "mercator"},
   "layer": [
     {
@@ -24,69 +19,59 @@
           }
         }
       ],
-      "mark": {
-        "type": "geoshape",
-        "stroke": "white",
-        "strokeWidth": 0.8
-      },
+      "mark": { "type": "geoshape", "stroke": "white", "strokeWidth": 1 },
       "encoding": {
         "color": {
           "field": "doctors_per_10000",
-            "type": "quantitative",
-  "scale": {
-    "type": "threshold",
-    "domain": [15, 19, 23, 30, 60],
-    "range": ["#deebf7", "#9ecae1", "#3182bd", "#08519c", "#08306b", "#041f4a"]
-  },
+          "type": "quantitative",
+          "scale": {
+            "type": "threshold",
+            "domain": [15, 19, 23, 30, 60],
+            "range": ["#d6e8f5", "#9bbfd9", "#5a96bd", "#2a6899", "#1a3a5c", "#0d1f38"]
+          },
           "legend": {
-                "title": "Doctors per 10,000 population",
-                "orient": "right",
-                "direction": "vertical",
-                "labelFontSize": 11,
-                "titleFontSize": 12,
-                "format": ".0f"
-            }
+            "title": "Doctors per 10,000",
+            "orient": "right",
+            "direction": "vertical",
+            "labelFontSize": 11,
+            "titleFontSize": 12,
+            "format": ".0f",
+            "labelFont": "Source Sans 3, sans-serif",
+            "titleFont": "Source Sans 3, sans-serif"
+          }
         },
         "tooltip": [
-          {
-            "field": "properties.NAME_1",
-            "type": "nominal",
-            "title": "State"
-          },
-          {
-            "field": "doctors_per_10000",
-            "type": "quantitative",
-            "title": "Doctors per 10,000",
-            "format": ".1f"
-          }
+          { "field": "properties.NAME_1", "type": "nominal", "title": "State" },
+          { "field": "doctors_per_10000", "type": "quantitative", "title": "Doctors per 10,000", "format": ".1f" }
         ]
       }
     },
     {
-        "data": {"url": "data/state_info.csv"},
-        "mark": {"type": "text", "dy": -5, "fontSize": 8},
-        "encoding": {
-            "longitude": {"field": "longitude"},
-            "latitude": {"field": "latitude"},
-            "text": {"field": "state"}
+      "data": {"url": "data/state_info.csv"},
+      "mark": {
+        "type": "text",
+        "dy": -5,
+        "fontSize": 9,
+        "fontWeight": "600",
+        "font": "Source Sans 3, sans-serif"
+      },
+      "encoding": {
+        "longitude": {"field": "longitude"},
+        "latitude": {"field": "latitude"},
+        "text": {"field": "state"},
+        "color": {
+          "condition": {
+            "test": "datum.state === 'W.P. Kuala Lumpur' || datum.state === 'W.P. Putrajaya' || datum.state === 'W.P. Labuan'",
+            "value": "#c8972a"
+          },
+          "value": "#1a1f2e"
         }
+      }
     }
-
   ],
-    "config": {
+  "config": {
     "background": "transparent",
     "view": { "stroke": "transparent" },
-    "axis": {
-      "domainColor": "#ccc",
-      "tickColor": "#ccc"
-    },
-    "line": {
-      "strokeWidth": 2
-    },
-    "point": {
-      "filled": true,
-      "size": 60
-    },
-    "font": "system-ui, -apple-system, sans-serif"
+    "font": "Source Sans 3, sans-serif"
   }
 }
