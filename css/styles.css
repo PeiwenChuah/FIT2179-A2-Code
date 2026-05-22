@@ -150,9 +150,8 @@ body {
 
 /* ── Page Layout ───────────────────────────────────────── */
 .page {
-    max-width: 1160px;
-    width: 100%;
-    margin: 0 auto;
+    width: 90%;
+    margin: 0 auto; /* You can keep or remove this; it won't affect a 100% width element */
     padding: 0 1.5rem 5rem;
 }
 
