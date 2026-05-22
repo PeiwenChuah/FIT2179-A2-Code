@@ -1,118 +1,196 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "description": "Bump chart of top 10 hospitalisation cause ranks in Malaysia, 2022–2024",
+  "description": "Trajectory-colored bump chart of hospitalisation causes in Malaysia (2022–2024)",
   "width": "container",
-  "height": 500,
+  "height": 550,
   "data": { "url": "data/malaysia_hospitalisation_causes.csv" },
+
+  "transform": [
+    {
+      "sort": [{"field": "year", "order": "ascending"}],
+      "window": [
+        {"op": "first_value", "field": "rank", "as": "first_rank"},
+        {"op": "last_value", "field": "rank", "as": "last_rank"}
+      ],
+      "frame": [null, null],
+      "groupby": ["cause_short"]
+    },
+    {
+      "calculate": "datum.last_rank < datum.first_rank ? 'rise' : datum.last_rank > datum.first_rank ? 'drop' : 'unchanged'",
+      "as": "trajectory"
+    }
+  ],
+
+  "encoding": {
+    "x": {
+      "field": "year",
+      "type": "ordinal",
+      "title": null,
+      "axis": {
+        "labelAngle": 0,
+        "labelFontSize": 13,
+        "labelFontWeight": "bold",
+        "tickSize": 0,
+        "domainColor": "#cbd5e1",
+        "labelPadding": 12
+      },
+      "scale": { "padding": 0.5 }
+    },
+    "y": {
+      "field": "rank",
+      "type": "quantitative",
+      "title": "Rank (1 = Most Admissions)",
+      "scale": { "reverse": true, "domain": [1, 10] },
+      "axis": {
+        "tickMinStep": 1,
+        "labelFontSize": 12,
+        "titleFontSize": 13,
+        "titleColor": "#64748b",
+        "titlePadding": 15,
+        "grid": true,
+        "gridColor": "#f1f5f9",
+        "domain": false,
+        "ticks": false
+      }
+    }
+  },
 
   "layer": [
     {
-      "mark": { "type": "line", "strokeWidth": 2.5, "strokeCap": "round" },
+      "description": "Thick invisible interaction catcher path that hosts the solitary tracking parameter setup",
+      "params": [
+        {
+          "name": "hoveredCause",
+          "select": {
+            "type": "point",
+            "fields": ["cause_short"],
+            "on": "mouseover",
+            "clear": "mouseout"
+          }
+        }
+      ],
+      "mark": { "type": "line", "strokeWidth": 16, "stroke": "transparent", "cursor": "pointer" },
       "encoding": {
-        "x": {
-          "field": "year", "type": "ordinal", "title": "Year",
-          "axis": {
-            "labelAngle": 0, "labelFontSize": 13, "titleFontSize": 13,
-            "titleFontWeight": "normal", "titlePadding": 12,
-            "labelFont": "Source Sans 3, sans-serif",
-            "titleFont": "Source Sans 3, sans-serif", "grid": false
-          }
-        },
-        "y": {
-          "field": "rank", "type": "quantitative",
-          "title": "Rank (1 = most admissions)",
-          "scale": { "reverse": true, "domain": [1, 10] },
-          "axis": {
-            "tickMinStep": 1, "labelFontSize": 12, "titleFontSize": 13,
-            "titleFontWeight": "normal", "titlePadding": 10,
-            "grid": true, "gridColor": "#eef0f3", "gridOpacity": 1,
-            "labelFont": "Source Sans 3, sans-serif",
-            "titleFont": "Source Sans 3, sans-serif"
-          }
-        },
-        "color": {
-          "field": "cause_short", "type": "nominal",
-          "scale": {
-            "range": [
-              "#1a3a5c",
-              "#e07b39",
-              "#4dab91",
-              "#7a6db0",
-              "#b05a2e",
-              "#3d6ea8",
-              "#9b3d6e",
-              "#4a7c59",
-              "#c8972a",
-              "#6e4a8c"
-            ]
-          },
-          "legend": null
-        },
         "detail": { "field": "cause_short" }
       }
     },
-
     {
-      "mark": { "type": "circle", "size": 80, "stroke": "white", "strokeWidth": 1.5 },
+      "description": "Trajectory-colored bump chart lines (Blue = Rise, Red = Drop, Gray = Unchanged)",
+      "mark": { "type": "line", "strokeCap": "round" },
       "encoding": {
-        "x": { "field": "year", "type": "ordinal" },
-        "y": { "field": "rank", "type": "quantitative" },
-        "color": {
-          "field": "cause_short", "type": "nominal",
-          "scale": {
-            "range": [
-              "#1a3a5c",
-              "#e07b39",
-              "#4dab91",
-              "#7a6db0",
-              "#b05a2e",
-              "#3d6ea8",
-              "#9b3d6e",
-              "#4a7c59",
-              "#c8972a",
-              "#6e4a8c"
-            ]
+        "detail": { "field": "cause_short" },
+        "strokeWidth": {
+          "condition": {
+            "test": "hoveredCause.cause_short && datum.cause_short === hoveredCause.cause_short",
+            "value": 5.5
           },
-          "legend": null
+          "value": 3.5
+        },
+        "color": {
+          "field": "trajectory",
+          "type": "nominal",
+          "scale": {
+            "domain": ["rise", "drop", "unchanged"],
+            "range": ["#2563eb", "#dc2626", "#94a3b8"]
+          }
+        },
+        "opacity": {
+          "condition": {
+            "test": "!hoveredCause.cause_short || datum.cause_short === hoveredCause.cause_short",
+            "value": 1
+          },
+          "value": 0.15
+        }
+      }
+    },
+    {
+      "description": "Data node points that adapt color to match line trajectory",
+      "mark": { "type": "circle", "stroke": "white" },
+      "encoding": {
+        "detail": { "field": "cause_short" },
+        "size": {
+          "condition": {
+            "test": "hoveredCause.cause_short && datum.cause_short === hoveredCause.cause_short",
+            "value": 120
+          },
+          "value": 55
+        },
+        "strokeWidth": {
+          "condition": {
+            "test": "hoveredCause.cause_short && datum.cause_short === hoveredCause.cause_short",
+            "value": 2
+          },
+          "value": 1
+        },
+        "color": {
+          "field": "trajectory",
+          "type": "nominal"
+        },
+        "opacity": {
+          "condition": {
+            "test": "!hoveredCause.cause_short || datum.cause_short === hoveredCause.cause_short",
+            "value": 1
+          },
+          "value": 0.2
         },
         "tooltip": [
-          { "field": "cause_short", "title": "Disease" },
+          { "field": "cause_short", "title": "Cause" },
           { "field": "year", "title": "Year" },
           { "field": "rank", "title": "Rank" },
-          { "field": "percentage", "title": "% of Admissions", "format": ".2f" }
+          { "field": "percentage", "title": "% of Total Admissions", "format": ".2f" }
         ]
       }
     },
-
     {
+      "description": "Clean inline labels positioned exactly at the end of each trend trajectory line at 2024",
+      "transform": [
+        { "filter": "datum.year == '2024'" }
+      ],
       "mark": {
         "type": "text",
-        "fontSize": 8.5,
-        "fontWeight": 600,
-        "align": "center",
-        "dy": -12,
-        "font": "Source Sans 3, sans-serif"
+        "align": "left",
+        "dx": 12,
+        "font": "Source Sans 3, sans-serif",
+        "fontSize": 10.5,
+        "fontWeight": 600
       },
       "encoding": {
-        "x": { "field": "year", "type": "ordinal" },
-        "y": { "field": "rank", "type": "quantitative" },
         "text": { "field": "cause_short", "type": "nominal" },
         "color": {
-          "field": "cause_short", "type": "nominal",
-          "scale": {
-            "range": [
-              "#1a3a5c",
-              "#e07b39",
-              "#4dab91",
-              "#7a6db0",
-              "#b05a2e",
-              "#3d6ea8",
-              "#9b3d6e",
-              "#4a7c59",
-              "#c8972a",
-              "#6e4a8c"
-            ]
-          }
+          "field": "trajectory",
+          "type": "nominal"
+        },
+        "opacity": {
+          "condition": {
+            "test": "!hoveredCause.cause_short || datum.cause_short === hoveredCause.cause_short",
+            "value": 1
+          },
+          "value": 0.2
+        }
+      }
+    },
+    {
+      "description": "Isolates and labels historical Rank 10 items right at their specific peak columns so they never cross-collide at 2024",
+      "transform": [
+        { "filter": "(datum.cause_short == 'Pregnancy' && datum.year == '2022') || (datum.cause_short == 'Perinatal' && datum.year == '2023')" }
+      ],
+      "mark": {
+        "type": "text",
+        "align": "center",
+        "dy": -14,
+        "font": "Source Sans 3, sans-serif",
+        "fontSize": 10,
+        "fontWeight": 600
+      },
+      "encoding": {
+        "text": { "field": "cause_short", "type": "nominal" },
+        "color": { "field": "trajectory", "type": "nominal" },
+        "opacity": {
+          "condition": {
+            "test": "!hoveredCause.cause_short || datum.cause_short === hoveredCause.cause_short",
+            "value": 1
+          },
+          "value": 0.2
         }
       }
     }
@@ -121,7 +199,6 @@
   "config": {
     "background": "transparent",
     "view": { "stroke": "transparent" },
-    "axis": { "domainColor": "#ccc", "tickColor": "#ccc" },
     "font": "Source Sans 3, sans-serif"
   }
 }
