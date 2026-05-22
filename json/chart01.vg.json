@@ -3,6 +3,7 @@
 
   "width": "container",
   "height": 340,
+  "padding": {"right": 20},
 
   "data": {
     "url": "data/birth_death.csv"
@@ -58,7 +59,7 @@
         "fontStyle": "italic"
       },
       "data": {
-        "values": [ { "x": "2020-01-01", "y": 8.4, "label": "Death rate spiked in 2021" } ]
+        "values": [ { "x": "2020-01-01", "y": 8.4, "label": "Death rate spiked in 2020" } ]
       },
       "encoding": {
         "x": { "field": "x", "type": "temporal" },

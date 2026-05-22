@@ -38,22 +38,22 @@ async function initChart() {
    (#2d5a8e MOH, #c07a1a Non-MOH, #5b3fa0 Private).
 ══════════════════════════════════════════════════════════ */
 const STATE_COLORS = {
-    'Johor':           '#3d6e5a',
-    'Kedah':           '#8b4f20',
-    'Kelantan':        '#2a5080',
-    'Melaka':          '#6a3d8f',
-    'Negeri Sembilan': '#174f3a',
-    'Pahang':          '#7a5010',
-    'Perak':           '#2e5e78',
-    'Perlis':          '#5c3068',
-    'Pulau Pinang':    '#356888',
-    'Sabah':           '#4a6030',
-    'Sarawak':         '#20507a',
-    'Selangor':        '#1a3a5c',
-    'Terengganu':      '#5c400a',
-    'Kuala Lumpur':    '#6b2a08',
-    'Putrajaya':       '#3d2060',
-    'WP Labuan':       '#0a4060'
+    'Johor': '#1f4e79',
+    'Kedah': '#c57b1c',
+    'Kelantan': '#6b5ca5',
+    'Melaka': '#0f766e',
+    'Negeri Sembilan': '#8a5a2b',
+    'Pahang': '#355070',
+    'Perak': '#7c6a0a',
+    'Perlis': '#7a5195',
+    'Pulau Pinang': '#20639b',
+    'Sabah': '#8c564b',
+    'Sarawak': '#3b5b92',
+    'Selangor': '#264653',
+    'Terengganu': '#a16f00',
+    'Kuala Lumpur': '#bc6c25',
+    'Putrajaya': '#5e548e',
+    'WP Labuan': '#2a6f97'
 };
 
 /* ══════════════════════════════════════════════════════════

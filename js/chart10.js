@@ -12,12 +12,12 @@
         Function layer → indigo     #6850a8
     */
     const COL = {
-        source:   '#1a5c7a',
-        agg:      '#5a6878',
-        center:   '#1a3050',
-        provider: '#3a8a70',
-        agg2:     '#b06020',
-        function: '#6850a8'
+        source: '#1f4e79',
+        agg: '#4f5d75',
+        center: '#243b53',
+        provider: '#0f766e',
+        agg2: '#c57b1c',
+        function: '#6b5ca5'
     };
 
     function init() {
