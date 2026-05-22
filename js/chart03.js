@@ -97,7 +97,7 @@ function renderChart03(selectedYear) {
 
     Highcharts.chart('chart03', {
         chart: {
-            height: 820,
+            height: 700,
             backgroundColor: 'transparent',
             style: { fontFamily: "'Source Sans 3', sans-serif" },
             animation: { duration: 300 },
