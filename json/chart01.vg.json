@@ -116,11 +116,14 @@
             "range": ["#3a7fc1", "#7a2e0e"]
           },
           "legend": {
-            "orient": "top-right",
+            "orient": "right",
             "titleFontSize": 11,
             "labelFontSize": 11,
             "symbolSize": 100,
-            "offset": 8,
+            "offset": 0,
+            "padding": 0,
+            "legendX": 0,
+            "legendY": 80,
             "labelFont": "Source Sans 3, sans-serif",
             "titleFont": "Source Sans 3, sans-serif"
           }
