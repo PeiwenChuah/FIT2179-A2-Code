@@ -12,12 +12,20 @@
     {
       "name": "stateA",
       "value": "Sarawak",
-      "bind": {"input": "select", "options": ["Johor","Kedah","Kelantan","Melaka","Negeri Sembilan","Pahang","Perak","Perlis","Pulau Pinang","Sabah","Sarawak","Selangor","Terengganu"], "name": "State A: "}
+      "bind": {
+        "input": "select",
+        "name": "State 1: ",
+        "options": ["Johor","Kedah","Kelantan","Melaka","Negeri Sembilan","Pahang","Perak","Perlis","Pulau Pinang","Sabah","Sarawak","Selangor","Terengganu"]
+      }
     },
     {
       "name": "stateB",
       "value": "Selangor",
-      "bind": {"input": "select", "options": ["Johor","Kedah","Kelantan","Melaka","Negeri Sembilan","Pahang","Perak","Perlis","Pulau Pinang","Sabah","Sarawak","Selangor","Terengganu"], "name": "State B: "}
+      "bind": {
+        "input": "select",
+        "name": "State 2: ",
+        "options": ["Johor","Kedah","Kelantan","Melaka","Negeri Sembilan","Pahang","Perak","Perlis","Pulau Pinang","Sabah","Sarawak","Selangor","Terengganu"]
+      }
     }
   ],
 
@@ -157,41 +165,29 @@
     }
   ],
 
-  "encode": {
-    "enter": {"x": {"value": 0}, "y": {"value": 0}}
-  },
+  "encode": {"enter": {"x": {"value": 0}, "y": {"value": 0}}},
 
   "marks": [
     {
       "type": "group",
-      "name": "categories",
       "zindex": 1,
-      "encode": {
-        "enter": {
-          "x": {"signal": "cx"},
-          "y": {"signal": "cy"}
-        }
-      },
-      "from": {
-        "facet": {"data": "table", "name": "facet", "groupby": ["category"]}
-      },
-      "marks": [
-        {
-          "type": "line",
-          "from": {"data": "facet"},
-          "encode": {
-            "enter": {
-              "interpolate": {"value": "linear-closed"},
-              "x": {"signal": "scale('radial', datum.value) * cos(scale('angular', datum.key))"},
-              "y": {"signal": "scale('radial', datum.value) * sin(scale('angular', datum.key))"},
-              "stroke": {"scale": "color", "field": "category"},
-              "strokeWidth": {"value": 2.5},
-              "fill": {"scale": "color", "field": "category"},
-              "fillOpacity": {"value": 0.15}
-            }
+      "encode": {"enter": {"x": {"signal": "cx"}, "y": {"signal": "cy"}}},
+      "from": {"facet": {"data": "table", "name": "facet", "groupby": ["category"]}},
+      "marks": [{
+        "type": "line",
+        "from": {"data": "facet"},
+        "encode": {
+          "enter": {
+            "interpolate": {"value": "linear-closed"},
+            "x": {"signal": "scale('radial', datum.value) * cos(scale('angular', datum.key))"},
+            "y": {"signal": "scale('radial', datum.value) * sin(scale('angular', datum.key))"},
+            "stroke": {"scale": "color", "field": "category"},
+            "strokeWidth": {"value": 2.5},
+            "fill": {"scale": "color", "field": "category"},
+            "fillOpacity": {"value": 0.15}
           }
         }
-      ]
+      }]
     },
     {
       "type": "rule",
@@ -200,10 +196,22 @@
       "zindex": 0,
       "encode": {
         "enter": {
-          "x": {"signal": "cx"},
-          "y": {"signal": "cy"},
+          "x": {"signal": "cx"}, "y": {"signal": "cy"},
           "x2": {"signal": "cx + radius * cos(scale('angular', datum.key))"},
           "y2": {"signal": "cy + radius * sin(scale('angular', datum.key))"},
+          "stroke": {"value": "#dde2ea"},
+          "strokeWidth": {"value": 1}
+        }
+      }
+    },
+    {
+      "type": "line",
+      "name": "outer-line",
+      "from": {"data": "radial-grid"},
+      "encode": {
+        "enter": {
+          "interpolate": {"value": "linear-closed"},
+          "x": {"field": "x2"}, "y": {"field": "y2"},
           "stroke": {"value": "#dde2ea"},
           "strokeWidth": {"value": 1}
         }
@@ -235,49 +243,17 @@
       }
     },
     {
-      "type": "line",
-      "name": "outer-line",
-      "from": {"data": "radial-grid"},
-      "encode": {
-        "enter": {
-          "interpolate": {"value": "linear-closed"},
-          "x": {"field": "x2"},
-          "y": {"field": "y2"},
-          "stroke": {"value": "#dde2ea"},
-          "strokeWidth": {"value": 1}
-        }
-      }
-    },
-    {
       "type": "symbol",
       "from": {"data": "table"},
       "zindex": 2,
       "encode": {
-        "update": {
+        "enter": {
           "x": {"signal": "cx + scale('radial', datum.value) * cos(scale('angular', datum.key))"},
           "y": {"signal": "cy + scale('radial', datum.value) * sin(scale('angular', datum.key))"},
           "size": {"value": 40},
           "fill": {"scale": "color", "field": "category"},
           "opacity": {"value": 0.9},
-          "tooltip": {"signal": "{'Metric': datum.key, 'Normalised': format(datum.value, '.3f'), 'State': datum.state}"}
-        }
-      }
-    },
-    {
-      "type": "text",
-      "from": {"data": "table"},
-      "zindex": 3,
-      "encode": {
-        "update": {
-          "x": {"signal": "cx + scale('radial', datum.value) * cos(scale('angular', datum.key))"},
-          "y": {"signal": "cy + scale('radial', datum.value) * sin(scale('angular', datum.key))"},
-          "text": {"signal": "format(datum.value, '.2f')"},
-          "align": {"value": "center"},
-          "baseline": {"value": "bottom"},
-          "dy": {"value": -7},
-          "fill": {"scale": "color", "field": "category"},
-          "fontSize": {"value": 9},
-          "fontWeight": {"value": "700"}
+          "tooltip": {"signal": "{'State': datum.state, 'Metric': datum.key, 'Normalised score': format(datum.value, '.3f')}"}
         }
       }
     },
@@ -285,14 +261,11 @@
       "type": "text",
       "encode": {
         "enter": {
-          "x": {"value": 10},
-          "y": {"signal": "cy + radius + 52"},
+          "x": {"value": 10}, "y": {"signal": "cy + radius + 40"},
           "text": {"value": "State:"},
           "fill": {"value": "#3d4a5c"},
-          "fontSize": {"value": 11},
-          "fontWeight": {"value": "bold"},
-          "align": {"value": "left"},
-          "baseline": {"value": "top"}
+          "fontSize": {"value": 11}, "fontWeight": {"value": "bold"},
+          "align": {"value": "left"}, "baseline": {"value": "top"}
         }
       }
     },
@@ -300,14 +273,11 @@
       "type": "text",
       "encode": {
         "update": {
-          "x": {"value": 55},
-          "y": {"signal": "cy + radius + 52"},
+          "x": {"value": 55}, "y": {"signal": "cy + radius + 40"},
           "text": {"signal": "'● ' + stateA"},
           "fill": {"value": "#c8972a"},
-          "fontSize": {"value": 11},
-          "fontWeight": {"value": "bold"},
-          "align": {"value": "left"},
-          "baseline": {"value": "top"}
+          "fontSize": {"value": 11}, "fontWeight": {"value": "bold"},
+          "align": {"value": "left"}, "baseline": {"value": "top"}
         }
       }
     },
@@ -315,14 +285,11 @@
       "type": "text",
       "encode": {
         "update": {
-          "x": {"value": 185},
-          "y": {"signal": "cy + radius + 52"},
+          "x": {"value": 185}, "y": {"signal": "cy + radius + 40"},
           "text": {"signal": "'● ' + stateB"},
           "fill": {"value": "#1a3a5c"},
-          "fontSize": {"value": 11},
-          "fontWeight": {"value": "bold"},
-          "align": {"value": "left"},
-          "baseline": {"value": "top"}
+          "fontSize": {"value": 11}, "fontWeight": {"value": "bold"},
+          "align": {"value": "left"}, "baseline": {"value": "top"}
         }
       }
     }
