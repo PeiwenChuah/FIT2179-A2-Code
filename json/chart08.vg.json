@@ -1,8 +1,8 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "description": "Trajectory-colored bump chart of hospitalisation causes in Malaysia (2022–2024)",
-  "width": 400,
-  "height": 550,
+  "description": "Bump chart of hospitalisation causes in Malaysia, 2022 to 2024",
+  "width": "container",
+  "height": 500,
   "data": { "url": "data/malaysia_hospitalisation_causes.csv" },
 
   "transform": [
@@ -10,13 +10,13 @@
       "sort": [{"field": "year", "order": "ascending"}],
       "window": [
         {"op": "first_value", "field": "rank", "as": "first_rank"},
-        {"op": "last_value", "field": "rank", "as": "last_rank"}
+        {"op": "last_value",  "field": "rank", "as": "last_rank"}
       ],
       "frame": [null, null],
       "groupby": ["cause_short"]
     },
     {
-      "calculate": "datum.last_rank < datum.first_rank ? 'rise' : datum.last_rank > datum.first_rank ? 'drop' : 'unchanged'",
+      "calculate": "datum.last_rank < datum.first_rank ? 'Rising rank' : datum.last_rank > datum.first_rank ? 'Falling rank' : 'Unchanged'",
       "as": "trajectory"
     }
   ],
@@ -28,36 +28,39 @@
       "title": null,
       "axis": {
         "labelAngle": 0,
-        "labelFontSize": 13,
+        "labelFontSize": 12,
         "labelFontWeight": "bold",
         "tickSize": 0,
         "domainColor": "#cbd5e1",
-        "labelPadding": 12
+        "labelPadding": 12,
+        "labelFont": "Source Sans 3, sans-serif"
       },
-      "scale": { "padding": 0.5 }
+      "scale": {"padding": 0.5}
     },
     "y": {
       "field": "rank",
       "type": "quantitative",
-      "title": "Rank (1 = Most Admissions)",
-      "scale": { "reverse": true, "domain": [1, 10] },
+      "title": "Rank  (1 = highest admissions)",
+      "scale": {"reverse": true, "domain": [1, 10]},
       "axis": {
         "tickMinStep": 1,
-        "labelFontSize": 12,
-        "titleFontSize": 13,
-        "titleColor": "#64748b",
-        "titlePadding": 15,
+        "labelFontSize": 11,
+        "titleFontSize": 12,
+        "titleColor": "#6b7a90",
+        "titlePadding": 14,
         "grid": true,
         "gridColor": "#f1f5f9",
         "domain": false,
-        "ticks": false
+        "ticks": false,
+        "labelFont": "Source Sans 3, sans-serif",
+        "titleFont": "Source Sans 3, sans-serif"
       }
     }
   },
 
   "layer": [
     {
-      "description": "Thick invisible interaction catcher path that hosts the tracking parameter safely",
+      "description": "Wide transparent hit area for hover interaction",
       "params": [
         {
           "name": "hoveredCause",
@@ -69,115 +72,110 @@
           }
         }
       ],
-      "mark": { "type": "line", "strokeWidth": 16, "stroke": "transparent", "cursor": "pointer" },
-      "encoding": {
-        "detail": { "field": "cause_short" }
-      }
+      "mark": {"type": "line", "strokeWidth": 16, "stroke": "transparent", "cursor": "pointer"},
+      "encoding": {"detail": {"field": "cause_short"}}
     },
     {
-      "description": "Trajectory-colored lines with natural sizing (Blue = Rise, Red = Drop, Gray = Unchanged)",
-      "mark": { "type": "line", "strokeCap": "round" },
+      "description": "Trajectory coloured lines",
+      "mark": {"type": "line", "strokeCap": "round"},
       "encoding": {
-        "detail": { "field": "cause_short" },
+        "detail": {"field": "cause_short"},
         "strokeWidth": {
-          "condition": { "param": "hoveredCause", "empty": false, "value": 4.5 },
-          "value": 2.5
+          "condition": {"param": "hoveredCause", "empty": false, "value": 4.5},
+          "value": 2.2
         },
         "color": {
           "field": "trajectory",
           "type": "nominal",
           "scale": {
-            "domain": ["rise", "drop", "unchanged"],
-            "range": ["#2563eb", "#dc2626", "#94a3b8"]
+            "domain": ["Rising rank", "Falling rank", "Unchanged"],
+            "range": ["#1b6b3a", "#a02020", "#6b7a8d"]
           },
           "legend": {
             "title": "Trajectory",
-            "labelExpr": "upper(slice(datum.label, 0, 1)) + slice(datum.label, 1)",
-            "titleFontSize": 12,
+            "titleFontSize": 11,
             "labelFontSize": 11,
-            "orient": "right"
+            "orient": "right",
+            "labelFont": "Source Sans 3, sans-serif",
+            "titleFont": "Source Sans 3, sans-serif"
           }
         },
         "opacity": {
-          "condition": { "param": "hoveredCause", "empty": true, "value": 1 },
+          "condition": {"param": "hoveredCause", "empty": true, "value": 1},
           "value": 0.15
         }
       }
     },
     {
-      "description": "Data node points with natural sizing matching trajectory lines",
-      "mark": { "type": "circle", "stroke": "white" },
+      "description": "Data point circles",
+      "mark": {"type": "circle", "stroke": "white"},
       "encoding": {
-        "detail": { "field": "cause_short" },
+        "detail": {"field": "cause_short"},
         "size": {
-          "condition": { "param": "hoveredCause", "empty": false, "value": 100 },
-          "value": 45
+          "condition": {"param": "hoveredCause", "empty": false, "value": 100},
+          "value": 42
         },
         "strokeWidth": {
-          "condition": { "param": "hoveredCause", "empty": false, "value": 2 },
+          "condition": {"param": "hoveredCause", "empty": false, "value": 2},
           "value": 1
         },
-        "color": { "field": "trajectory", "type": "nominal" },
+        "color": {"field": "trajectory", "type": "nominal"},
         "opacity": {
-          "condition": { "param": "hoveredCause", "empty": true, "value": 1 },
+          "condition": {"param": "hoveredCause", "empty": true, "value": 1},
           "value": 0.2
         },
         "tooltip": [
-          { "field": "cause_short", "title": "Cause" },
-          { "field": "year", "title": "Year" },
-          { "field": "rank", "title": "Rank" },
-          { "field": "percentage", "title": "% of Total Admissions", "format": ".2f" }
+          {"field": "cause_short",  "title": "Cause"},
+          {"field": "year",         "title": "Year"},
+          {"field": "rank",         "title": "Rank"},
+          {"field": "percentage",   "title": "% of Admissions", "format": ".2f"}
         ]
       }
     },
     {
-      "description": "Background text layer: Throws down a thick white stroke buffer to mask background line cross paths",
+      "description": "Label stroke buffer",
       "transform": [
-        {
-          "filter": "datum.year == '2024' || (datum.year == '2022' && datum.rank == 10) || (datum.year == '2023' && datum.rank == 10)"
-        }
+        {"filter": "datum.year == '2024' || (datum.year == '2022' && datum.rank == 10) || (datum.year == '2023' && datum.rank == 10)"}
       ],
       "mark": {
         "type": "text",
         "align": "center",
         "baseline": "bottom",
-        "dy": -10,
+        "dy": -9,
         "font": "Source Sans 3, sans-serif",
-        "fontSize": 10.5,
+        "fontSize": 10,
         "fontWeight": 600,
         "stroke": "#ffffff",
         "strokeWidth": 4,
         "strokeJoin": "round"
       },
       "encoding": {
-        "text": { "field": "cause_short", "type": "nominal" },
+        "text": {"field": "cause_short", "type": "nominal"},
         "opacity": {
-          "condition": { "param": "hoveredCause", "empty": true, "value": 1 },
+          "condition": {"param": "hoveredCause", "empty": true, "value": 1},
           "value": 0.2
         }
       }
     },
     {
-      "description": "Foreground text layer: Sits directly over the white outline to paint the colorful letters crisp and clean",
+      "description": "Label foreground",
       "transform": [
-        {
-          "filter": "datum.year == '2024' || (datum.year == '2022' && datum.rank == 10) || (datum.year == '2023' && datum.rank == 10)"
-        }
+        {"filter": "datum.year == '2024' || (datum.year == '2022' && datum.rank == 10) || (datum.year == '2023' && datum.rank == 10)"}
       ],
       "mark": {
         "type": "text",
         "align": "center",
         "baseline": "bottom",
-        "dy": -10,
+        "dy": -9,
         "font": "Source Sans 3, sans-serif",
-        "fontSize": 10.5,
+        "fontSize": 10,
         "fontWeight": 600
       },
       "encoding": {
-        "text": { "field": "cause_short", "type": "nominal" },
-        "color": { "field": "trajectory", "type": "nominal" },
+        "text": {"field": "cause_short", "type": "nominal"},
+        "color": {"field": "trajectory", "type": "nominal"},
         "opacity": {
-          "condition": { "param": "hoveredCause", "empty": true, "value": 1 },
+          "condition": {"param": "hoveredCause", "empty": true, "value": 1},
           "value": 0.2
         }
       }
@@ -186,7 +184,7 @@
 
   "config": {
     "background": "transparent",
-    "view": { "stroke": "transparent" },
+    "view": {"stroke": "transparent"},
     "font": "Source Sans 3, sans-serif"
   }
 }

@@ -1,6 +1,6 @@
-let cachedCSVRows  = [];
-let currentYear    = "2022";
-let currentZoom    = null;   // null = overview, string = zoomed state name
+let cachedCSVRows = [];
+let currentYear   = '2022';
+let currentZoom   = null;
 
 /* ══════════════════════════════════════════════════════════
    INIT — fetch CSV once, wire up year selector
@@ -30,25 +30,30 @@ async function initChart() {
 }
 
 /* ══════════════════════════════════════════════════════════
-   COLOUR MAP  (unchanged from original)
+   STATE COLOUR MAP
+   Each state gets its own distinct hue.
+   No colour here duplicates the profession palette
+   (#1a6b9a Doctor, #4dab91 Nurse, #e07b39 Pharmacist,
+    #7a6db0 Dentist) nor the sector palette
+   (#2d5a8e MOH, #c07a1a Non-MOH, #5b3fa0 Private).
 ══════════════════════════════════════════════════════════ */
 const STATE_COLORS = {
-    "Johor":           "#60760590",
-    "Kedah":           "#2e8b8b",
-    "Kelantan":        "#5b3fa0",
-    "Melaka":          "#5a9e3e",
-    "Negeri Sembilan": "#10bcbf",
-    "Pahang":          "#4a6fa5",
-    "Perak":           "#c97b2a",
-    "Perlis":          "#1d7a6e",
-    "Pulau Pinang":    "#8b6bb1",
-    "Sabah":           "#3a7d54",
-    "Sarawak":         "#2a6699",
-    "Selangor":        "#1a3a5c",
-    "Terengganu":      "#634908",
-    "Kuala Lumpur":    "#c8972a",
-    "Putrajaya":       "#7a4a78",
-    "WP Labuan":       "#0d5073"
+    'Johor':           '#3d6e5a',
+    'Kedah':           '#8b4f20',
+    'Kelantan':        '#2a5080',
+    'Melaka':          '#6a3d8f',
+    'Negeri Sembilan': '#174f3a',
+    'Pahang':          '#7a5010',
+    'Perak':           '#2e5e78',
+    'Perlis':          '#5c3068',
+    'Pulau Pinang':    '#356888',
+    'Sabah':           '#4a6030',
+    'Sarawak':         '#20507a',
+    'Selangor':        '#1a3a5c',
+    'Terengganu':      '#5c400a',
+    'Kuala Lumpur':    '#6b2a08',
+    'Putrajaya':       '#3d2060',
+    'WP Labuan':       '#0a4060'
 };
 
 /* ══════════════════════════════════════════════════════════
@@ -75,14 +80,12 @@ function getAggregates(year) {
         d.beds > 0
     );
 
-    // district totals  →  key = "state||district"
     const districtMap = {};
     rows.forEach(d => {
         const k = d.state + '||' + d.district;
         districtMap[k] = (districtMap[k] || 0) + d.beds;
     });
 
-    // state totals
     const stateMap = {};
     Object.entries(districtMap).forEach(([k, v]) => {
         const state = k.split('||')[0];
@@ -94,20 +97,17 @@ function getAggregates(year) {
 
 /* ══════════════════════════════════════════════════════════
    BUILD HIGHCHARTS DATA
-   MODE A (zoom=null)  → parent/child hierarchy
-   MODE B (zoom=state) → flat districts, no parent
 ══════════════════════════════════════════════════════════ */
 function buildData(districtMap, stateMap, zoom) {
     const data = [];
 
     if (!zoom) {
-        /* ── MODE A ─────────────────────────────────── */
         Object.keys(stateMap).forEach(state => {
             data.push({
                 id:    state,
                 name:  state,
                 value: stateMap[state],
-                color: STATE_COLORS[state] || '#6b7a90'
+                color: STATE_COLORS[state] || '#4a5a6a'
             });
         });
         Object.entries(districtMap).forEach(([k, beds]) => {
@@ -117,12 +117,11 @@ function buildData(districtMap, stateMap, zoom) {
                 name:   district,
                 parent: state,
                 value:  beds,
-                color:  STATE_COLORS[state] || '#6b7a90'
+                color:  STATE_COLORS[state] || '#4a5a6a'
             });
         });
     } else {
-        /* ── MODE B ─────────────────────────────────── */
-        const col = STATE_COLORS[zoom] || '#6b7a90';
+        const col = STATE_COLORS[zoom] || '#4a5a6a';
         Object.entries(districtMap)
             .filter(([k]) => k.startsWith(zoom + '||'))
             .forEach(([k, beds]) => {
@@ -135,7 +134,7 @@ function buildData(districtMap, stateMap, zoom) {
 }
 
 /* ══════════════════════════════════════════════════════════
-   DISTRICT LABEL FORMATTER  (shared between both modes)
+   DISTRICT LABEL FORMATTER
 ══════════════════════════════════════════════════════════ */
 function districtLabel() {
     const w = (this.point.shapeArgs && this.point.shapeArgs.width)  || 0;
@@ -155,12 +154,12 @@ function districtLabel() {
         align-items:center;justify-content:center;
         padding:3px;box-sizing:border-box;text-align:center;">
       <div style="font-size:${fs};line-height:1.2;width:98%;
-                  word-wrap:break-word;font-weight:700;">
+                  word-wrap:break-word;font-weight:700;font-family:'Source Sans 3',sans-serif;">
         ${this.point.name}
       </div>
       ${showBeds
         ? `<div style="font-size:8px;color:rgba(255,255,255,0.82);
-                       font-weight:500;margin-top:2px;">
+                       font-weight:500;margin-top:2px;font-family:'Source Sans 3',sans-serif;">
              ${Highcharts.numberFormat(this.point.value, 0)} beds
            </div>`
         : ''}
@@ -176,13 +175,11 @@ function buildChart() {
     const isZoom = zoom !== null;
     const data   = buildData(districtMap, stateMap, zoom);
 
-    /* destroy previous chart cleanly */
     const prev = Highcharts.charts.find(
         c => c && c.renderTo && c.renderTo.id === 'chart03'
     );
     if (prev) prev.destroy();
 
-    /* ── levels config ─────────────────────────────────── */
     const levelsOverview = [
         {
             level: 1,
@@ -195,11 +192,12 @@ function buildChart() {
                 verticalAlign: 'top',
                 padding: 5,
                 borderRadius: 3,
-                backgroundColor: 'rgba(0,0,0,0.22)',
+                backgroundColor: 'rgba(0,0,0,0.20)',
                 style: { zIndex: 3, pointerEvents: 'none' },
                 formatter: function () {
                     return `<span style="color:#fff;font-size:10px;font-weight:800;
-                        letter-spacing:.5px;text-shadow:1px 1px 3px rgba(0,0,0,.5);">
+                        letter-spacing:.5px;text-shadow:1px 1px 3px rgba(0,0,0,.45);
+                        font-family:'Source Sans 3',sans-serif;">
                         ${this.key.toUpperCase()} ›</span>`;
                 }
             }
@@ -215,9 +213,11 @@ function buildChart() {
                 crop: false,
                 overflow: 'allow',
                 style: {
-                    color: '#fff', fontWeight: '700',
-                    textOutline: '1px rgba(0,0,0,.4)',
-                    zIndex: 2, pointerEvents: 'none'
+                    color: '#fff',
+                    fontWeight: '700',
+                    textOutline: '1px rgba(0,0,0,.35)',
+                    zIndex: 2,
+                    pointerEvents: 'none'
                 },
                 formatter: districtLabel
             }
@@ -236,43 +236,51 @@ function buildChart() {
                 crop: false,
                 overflow: 'allow',
                 style: {
-                    color: '#fff', fontWeight: '700',
-                    textOutline: '1px rgba(0,0,0,.4)',
-                    zIndex: 2, pointerEvents: 'none'
+                    color: '#fff',
+                    fontWeight: '700',
+                    textOutline: '1px rgba(0,0,0,.35)',
+                    zIndex: 2,
+                    pointerEvents: 'none'
                 },
                 formatter: districtLabel
             }
         }
     ];
 
-    /* ── render ────────────────────────────────────────── */
     const chart = Highcharts.chart('chart03', {
         chart: {
-            height: 700,
+            height: 680,
             backgroundColor: 'transparent',
             style: { fontFamily: "'Source Sans 3', sans-serif" },
-            animation: { duration: 350 },
-            margin: [65, 10, 10, 10]
+            animation: { duration: 320 },
+            margin: [60, 10, 10, 10]
         },
 
         title: {
             text: isZoom
                 ? `${zoom} — District Bed Capacity (${currentYear})`
-                : `Hospital Beds Capacity by State & District — ${currentYear}`,
+                : `Hospital Bed Capacity by State and District — ${currentYear}`,
             align: 'left',
-            style: { color: '#1a1f2e', fontWeight: '800', fontSize: '18px', letterSpacing: '-0.3px' }
+            style: {
+                color: '#1a1f2e',
+                fontWeight: '700',
+                fontSize: '15px',
+                fontFamily: "'Playfair Display', Georgia, serif",
+                letterSpacing: '-0.2px'
+            }
         },
 
         subtitle: {
             text: isZoom
-                ? `Showing all districts in <b>${zoom}</b> · Click "← All States" to go back`
-                : 'Click any <b>district tile</b> to zoom into that state · Click any <b>state label</b> to zoom into that state',
+                ? `Districts in <b>${zoom}</b> &nbsp;·&nbsp; Click "All States" to return`
+                : 'Click any district tile to zoom into that state',
             useHTML: true,
             align: 'left',
             style: {
                 color: isZoom ? '#c8972a' : '#6b7a90',
-                fontSize: '12px',
-                fontWeight: isZoom ? '600' : '400'
+                fontSize: '11px',
+                fontWeight: isZoom ? '600' : '400',
+                fontFamily: "'Source Sans 3', sans-serif"
             }
         },
 
@@ -281,26 +289,27 @@ function buildChart() {
             useHTML: true,
             outside: true,
             backgroundColor: '#ffffff',
-            borderRadius: 8,
-            shadow: { offsetX: 0, offsetY: 2, opacity: 0.08, width: 12 },
-            borderWidth: 0,
-            style: { fontSize: '13px', color: '#1a1f2e', padding: '0' },
+            borderRadius: 6,
+            shadow: false,
+            borderWidth: 1,
+            borderColor: '#e2e6ea',
+            style: { fontSize: '12px', color: '#1a1f2e', padding: '0' },
             formatter: function () {
                 const stateName = isZoom ? zoom : (this.point.parent || this.point.name);
                 const isStateTile = !this.point.parent && !isZoom;
                 return `
-                <div style="padding:10px 14px;min-width:160px;">
-                  <div style="font-size:13px;font-weight:700;color:#1a1f2e;margin-bottom:4px;">
+                <div style="padding:9px 13px;min-width:150px;">
+                  <div style="font-size:12px;font-weight:700;color:#1a1f2e;margin-bottom:3px;">
                     ${this.point.name}
                   </div>
                   ${!isStateTile
-                    ? `<div style="font-size:11px;color:#6b7a90;margin-bottom:6px;">${stateName}</div>`
+                    ? `<div style="font-size:10px;color:#6b7a90;margin-bottom:5px;">${stateName}</div>`
                     : ''}
                   <div style="display:flex;align-items:baseline;gap:4px;">
-                    <span style="font-size:18px;font-weight:800;color:#1a3a5c;">
+                    <span style="font-size:16px;font-weight:800;color:#1a3a5c;">
                       ${Highcharts.numberFormat(this.point.value, 0)}
                     </span>
-                    <span style="font-size:11px;color:#6b7a90;">beds</span>
+                    <span style="font-size:10px;color:#6b7a90;">beds</span>
                   </div>
                 </div>`;
             }
@@ -310,24 +319,12 @@ function buildChart() {
             treemap: {
                 layoutAlgorithm: 'squarified',
                 allowDrillToNode: false,
-                /*
-                 * KEY: interactByLeaf: true
-                 *   → only leaf nodes (districts in overview, all tiles in zoom) receive
-                 *     pointer events and fire click.
-                 *   → This means in MODE A, clicking a district tile fires click with
-                 *     this.parent = state name  →  we zoom in.
-                 *   → State header labels have pointer-events:none so clicks pass through
-                 *     to the district tile underneath.
-                 *
-                 * We also wire a separate click on state-level (parent) nodes via
-                 * the series point events with a check on !this.node (leaf detection).
-                 */
                 interactByLeaf: true,
                 animationLimit: 1000,
                 crisp: false,
                 states: {
                     hover: {
-                        brightness: 0.1,
+                        brightness: 0.08,
                         borderColor: '#ffffff',
                         borderWidth: 2
                     }
@@ -336,9 +333,7 @@ function buildChart() {
                 point: {
                     events: {
                         click: function () {
-                            if (isZoom) return; // already zoomed, district clicks are informational only
-
-                            // this.parent is the state ID when a district (leaf) is clicked
+                            if (isZoom) return;
                             if (this.parent) {
                                 currentZoom = this.parent;
                                 buildChart();
@@ -358,9 +353,8 @@ function buildChart() {
         credits: { enabled: false }
     });
 
-    /* ── "← All States" back button, visible only in zoom mode ── */
     if (isZoom) {
-        const btnW = 130;
+        const btnW = 120;
         chart.renderer
             .button(
                 '← All States',
@@ -371,15 +365,20 @@ function buildChart() {
                     buildChart();
                 },
                 {
-                    fill: '#1a3a5c', stroke: 'none', r: 6,
+                    fill: '#1a3a5c',
+                    stroke: 'none',
+                    r: 5,
                     style: {
-                        color: '#ffffff', fontSize: '11px', fontWeight: '700',
-                        fontFamily: "'Source Sans 3', sans-serif", cursor: 'pointer'
+                        color: '#ffffff',
+                        fontSize: '11px',
+                        fontWeight: '700',
+                        fontFamily: "'Source Sans 3', sans-serif",
+                        cursor: 'pointer'
                     },
-                    padding: 9
+                    padding: 8
                 },
                 { fill: '#c8972a', style: { color: '#ffffff' } },
-                { fill: '#b07820', style: { color: '#ffffff' } }
+                { fill: '#a07010', style: { color: '#ffffff' } }
             )
             .attr({ zIndex: 20 })
             .add();

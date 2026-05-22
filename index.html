@@ -35,6 +35,9 @@
 ══════════════════════════════════════════ -->
 <header class="dashboard-header">
     <h1>Healthcare in Malaysia</h1>
+    <p class="header-sub">
+        A data story on infrastructure, workforce, disease burden and public finance
+    </p>
 </header>
 
 <!-- Sticky section nav -->
@@ -59,24 +62,28 @@
             National Healthcare Overview
         </h2>
 
+        <p class="section-narrative">
+            Two decades of sustained growth have transformed Malaysia's health system,
+            yet structural gaps persist across states and across urban and rural divides.
+        </p>
+
         <div class="grid-2">
 
             <!-- Chart 01 -->
             <div class="card">
 
-                <p class="card-title">
-                    Birth and Death Rates (2000–2023)
-                </p>
+                <p class="card-title">Birth and Death Rates, 2000 to 2023</p>
+                <p class="card-subtitle">Rates per 1,000 population · Annual</p>
 
                 <div id="chart01"></div>
 
                 <div class="insight">
                     <strong>Key Insight</strong>
-
-                    <p>Birth rate fell from 23 to below 16,</p>
-                    <p>a 30% drop signalling demographic ageing.</p>
-                    <p>Death rate, flat near 5, spiked sharply in 2021</p>
-                    <p>as COVID-19 hit vulnerable populations hardest.</p>
+                    <p>Birth rate fell 30% over two decades,</p>
+                    <p>signalling a rapidly ageing population.</p>
+                    <p>Death rate was stable near 5 per 1,000,</p>
+                    <p>then surged sharply in 2021 as COVID-19</p>
+                    <p>overwhelmed the most vulnerable groups.</p>
                 </div>
 
             </div>
@@ -84,25 +91,24 @@
             <!-- Chart 02 -->
             <div class="card">
 
-                <p class="card-title">
-                    Sarawak vs Selangor: Six Dimensions
-                </p>
+                <p class="card-title">Sarawak vs Selangor: Six Dimensions</p>
+                <p class="card-subtitle">Normalised scores · Select any two states</p>
 
                 <div id="chart02"></div>
 
                 <div class="insight">
                     <strong>Key Insight</strong>
-
-                    <p>Selangor leads in Doctors (0.64) and Pharmacists (0.61)</p>
-                    <p>, its urban density attracts professionals.</p>
-                    <p>Sarawak scores higher on Hospital Beds per capita,</p>
-                    <p>reflecting rural infrastructure investment</p>
-                    <p>for geographically dispersed communities.</p>
+                    <p>Selangor scores highest for Doctors</p>
+                    <p>and Pharmacists, reflecting urban density</p>
+                    <p>and strong private sector presence.</p>
+                    <p>Sarawak leads on Hospital Beds per capita,</p>
+                    <p>driven by rural infrastructure investment.</p>
                 </div>
 
             </div>
 
         </div>
+
     </section>
 
     <!-- ══════════════════════════════════════
@@ -116,16 +122,25 @@
             Healthcare Infrastructure
         </h2>
 
+        <p class="section-narrative">
+            Hospital bed capacity is a fundamental indicator of system readiness.
+            The distribution across districts reveals where capacity meets demand
+            and where access remains a geographic challenge.
+        </p>
+
         <div class="grid-1">
 
             <div class="card">
 
+                <p class="card-title">Hospital Bed Capacity by State and District</p>
+                <p class="card-subtitle">
+                    Tile size represents total beds &nbsp;·&nbsp;
+                    Filter by year using the selector below &nbsp;·&nbsp;
+                    Click any district tile to zoom into that state
+                </p>
+
                 <div class="year-control">
-
-                    <label for="yearSelect">
-                        Filter by year:
-                    </label>
-
+                    <label for="yearSelect">Year:</label>
                     <select id="yearSelect">
                         <option value="2022" selected>2022</option>
                         <option value="2021">2021</option>
@@ -136,20 +151,17 @@
                         <option value="2016">2016</option>
                         <option value="2015">2015</option>
                     </select>
-
                 </div>
 
                 <div id="chart03"></div>
 
-                <div class="insight" style="margin-top:1.2rem;">
-
+                <div class="insight" style="margin-top:1rem;">
                     <strong>Key Insight</strong>
-
-                    <p>Kinta (Perak) and Johor Bahru hold the most beds</p>
-                    <p>of any single district in the country.</p>
-                    <p>Sabah and Sarawak lag despite serving vast areas, </p>
-                    <p>distance to the nearest hospital is a real barrier.</p>
-
+                    <p>Kinta in Perak and Johor Bahru hold</p>
+                    <p>the most beds of any single district.</p>
+                    <p>Sabah and Sarawak lag despite serving</p>
+                    <p>vast and widely dispersed populations.</p>
+                    <p>Distance to hospital is a real barrier there.</p>
                 </div>
 
             </div>
@@ -169,26 +181,28 @@
             Healthcare Workforce
         </h2>
 
-        <div class="grid-2" style="margin-bottom:2.5rem;">
+        <p class="section-narrative">
+            Malaysia's healthcare workforce has grown rapidly, but growth has not been uniform.
+            Geographic concentration of professionals in urban centres leaves rural communities under-served.
+        </p>
+
+        <div class="grid-2" style="margin-bottom:2rem;">
 
             <!-- Chart 05 -->
             <div class="card">
 
-                <p class="card-title">
-                    Total Staff Count (2014–2022)
-                </p>
+                <p class="card-title">Total Staff Count, 2014 to 2022</p>
+                <p class="card-subtitle">Stacked count by profession type · Annual</p>
 
                 <div id="chart05"></div>
 
                 <div class="insight">
-
                     <strong>Key Insight</strong>
-
-                    <p>Total healthcare staff grew ~50% in eight years.</p>
-                    <p>Pharmacists nearly doubled, the fastest growth</p>
-                    <p>of any profession, driven by expanded retail</p>
-                    <p>and hospital pharmacy services.</p>
-
+                    <p>Total healthcare staff grew nearly 50%</p>
+                    <p>in eight years across all professions.</p>
+                    <p>Pharmacists saw the fastest growth,</p>
+                    <p>driven by expanded retail and hospital</p>
+                    <p>pharmacy services after 2016.</p>
                 </div>
 
             </div>
@@ -196,22 +210,19 @@
             <!-- Chart 06 -->
             <div class="card">
 
-                <p class="card-title">
-                    Rates per 10,000 Population (1990–2023)
-                </p>
+                <p class="card-title">Rates per 10,000 Population, 1990 to 2023</p>
+                <p class="card-subtitle">Professional density over time · Annual</p>
 
                 <div id="chart06"></div>
 
                 <div class="insight">
-
                     <strong>Key Insight</strong>
-
-                    <p>Doctor rate grew steadily from ~4 to ~18 per 10,000.</p>
-                    <p>Pharmacist growth surged post-2010</p>
+                    <p>Doctor rate grew steadily from 4 to 18</p>
+                    <p>per 10,000 over three decades.</p>
+                    <p>Pharmacist density surged post-2010</p>
                     <p>as community pharmacy roles expanded.</p>
-                    <p>Nurse numbers show high variance, </p>
-                    <p>likely from changing reporting definitions.</p>
-
+                    <p>Nurse numbers show high variance,</p>
+                    <p>likely from shifting reporting definitions.</p>
                 </div>
 
             </div>
@@ -223,20 +234,18 @@
 
             <div class="card">
 
-                <p class="card-title">
-                    Doctor Density by State
-                </p>
+                <p class="card-title">Doctor Density by State</p>
+                <p class="card-subtitle">Doctors per 10,000 population · Most recent year</p>
 
                 <div id="chart07"></div>
 
                 <div class="insight">
-
                     <strong>Key Insight</strong>
-
-                    <p>W.P. Kuala Lumpur has 60+ doctors per 10,000, </p>
-                    <p>four times the national average.</p>
-                    <p>Sabah and Kelantan remain the most under-served.</p>
-
+                    <p>W.P. Kuala Lumpur has over 60 doctors</p>
+                    <p>per 10,000 people, more than four times</p>
+                    <p>the national average.</p>
+                    <p>Sabah and Kelantan remain the</p>
+                    <p>most under-served states in the country.</p>
                 </div>
 
             </div>
@@ -245,7 +254,9 @@
 
     </section>
 
-    <!-- SECTION 4 -->
+    <!-- ══════════════════════════════════════
+         SECTION 4 · Disease Burden
+    ══════════════════════════════════════ -->
     <section class="section" id="s4">
 
         <p class="section-label">Section 4</p>
@@ -254,27 +265,52 @@
             Disease Burden
         </h2>
 
+        <p class="section-narrative">
+            Understanding which conditions drive hospital admissions reveals
+            where preventive investment can reduce system pressure most effectively.
+        </p>
+
         <div class="grid-2">
 
             <!-- Chart 08 -->
             <div class="card">
 
-                <p class="card-title">
-                    Top 10 Admission Causes (2022–2024)
+                <p class="card-title">Top 10 Admission Causes, 2022 to 2024</p>
+                <p class="card-subtitle">
+                    Rank among leading hospitalisation causes &nbsp;·&nbsp;
+                    Hover a line to highlight one cause
                 </p>
 
                 <div id="chart08"></div>
+
+                <div class="insight">
+                    <strong>Key Insight</strong>
+                    <p>Several chronic conditions are rising</p>
+                    <p>in rank, reflecting an ageing population</p>
+                    <p>and growing non-communicable disease burden.</p>
+                    <p>Causes that dropped may reflect improved</p>
+                    <p>screening or post-pandemic care recovery.</p>
+                </div>
 
             </div>
 
             <!-- Chart 09 -->
             <div class="card">
 
-                <p class="card-title">
-                    Inpatient and Outpatient Visits by Sector (2024)
-                </p>
+                <p class="card-title">Inpatient and Outpatient Visits by Sector, 2024</p>
+                <p class="card-subtitle">Count of visits across MOH Public, Non-MOH Public and Private</p>
 
                 <div id="chart09"></div>
+
+                <div class="insight">
+                    <strong>Key Insight</strong>
+                    <p>The public sector absorbs the majority</p>
+                    <p>of inpatient admissions, confirming</p>
+                    <p>its role as the primary safety net.</p>
+                    <p>Private facilities handle a larger share</p>
+                    <p>of outpatient visits, reflecting affordability</p>
+                    <p>and convenience for urban patients.</p>
+                </div>
 
             </div>
 
@@ -282,7 +318,9 @@
 
     </section>
 
-    <!-- SECTION 5 -->
+    <!-- ══════════════════════════════════════
+         SECTION 5 · Finance
+    ══════════════════════════════════════ -->
     <section class="section" id="s5">
 
         <p class="section-label">Section 5</p>
@@ -291,21 +329,30 @@
             Healthcare Finance
         </h2>
 
+        <p class="section-narrative">
+            Malaysia spends RM 89.8 billion on health annually. Tracing how funds flow from
+            source to function exposes who bears the cost and where spending is most concentrated.
+        </p>
+
         <!-- Chart 10 -->
-        <div class="grid-1" style="margin-bottom:2.5rem;">
+        <div class="grid-1" style="margin-bottom:2rem;">
 
             <div class="card">
 
-                <p class="card-title">
-                    Flow of Health Funds — RM 89,827 Million
-                </p>
-
+                <p class="card-title">Flow of Health Funds &mdash; RM 89,827 Million</p>
                 <p class="card-subtitle">
-                    Financing sources → Aggregators →
-                    Providers → Health functions
+                    Financing sources &rarr; Aggregators &rarr; Providers &rarr; Health functions
                 </p>
 
                 <div id="chart10"></div>
+
+                <div class="insight" style="margin-top:0.8rem;">
+                    <strong>Key Insight</strong>
+                    <p>Out-of-pocket spending at RM 34.8 billion</p>
+                    <p>is nearly as large as the entire MOH budget.</p>
+                    <p>This places a heavy burden on households,</p>
+                    <p>particularly those without insurance cover.</p>
+                </div>
 
             </div>
 
@@ -316,34 +363,48 @@
 
             <div class="card">
 
-                <p class="card-title">
-                    Budget vs Actual Spending by Programme (2024)
-                </p>
+                <p class="card-title">Budget vs Actual Spending by Programme, 2024</p>
+                <p class="card-subtitle">Grouped by programme &nbsp;·&nbsp; Amount in Ringgit Malaysia</p>
 
                 <div id="chart11"></div>
+
+                <div class="insight" style="margin-top:0.9rem;">
+                    <strong>Key Insight</strong>
+                    <p>Almost every programme achieves close</p>
+                    <p>to full utilisation of its allocated budget.</p>
+                    <p>This high execution rate signals strong</p>
+                    <p>operational capacity within MOH programmes.</p>
+                </div>
 
             </div>
 
             <div class="text-panel">
 
                 <div class="stat-block">
-
                     <div class="stat-number">RM 14.1B</div>
-
-                    <div class="stat-label">
-                        Medical Programme Budget
-                    </div>
-
+                    <div class="stat-label">Medical Programme Budget</div>
+                    <p class="stat-note">
+                        The largest single programme allocation,
+                        covering curative care in public hospitals.
+                    </p>
                 </div>
 
                 <div class="stat-block">
-
                     <div class="stat-number">~97%</div>
+                    <div class="stat-label">Average Budget Utilisation</div>
+                    <p class="stat-note">
+                        Near-full utilisation across all programmes
+                        reflects consistent planning and execution.
+                    </p>
+                </div>
 
-                    <div class="stat-label">
-                        Average Budget Utilisation
-                    </div>
-
+                <div class="stat-block">
+                    <div class="stat-number">RM 89.8B</div>
+                    <div class="stat-label">Total Health Expenditure</div>
+                    <p class="stat-note">
+                        Combined public and private spending,
+                        equivalent to roughly 5% of GDP.
+                    </p>
                 </div>
 
             </div>
@@ -354,22 +415,24 @@
 
 </div>
 
-<!-- FOOTER -->
+<!-- ══════════════════════════════════════
+     FOOTER
+══════════════════════════════════════ -->
 <footer class="dashboard-footer">
-
     <p>
-        <strong>citation</strong>
+        <strong>Data Sources</strong> &nbsp;&middot;&nbsp;
+        Ministry of Health Malaysia (MOH) Annual Reports &nbsp;&middot;&nbsp;
+        Department of Statistics Malaysia &nbsp;&middot;&nbsp;
+        World Health Organization Global Health Observatory
     </p>
-
+    <p style="margin-top:0.35rem;">
+        FIT2179 Data Visualisation 2 &nbsp;&middot;&nbsp; Monash University Malaysia &nbsp;&middot;&nbsp; 2026
+    </p>
 </footer>
 
 <!-- ══════════════════════════════════════
      CHART SCRIPTS
-     IMPORTANT:
-     Use old rendering method
 ══════════════════════════════════════ -->
-
-<!-- Vega Charts -->
 <script src="js/chart01.js"></script>
 <script src="js/chart02.js"></script>
 <script src="js/chart03.js"></script>
@@ -378,11 +441,7 @@
 <script src="js/chart07.js"></script>
 <script src="js/chart08.js"></script>
 <script src="js/chart09.js"></script>
-
-<!-- Plotly Sankey -->
 <script src="js/chart10.js"></script>
-
-<!-- Highcharts / Vega -->
 <script src="js/chart11.js"></script>
 
 </body>

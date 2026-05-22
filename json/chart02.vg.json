@@ -1,14 +1,14 @@
 {
   "$schema": "https://vega.github.io/schema/vega/v5.json",
   "width": 460,
-  "height": 380,
+  "height": 360,
   "padding": {"top": 20, "left": 20, "right": 110, "bottom": 40},
   "autosize": {"type": "fit", "contains": "padding"},
 
   "signals": [
-    {"name": "radius", "update": "120"},
-    {"name": "cx",     "update": "230"},
-    {"name": "cy",     "update": "155"},
+    {"name": "radius", "update": "115"},
+    {"name": "cx",     "update": "225"},
+    {"name": "cy",     "update": "150"},
     {
       "name": "stateA",
       "value": "Sarawak",
@@ -184,7 +184,7 @@
             "stroke": {"scale": "color", "field": "category"},
             "strokeWidth": {"value": 2.5},
             "fill": {"scale": "color", "field": "category"},
-            "fillOpacity": {"value": 0.15}
+            "fillOpacity": {"value": 0.12}
           }
         }
       }]
@@ -224,8 +224,8 @@
       "zindex": 1,
       "encode": {
         "enter": {
-          "x": {"signal": "cx + (radius + 22) * cos(scale('angular', datum.key))"},
-          "y": {"signal": "cy + (radius + 22) * sin(scale('angular', datum.key))"},
+          "x": {"signal": "cx + (radius + 20) * cos(scale('angular', datum.key))"},
+          "y": {"signal": "cy + (radius + 20) * sin(scale('angular', datum.key))"},
           "text": {"field": "key"},
           "align": [
             {"test": "abs(scale('angular', datum.key)) > PI / 2", "value": "right"},
@@ -237,8 +237,9 @@
             {"value": "middle"}
           ],
           "fill": {"value": "#3d4a5c"},
-          "fontSize": {"value": 11.5},
-          "fontWeight": {"value": "600"}
+          "fontSize": {"value": 11},
+          "fontWeight": {"value": "600"},
+          "font": {"value": "Source Sans 3, sans-serif"}
         }
       }
     },
@@ -250,7 +251,7 @@
         "enter": {
           "x": {"signal": "cx + scale('radial', datum.value) * cos(scale('angular', datum.key))"},
           "y": {"signal": "cy + scale('radial', datum.value) * sin(scale('angular', datum.key))"},
-          "size": {"value": 40},
+          "size": {"value": 36},
           "fill": {"scale": "color", "field": "category"},
           "opacity": {"value": 0.9},
           "tooltip": {"signal": "{'State': datum.state, 'Metric': datum.key, 'Normalised score': format(datum.value, '.3f')}"}
@@ -261,10 +262,11 @@
       "type": "text",
       "encode": {
         "enter": {
-          "x": {"value": 10}, "y": {"signal": "cy + radius + 40"},
+          "x": {"value": 8}, "y": {"signal": "cy + radius + 36"},
           "text": {"value": "State:"},
           "fill": {"value": "#3d4a5c"},
           "fontSize": {"value": 11}, "fontWeight": {"value": "bold"},
+          "font": {"value": "Source Sans 3, sans-serif"},
           "align": {"value": "left"}, "baseline": {"value": "top"}
         }
       }
@@ -273,10 +275,11 @@
       "type": "text",
       "encode": {
         "update": {
-          "x": {"value": 55}, "y": {"signal": "cy + radius + 40"},
+          "x": {"value": 52}, "y": {"signal": "cy + radius + 36"},
           "text": {"signal": "'● ' + stateA"},
           "fill": {"value": "#c8972a"},
           "fontSize": {"value": 11}, "fontWeight": {"value": "bold"},
+          "font": {"value": "Source Sans 3, sans-serif"},
           "align": {"value": "left"}, "baseline": {"value": "top"}
         }
       }
@@ -285,10 +288,11 @@
       "type": "text",
       "encode": {
         "update": {
-          "x": {"value": 185}, "y": {"signal": "cy + radius + 40"},
+          "x": {"value": 182}, "y": {"signal": "cy + radius + 36"},
           "text": {"signal": "'● ' + stateB"},
           "fill": {"value": "#1a3a5c"},
           "fontSize": {"value": 11}, "fontWeight": {"value": "bold"},
+          "font": {"value": "Source Sans 3, sans-serif"},
           "align": {"value": "left"}, "baseline": {"value": "top"}
         }
       }

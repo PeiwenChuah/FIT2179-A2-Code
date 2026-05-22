@@ -1,7 +1,7 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "width": "container",
-  "height": 360,
+  "height": 340,
   "data": { "url": "data/staff_across_years.csv" },
   "transform": [
     { "calculate": "toNumber(datum.DIM_TIME)", "as": "year" },
@@ -14,35 +14,51 @@
   "mark": { "type": "line", "point": true, "tooltip": true },
   "encoding": {
     "x": {
-      "field": "year", "type": "quantitative", "title": "Year",
+      "field": "year",
+      "type": "quantitative",
+      "title": "Year",
       "axis": {
-        "labelAngle": 0, "labelFontSize": 12, "titleFontSize": 13,
-        "titleFontWeight": "normal", "titlePadding": 10, "grid": false,
+        "labelAngle": 0,
+        "labelFontSize": 11,
+        "titleFontSize": 12,
+        "titleFontWeight": "normal",
+        "titlePadding": 10,
+        "grid": false,
         "format": "d",
         "labelFont": "Source Sans 3, sans-serif",
         "titleFont": "Source Sans 3, sans-serif"
       }
     },
     "y": {
-      "field": "rate", "type": "quantitative",
+      "field": "rate",
+      "type": "quantitative",
       "title": "Professionals per 10,000 population",
       "axis": {
-        "labelFontSize": 12, "titleFontSize": 13, "titleFontWeight": "normal",
-        "titlePadding": 10, "gridColor": "#eef0f3", "gridOpacity": 1,
+        "labelFontSize": 11,
+        "titleFontSize": 12,
+        "titleFontWeight": "normal",
+        "titlePadding": 10,
+        "gridColor": "#eef0f3",
+        "gridOpacity": 1,
         "format": ".1f",
         "labelFont": "Source Sans 3, sans-serif",
         "titleFont": "Source Sans 3, sans-serif"
       }
     },
     "color": {
-      "field": "type_label", "type": "nominal", "title": "Profession",
+      "field": "type_label",
+      "type": "nominal",
+      "title": "Profession",
       "scale": {
         "domain": ["Doctor", "Nurse", "Pharmacist"],
         "range": ["#1a6b9a", "#4dab91", "#e07b39"]
       },
       "legend": {
-        "orient": "top-left", "titleFontSize": 12, "labelFontSize": 12,
-        "symbolSize": 120, "offset": 10,
+        "orient": "top-left",
+        "titleFontSize": 11,
+        "labelFontSize": 11,
+        "symbolSize": 100,
+        "offset": 8,
         "labelFont": "Source Sans 3, sans-serif",
         "titleFont": "Source Sans 3, sans-serif"
       }
@@ -58,7 +74,7 @@
     "view": { "stroke": "transparent" },
     "axis": { "domainColor": "#ccc", "tickColor": "#ccc" },
     "line": { "strokeWidth": 2.5 },
-    "point": { "filled": true, "size": 55 },
+    "point": { "filled": true, "size": 50 },
     "font": "Source Sans 3, sans-serif"
   }
 }
