@@ -1,4 +1,3 @@
-// Global variable to store the raw CSV data to avoid re-fetching on every change
 let cachedCSVRows = [];
 
 async function initChart() {
@@ -23,43 +22,23 @@ async function initChart() {
 }
 
 function renderChart03(selectedYear) {
-    /*
-      State colours — carefully chosen so every adjacent pair
-      is visually distinct (hue + lightness differences ≥ 30°):
-        Johor         coral-red   #d9534f
-        Kedah         teal        #2e8b8b
-        Kelantan      deep violet #5b3fa0
-        Melaka        lime-green  #5a9e3e
-        N. Sembilan   dusty rose  #c46a8a
-        Pahang        slate-blue  #4a6fa5
-        Perak         burnt amber #c97b2a
-        Perlis        dark cyan   #1d7a6e   (distinct from Kedah teal)
-        P. Pinang     muted mauve #8b6bb1
-        Sabah         forest grn  #3a7d54
-        Sarawak       steel blue  #2a6699
-        Selangor      dark navy   #1a3a5c
-        Terengganu    hot brick   #b84a2e
-        W.P. K.L.     gold        #c8972a
-        W.P. Putrajaya warm plum  #7a4a78
-        W.P. Labuan   deep ocean  #0d5073
-    */
     const stateColorMap = {
-        "Johor":            "#60760590",
-        "Kedah":            "#2e8b8b",
-        "Kelantan":         "#5b3fa0",
-        "Melaka":           "#5a9e3e",
-        "Negeri Sembilan":  "#10bcbf",
-        "Pahang":           "#4a6fa5",
-        "Perak":            "#c97b2a",
-        "Perlis":           "#1d7a6e",
-        "Pulau Pinang":     "#8b6bb1",
-        "Sabah":            "#3a7d54",
-        "Sarawak":          "#2a6699",
-        "Selangor":         "#1a3a5c",
-        "Terengganu":       "#634908",
-        "W.P. Kuala Lumpur":"#c8972a",
-        "W.P. Putrajaya":   "#7a4a78",
-        "W.P. Labuan":      "#0d5073"
+        "Johor":             "#60760590",
+        "Kedah":             "#2e8b8b",
+        "Kelantan":          "#5b3fa0",
+        "Melaka":            "#5a9e3e",
+        "Negeri Sembilan":   "#10bcbf",
+        "Pahang":            "#4a6fa5",
+        "Perak":             "#c97b2a",
+        "Perlis":            "#1d7a6e",
+        "Pulau Pinang":      "#8b6bb1",
+        "Sabah":             "#3a7d54",
+        "Sarawak":           "#2a6699",
+        "Selangor":          "#1a3a5c",
+        "Terengganu":        "#634908",
+        "W.P. Kuala Lumpur": "#c8972a",
+        "W.P. Putrajaya":    "#7a4a78",
+        "W.P. Labuan":       "#0d5073"
     };
 
     const filteredData = cachedCSVRows.map(row => {
@@ -82,7 +61,8 @@ function renderChart03(selectedYear) {
         d.beds > 0
     );
 
-    let states = [...new Set(filteredData.map(d => d.state))];
+    const states = [...new Set(filteredData.map(d => d.state))];
+
     const districtTotals = {};
     filteredData.forEach(d => {
         const key = `${d.state}|${d.district}`;
@@ -91,7 +71,16 @@ function renderChart03(selectedYear) {
 
     let chartData = [];
     states.forEach(state => {
-        chartData.push({ id: state, name: state, color: 'transparent' });
+        // Compute total beds per state for the top-level tile value
+        const stateBeds = Object.entries(districtTotals)
+            .filter(([k]) => k.startsWith(state + '|'))
+            .reduce((sum, [, v]) => sum + v, 0);
+        chartData.push({
+            id:    state,
+            name:  state,
+            value: stateBeds,
+            color: 'transparent'
+        });
     });
 
     Object.entries(districtTotals).forEach(([key, totalBeds]) => {
@@ -111,7 +100,25 @@ function renderChart03(selectedYear) {
             height: 820,
             backgroundColor: 'transparent',
             style: { fontFamily: "'Source Sans 3', sans-serif" },
-            animation: { duration: 300 }
+            animation: { duration: 300 },
+            // Show breadcrumb-style back button when drilled in
+            events: {
+                render: function() {
+                    const chart = this;
+                    // If drilled down, update subtitle to hint at back navigation
+                    if (chart.series && chart.series[0] && chart.series[0].rootNode && chart.series[0].rootNode !== '') {
+                        chart.setTitle(null, {
+                            text: 'Click the state header to zoom back out · Showing district detail',
+                            style: { color: '#c8972a', fontSize: '11px', fontFamily: "'Source Sans 3', sans-serif", fontWeight: '600' }
+                        }, false);
+                    } else {
+                        chart.setTitle(null, {
+                            text: 'Click any state or district to drill down · Click the header bar to zoom back out',
+                            style: { color: '#6b7a90', fontSize: '11px', fontFamily: "'Source Sans 3', sans-serif" }
+                        }, false);
+                    }
+                }
+            }
         },
         title: {
             text: `Hospital Beds by State & District — ${selectedYear}`,
@@ -123,7 +130,7 @@ function renderChart03(selectedYear) {
             }
         },
         subtitle: {
-            text: 'Click a state to drill down · Click the title to zoom back out',
+            text: 'Click any state or district to drill down · Click the header bar to zoom back out',
             style: {
                 color: '#6b7a90',
                 fontSize: '11px',
@@ -143,8 +150,13 @@ function renderChart03(selectedYear) {
         plotOptions: {
             treemap: {
                 layoutAlgorithm: 'squarified',
+                // interactByLeaf: true  → clicking a district tile drills into its parent state
+                // interactByLeaf: false → clicking the state tile itself drills into it
+                // We want BOTH: clicking a district drills into the state, clicking the
+                // state label bar (when already drilled) zooms back out.
+                // Setting interactByLeaf: true achieves this perfectly.
+                interactByLeaf: true,
                 allowDrillToNode: true,
-                interactByLeaf: false,
                 animationLimit: 1000,
                 levels: [
                     {
@@ -186,8 +198,8 @@ function renderChart03(selectedYear) {
                                 fontFamily: "'Source Sans 3', sans-serif"
                             },
                             formatter: function() {
-                                const w = this.point.shapeArgs.width;
-                                const h = this.point.shapeArgs.height;
+                                const w = this.point.shapeArgs ? this.point.shapeArgs.width  : 60;
+                                const h = this.point.shapeArgs ? this.point.shapeArgs.height : 40;
                                 let fontSize = Math.max(w * 0.12, 6.5);
                                 if (fontSize > 13) fontSize = 13;
                                 const valueText = (h > 40 && w > 40)
@@ -207,8 +219,20 @@ function renderChart03(selectedYear) {
         series: [{
             type: 'treemap',
             allowDrillToNode: true,
-            interactByLeaf: false,
-            data: chartData
+            interactByLeaf: true,
+            data: chartData,
+            // When drilled into a state, show a coloured header bar using the state's colour
+            point: {
+                events: {
+                    // clicking the drilled-in root header zooms back out
+                    click: function() {
+                        const series = this.series;
+                        if (this.node && this.node.isRoot) {
+                            series.drillToNode('');
+                        }
+                    }
+                }
+            }
         }],
         credits: { enabled: false }
     });
