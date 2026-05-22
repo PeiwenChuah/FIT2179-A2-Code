@@ -5,12 +5,11 @@
   "projection": {"type": "mercator"},
   "layer": [
     {
-      "comment": "New background layer to render neighboring countries (Indonesia, Thailand, Brunei)",
       "data": {
         "url": "json/neighbour.topojson",
         "format": {"type": "topojson", "feature": "selection"}
       },
-      "mark": { "type": "geoshape", "fill": "#e8e8e8", "stroke": "#d0d0d0", "strokeWidth": 0.5 }
+      "mark": { "type": "geoshape", "fill": "#f5f5f5", "stroke": "#e2e2e2", "strokeWidth": 0.5 }
     },
     {
       "data": {
@@ -27,7 +26,7 @@
           }
         }
       ],
-      "mark": { "type": "geoshape", "stroke": "white", "strokeWidth": 1 },
+      "mark": { "type": "geoshape", "stroke": "white", "strokeWidth": 0.5 },
       "encoding": {
         "color": {
           "field": "doctors_per_10000",
@@ -38,12 +37,14 @@
             "range": ["#d6e8f5", "#9bbfd9", "#5a96bd", "#2a6899", "#1a3a5c", "#0d1f38"]
           },
           "legend": {
-            "title": "Doctors per 10,000",
+            "title": "Doctors per 10,000 population",
             "orient": "right",
             "direction": "vertical",
             "labelFontSize": 11,
             "titleFontSize": 12,
             "format": ".0f",
+            "labelColor": "#1a2430",
+            "titleColor": "#1a2430",
             "labelFont": "Source Sans 3, sans-serif",
             "titleFont": "Source Sans 3, sans-serif"
           }
@@ -55,25 +56,61 @@
       }
     },
     {
+      "data": {
+        "values": [
+          {"state": "Kuala Lumpur", "lon1": 100.385522, "lat1": 3.132668, "lon2": 101.6951, "lat2": 3.1483},
+          {"state": "Putrajaya", "lon1": 100.583810, "lat1": 2.905202, "lon2": 101.6885, "lat2": 2.9394},
+          {"state": "Selangor", "lon1": 100.518843, "lat1": 3.370843, "lon2": 101.4010, "lat2": 3.3789},
+          {"state": "Pulau Pinang", "lon1": 99.609136, "lat1": 5.599600, "lon2": 100.3283, "lat2": 5.3678},
+          {"state": "Negeri Sembilan", "lon1": 100.896697, "lat1": 2.514112, "lon2": 102.1461, "lat2": 2.7526},
+          {"state": "Melaka", "lon1": 101.757084, "lat1": 2.222282, "lon2": 102.3183, "lat2": 2.2474}
+        ]
+      },
+      "mark": {
+        "type": "rule",
+        "color": "#6b2309",
+        "opacity": 0.8,
+        "strokeWidth": 1.0
+      },
+      "encoding": {
+        "longitude": {"field": "lon1", "type": "quantitative"},
+        "latitude": {"field": "lat1", "type": "quantitative"},
+        "longitude2": {"field": "lon2"},
+        "latitude2": {"field": "lat2"}
+      }
+    },
+    {
       "data": {"url": "data/state_info.csv"},
       "mark": {
         "type": "text",
-        "dy": -5,
-        "fontSize": 9,
-        "fontWeight": 600,
-        "font": "Source Sans 3, sans-serif"
+        "fontSize": 10,
+        "fontWeight": 700,
+        "font": "Source Sans 3, sans-serif",
+        "stroke": "#fcfaf2",
+        "strokeWidth": 2.5,
+        "strokeJoin": "round",
+        "baseline": "middle"
       },
       "encoding": {
         "longitude": {"field": "longitude", "type": "quantitative"},
         "latitude": {"field": "latitude", "type": "quantitative"},
-        "text": {"field": "state", "type": "nominal"},
-        "color": {
-          "condition": {
-            "test": "datum.state === 'Kuala Lumpur' || datum.state === 'Putrajaya'",
-            "value": "#c8972a"
-          },
-          "value": "#1a1f2e"
-        }
+        "text": {"field": "state", "type": "nominal"}
+      }
+    },
+    {
+      "data": {"url": "data/state_info.csv"},
+      "mark": {
+        "type": "text",
+        "fontSize": 10,
+        "fontWeight": 700,
+        "font": "Source Sans 3, sans-serif",
+        "fill": "#1a2430",
+        "baseline": "middle"
+      },
+      "encoding": {
+        "longitude": {"field": "longitude", "type": "quantitative"},
+        "latitude": {"field": "latitude", "type": "quantitative"},
+        "text": {"field": "state", "type": "nominal"}
       }
     }
   ],
