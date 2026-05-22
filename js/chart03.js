@@ -1,278 +1,389 @@
-let cachedCSVRows = [];
+let cachedCSVRows  = [];
+let currentYear    = "2022";
+let currentZoom    = null;   // null = overview, string = zoomed state name
 
+/* ══════════════════════════════════════════════════════════
+   INIT — fetch CSV once, wire up year selector
+══════════════════════════════════════════════════════════ */
 async function initChart() {
     try {
         const response = await fetch('data/hospital_beds_treemap.csv');
         if (!response.ok) throw new Error('CSV not found');
         const csvText = await response.text();
 
-        cachedCSVRows = csvText.split(/\r?\n/)
-            .filter(row => row.trim().length > 0)
+        cachedCSVRows = csvText
+            .split(/\r?\n/)
+            .filter(r => r.trim().length > 0)
             .slice(1);
 
-        renderChart03("2022");
+        buildChart();
 
-        document.getElementById('yearSelect').addEventListener('change', function(e) {
-            renderChart03(e.target.value);
+        document.getElementById('yearSelect').addEventListener('change', function (e) {
+            currentYear = e.target.value;
+            currentZoom = null;
+            buildChart();
         });
 
     } catch (e) {
-        console.error("Initialization failed:", e);
+        console.error('initChart failed:', e);
     }
 }
 
-function renderChart03(selectedYear) {
-    const stateColorMap = {
-        "Johor":             "#60760590",
-        "Kedah":             "#2e8b8b",
-        "Kelantan":          "#5b3fa0",
-        "Melaka":            "#5a9e3e",
-        "Negeri Sembilan":   "#10bcbf",
-        "Pahang":            "#4a6fa5",
-        "Perak":             "#c97b2a",
-        "Perlis":            "#1d7a6e",
-        "Pulau Pinang":      "#8b6bb1",
-        "Sabah":             "#3a7d54",
-        "Sarawak":           "#2a6699",
-        "Selangor":          "#1a3a5c",
-        "Terengganu":        "#634908",
-        "Kuala Lumpur":      "#c8972a",
-        "Putrajaya":         "#7a4a78",
-        "WP Labuan":         "#0d5073"
-    };
+/* ══════════════════════════════════════════════════════════
+   COLOUR MAP  (unchanged from original)
+══════════════════════════════════════════════════════════ */
+const STATE_COLORS = {
+    "Johor":           "#60760590",
+    "Kedah":           "#2e8b8b",
+    "Kelantan":        "#5b3fa0",
+    "Melaka":          "#5a9e3e",
+    "Negeri Sembilan": "#10bcbf",
+    "Pahang":          "#4a6fa5",
+    "Perak":           "#c97b2a",
+    "Perlis":          "#1d7a6e",
+    "Pulau Pinang":    "#8b6bb1",
+    "Sabah":           "#3a7d54",
+    "Sarawak":         "#2a6699",
+    "Selangor":        "#1a3a5c",
+    "Terengganu":      "#634908",
+    "Kuala Lumpur":    "#c8972a",
+    "Putrajaya":       "#7a4a78",
+    "WP Labuan":       "#0d5073"
+};
 
-    const filteredData = cachedCSVRows.map(row => {
-        const cols = row.split(',');
-        if (cols.length < 5) return null;
+/* ══════════════════════════════════════════════════════════
+   PARSE + AGGREGATE
+══════════════════════════════════════════════════════════ */
+function getAggregates(year) {
+    const rows = cachedCSVRows.map(row => {
+        const c = row.split(',');
+        if (c.length < 5) return null;
         return {
-            date:     cols[0].trim(),
-            state:    cols[1].trim(),
-            district: cols[2].trim(),
-            type:     cols[3].trim(),
-            beds:     parseInt(cols[4])
+            date:     c[0].trim(),
+            state:    c[1].trim(),
+            district: c[2].trim(),
+            type:     c[3].trim(),
+            beds:     parseInt(c[4])
         };
     }).filter(d =>
-        d !== null &&
-        d.date.startsWith(selectedYear) &&
-        d.state !== "Malaysia" &&
-        d.district !== "All Districts" &&
-        d.type !== "all" &&
+        d &&
+        d.date.startsWith(year) &&
+        d.state    !== 'Malaysia' &&
+        d.district !== 'All Districts' &&
+        d.type     !== 'all' &&
         !isNaN(d.beds) &&
         d.beds > 0
     );
 
-    const states = [...new Set(filteredData.map(d => d.state))];
-
-    const districtTotals = {};
-    filteredData.forEach(d => {
-        const key = `${d.state}|${d.district}`;
-        districtTotals[key] = (districtTotals[key] || 0) + d.beds;
+    // district totals  →  key = "state||district"
+    const districtMap = {};
+    rows.forEach(d => {
+        const k = d.state + '||' + d.district;
+        districtMap[k] = (districtMap[k] || 0) + d.beds;
     });
 
-    let chartData = [];
-    states.forEach(state => {
-        const stateBeds = Object.entries(districtTotals)
-            .filter(([k]) => k.startsWith(state + '|'))
-            .reduce((sum, [, v]) => sum + v, 0);
-        chartData.push({
-            id:    state,
-            name:  state,
-            value: stateBeds,
-            color: 'transparent'
+    // state totals
+    const stateMap = {};
+    Object.entries(districtMap).forEach(([k, v]) => {
+        const state = k.split('||')[0];
+        stateMap[state] = (stateMap[state] || 0) + v;
+    });
+
+    return { districtMap, stateMap };
+}
+
+/* ══════════════════════════════════════════════════════════
+   BUILD HIGHCHARTS DATA
+   MODE A (zoom=null)  → parent/child hierarchy
+   MODE B (zoom=state) → flat districts, no parent
+══════════════════════════════════════════════════════════ */
+function buildData(districtMap, stateMap, zoom) {
+    const data = [];
+
+    if (!zoom) {
+        /* ── MODE A ─────────────────────────────────── */
+        Object.keys(stateMap).forEach(state => {
+            data.push({
+                id:    state,
+                name:  state,
+                value: stateMap[state],
+                color: STATE_COLORS[state] || '#6b7a90'
+            });
         });
-    });
-
-    Object.entries(districtTotals).forEach(([key, totalBeds]) => {
-        const [state, district] = key.split('|');
-        const stateColor = stateColorMap[state] || '#6b7a90';
-        chartData.push({
-            id:     key,
-            name:   district,
-            parent: state,
-            value:  totalBeds,
-            color:  stateColor
+        Object.entries(districtMap).forEach(([k, beds]) => {
+            const [state, district] = k.split('||');
+            data.push({
+                id:     k,
+                name:   district,
+                parent: state,
+                value:  beds,
+                color:  STATE_COLORS[state] || '#6b7a90'
+            });
         });
-    });
+    } else {
+        /* ── MODE B ─────────────────────────────────── */
+        const col = STATE_COLORS[zoom] || '#6b7a90';
+        Object.entries(districtMap)
+            .filter(([k]) => k.startsWith(zoom + '||'))
+            .forEach(([k, beds]) => {
+                const district = k.split('||')[1];
+                data.push({ id: k, name: district, value: beds, color: col });
+            });
+    }
 
-    Highcharts.chart('chart03', {
+    return data;
+}
+
+/* ══════════════════════════════════════════════════════════
+   DISTRICT LABEL FORMATTER  (shared between both modes)
+══════════════════════════════════════════════════════════ */
+function districtLabel() {
+    const w = (this.point.shapeArgs && this.point.shapeArgs.width)  || 0;
+    const h = (this.point.shapeArgs && this.point.shapeArgs.height) || 0;
+    if (w < 22 || h < 16) return null;
+
+    let fs = '11px';
+    if (w < 80) fs = '9.5px';
+    if (w < 50) fs = '8px';
+    if (w < 35) fs = '7px';
+
+    const showBeds = h > 44 && w > 58;
+
+    return `<div style="
+        width:${w}px;height:${h}px;
+        display:flex;flex-direction:column;
+        align-items:center;justify-content:center;
+        padding:3px;box-sizing:border-box;text-align:center;">
+      <div style="font-size:${fs};line-height:1.2;width:98%;
+                  word-wrap:break-word;font-weight:700;">
+        ${this.point.name}
+      </div>
+      ${showBeds
+        ? `<div style="font-size:8px;color:rgba(255,255,255,0.82);
+                       font-weight:500;margin-top:2px;">
+             ${Highcharts.numberFormat(this.point.value, 0)} beds
+           </div>`
+        : ''}
+    </div>`;
+}
+
+/* ══════════════════════════════════════════════════════════
+   MAIN RENDER
+══════════════════════════════════════════════════════════ */
+function buildChart() {
+    const { districtMap, stateMap } = getAggregates(currentYear);
+    const zoom   = currentZoom;
+    const isZoom = zoom !== null;
+    const data   = buildData(districtMap, stateMap, zoom);
+
+    /* destroy previous chart cleanly */
+    const prev = Highcharts.charts.find(
+        c => c && c.renderTo && c.renderTo.id === 'chart03'
+    );
+    if (prev) prev.destroy();
+
+    /* ── levels config ─────────────────────────────────── */
+    const levelsOverview = [
+        {
+            level: 1,
+            borderWidth: 2,
+            borderColor: '#ffffff',
+            dataLabels: {
+                enabled: true,
+                useHTML: true,
+                align: 'left',
+                verticalAlign: 'top',
+                padding: 5,
+                borderRadius: 3,
+                backgroundColor: 'rgba(0,0,0,0.22)',
+                style: { zIndex: 3, pointerEvents: 'none' },
+                formatter: function () {
+                    return `<span style="color:#fff;font-size:10px;font-weight:800;
+                        letter-spacing:.5px;text-shadow:1px 1px 3px rgba(0,0,0,.5);">
+                        ${this.key.toUpperCase()} ›</span>`;
+                }
+            }
+        },
+        {
+            level: 2,
+            borderWidth: 0.5,
+            borderColor: 'rgba(255,255,255,0.3)',
+            dataLabels: {
+                enabled: true,
+                useHTML: true,
+                allowOverlap: true,
+                crop: false,
+                overflow: 'allow',
+                style: {
+                    color: '#fff', fontWeight: '700',
+                    textOutline: '1px rgba(0,0,0,.4)',
+                    zIndex: 2, pointerEvents: 'none'
+                },
+                formatter: districtLabel
+            }
+        }
+    ];
+
+    const levelsZoomed = [
+        {
+            level: 1,
+            borderWidth: 1.5,
+            borderColor: '#ffffff',
+            dataLabels: {
+                enabled: true,
+                useHTML: true,
+                allowOverlap: true,
+                crop: false,
+                overflow: 'allow',
+                style: {
+                    color: '#fff', fontWeight: '700',
+                    textOutline: '1px rgba(0,0,0,.4)',
+                    zIndex: 2, pointerEvents: 'none'
+                },
+                formatter: districtLabel
+            }
+        }
+    ];
+
+    /* ── render ────────────────────────────────────────── */
+    const chart = Highcharts.chart('chart03', {
         chart: {
             height: 700,
             backgroundColor: 'transparent',
             style: { fontFamily: "'Source Sans 3', sans-serif" },
-            animation: { duration: 400 },
-            events: {
-                load: function() {
-                    const style = document.createElement('style');
-                    style.type = 'text/css';
-                    style.innerHTML = `
-                        /* Prevent internal collision sweeps from dropping or flickering text labels */
-                        .highcharts-data-labels, 
-                        .highcharts-data-labels text, 
-                        .highcharts-data-label-level-1,
-                        .highcharts-data-label-level-2 {
-                            visibility: visible !important;
-                            opacity: 1 !important;
-                        }
-                    `;
-                    document.getElementsByTagName('head')[0].appendChild(style);
-                },
-                render: function() {
-                    const chart = this;
-                    if (chart.series && chart.series[0] && chart.series[0].rootNode && chart.series[0].rootNode !== '') {
-                        chart.setTitle(null, {
-                            text: '← Click the state title header bar to zoom back out',
-                            style: { color: '#c8972a', fontSize: '12px', fontWeight: '600' }
-                        }, false);
-                    } else {
-                        chart.setTitle(null, {
-                            text: 'Click any state or individual district tile to drill down into detail',
-                            style: { color: '#6b7a90', fontSize: '12px', fontWeight: '400' }
-                        }, false);
-                    }
-                }
-            }
+            animation: { duration: 350 },
+            margin: [65, 10, 10, 10]
         },
+
         title: {
-            text: `Hospital Beds Capacity by State & District — ${selectedYear}`,
+            text: isZoom
+                ? `${zoom} — District Bed Capacity (${currentYear})`
+                : `Hospital Beds Capacity by State & District — ${currentYear}`,
             align: 'left',
-            style: {
-                color: '#1a1f2e',
-                fontWeight: '800',
-                fontSize: '18px',
-                letterSpacing: '-0.3px'
-            }
+            style: { color: '#1a1f2e', fontWeight: '800', fontSize: '18px', letterSpacing: '-0.3px' }
         },
+
         subtitle: {
-            text: 'Click any state or individual district tile to drill down into detail',
+            text: isZoom
+                ? `Showing all districts in <b>${zoom}</b> · Click "← All States" to go back`
+                : 'Click any <b>district tile</b> to zoom into that state · Click any <b>state label</b> to zoom into that state',
+            useHTML: true,
             align: 'left',
             style: {
-                color: '#6b7a90',
-                fontSize: '12px'
+                color: isZoom ? '#c8972a' : '#6b7a90',
+                fontSize: '12px',
+                fontWeight: isZoom ? '600' : '400'
             }
         },
+
         tooltip: {
             enabled: true,
             useHTML: true,
-            backgroundColor: '#ffffff', // Change from rgba() to 100% solid white
-            borderRadius: 6,
-            shadow: true,
+            outside: true,
+            backgroundColor: '#ffffff',
+            borderRadius: 8,
+            shadow: { offsetX: 0, offsetY: 2, opacity: 0.08, width: 12 },
             borderWidth: 0,
-            style: { 
-                fontSize: '13px', 
-                color: '#1a1f2e',
-                zIndex: 9999 // Forces the HTML content layer onto the top layer
-            },
-            pointFormat: '<div style="padding: 4px 6px; background: #ffffff;"><b>{point.name}</b><br><span style="color:#6b7a90;">Capacity:</span> <b>{point.value}</b> total beds</div>'
+            style: { fontSize: '13px', color: '#1a1f2e', padding: '0' },
+            formatter: function () {
+                const stateName = isZoom ? zoom : (this.point.parent || this.point.name);
+                const isStateTile = !this.point.parent && !isZoom;
+                return `
+                <div style="padding:10px 14px;min-width:160px;">
+                  <div style="font-size:13px;font-weight:700;color:#1a1f2e;margin-bottom:4px;">
+                    ${this.point.name}
+                  </div>
+                  ${!isStateTile
+                    ? `<div style="font-size:11px;color:#6b7a90;margin-bottom:6px;">${stateName}</div>`
+                    : ''}
+                  <div style="display:flex;align-items:baseline;gap:4px;">
+                    <span style="font-size:18px;font-weight:800;color:#1a3a5c;">
+                      ${Highcharts.numberFormat(this.point.value, 0)}
+                    </span>
+                    <span style="font-size:11px;color:#6b7a90;">beds</span>
+                  </div>
+                </div>`;
+            }
         },
+
         plotOptions: {
             treemap: {
                 layoutAlgorithm: 'squarified',
+                allowDrillToNode: false,
+                /*
+                 * KEY: interactByLeaf: true
+                 *   → only leaf nodes (districts in overview, all tiles in zoom) receive
+                 *     pointer events and fire click.
+                 *   → This means in MODE A, clicking a district tile fires click with
+                 *     this.parent = state name  →  we zoom in.
+                 *   → State header labels have pointer-events:none so clicks pass through
+                 *     to the district tile underneath.
+                 *
+                 * We also wire a separate click on state-level (parent) nodes via
+                 * the series point events with a check on !this.node (leaf detection).
+                 */
                 interactByLeaf: true,
-                allowDrillToNode: true,
-                animationLimit: 1500,
+                animationLimit: 1000,
+                crisp: false,
                 states: {
                     hover: {
-                        /* Fix: Keep background colors consistent on hover to match HTML text,
-                          and highlight the active tile with a crisp white border instead.
-                        */
-                        brightness: 0, 
+                        brightness: 0.1,
                         borderColor: '#ffffff',
-                        borderWidth: 3
+                        borderWidth: 2
                     }
                 },
-                levels: [
-                    {
-                        level: 1,
-                        borderWidth: 2,
-                        borderColor: '#ffffff',
-                        dataLabels: {
-                            enabled: true,
-                            useHTML: true,
-                            align: 'left',
-                            verticalAlign: 'top',
-                            className: 'highcharts-data-label-level-1',
-                            style: { zIndex: 3, pointerEvents: 'none' },
-                            backgroundColor: 'rgba(255, 255, 255, 0.15)',
-                            padding: 5,
-                            borderRadius: 4,
-                            formatter: function() {
-                                const w = this.point.shapeArgs ? this.point.shapeArgs.width : 100;
-                                const h = this.point.shapeArgs ? this.point.shapeArgs.height : 100;
+                levels: isZoom ? levelsZoomed : levelsOverview,
+                point: {
+                    events: {
+                        click: function () {
+                            if (isZoom) return; // already zoomed, district clicks are informational only
 
-                                if (w < 110 || h < 90) {
-                                    return null;
-                                }
-                                return `<span style="color:#ffffff; font-size:10px; font-weight:800; letter-spacing: 0.5px; text-shadow: 1px 1px 3px rgba(0,0,0,0.4);">${this.point.name.toUpperCase()}</span>`;
+                            // this.parent is the state ID when a district (leaf) is clicked
+                            if (this.parent) {
+                                currentZoom = this.parent;
+                                buildChart();
                             }
-                        }
-                    },
-                    {
-                        level: 2,
-                        borderWidth: 0.5,
-                        borderColor: 'rgba(255,255,255,0.25)',
-                        dataLabels: {
-                            enabled: true,
-                            useHTML: true,
-                            allowOverlap: true,
-                            crop: false,
-                            overflow: 'allow',
-                            className: 'highcharts-data-label-level-2',
-                            style: {
-                                color: '#ffffff',
-                                fontWeight: '700',
-                                textOutline: '1px rgba(0,0,0,0.35)',
-                                textAlign: 'center',
-                                zIndex: 2,
-                                pointerEvents: 'none'
-                            },
-                            formatter: function() {
-                                const w = this.point.shapeArgs ? this.point.shapeArgs.width  : 60;
-                                const h = this.point.shapeArgs ? this.point.shapeArgs.height : 40;
-                                
-                                if (w < 20 || h < 15) return null;
-
-                                let labelFontSize = '11px';
-                                if (w < 60) labelFontSize = '9px';
-                                if (w < 40) labelFontSize = '7.5px';
-
-                                const singleDistricts = ["Perlis", "Kuala Lumpur", "Putrajaya", "WP Labuan"];
-                                const displayName = singleDistricts.includes(this.point.name)
-                                    ? this.point.name.toUpperCase()
-                                    : this.point.name;
-
-                                const valueDisplay = (h > 40 && w > 55)
-                                    ? `<div style="font-size: 8.5px; color: rgba(255,255,255,0.85); font-weight: 500; margin-top: 2px;">${this.point.value} beds</div>`
-                                    : '';
-                                    
-                                return `
-                                <div style="width:${w}px; height:${h}px; display:flex; flex-direction:column; align-items:center; justify-content:center; padding: 2px; box-sizing: border-box;">
-                                    <div style="font-size:${labelFontSize}; line-height:1.1; width:98%; word-wrap:break-word; font-weight:700;">${displayName}</div>
-                                    ${valueDisplay}
-                                </div>`;
-                            }
-                        }
-                    }
-                ]
-            }
-        },
-        series: [{
-            type: 'treemap',
-            allowDrillToNode: true,
-            interactByLeaf: true,
-            data: chartData,
-            point: {
-                events: {
-                    click: function() {
-                        const series = this.series;
-                        if (this.node && this.node.isRoot) {
-                            series.drillToNode('');
                         }
                     }
                 }
             }
+        },
+
+        series: [{
+            type: 'treemap',
+            data: data,
+            name: isZoom ? zoom : 'Malaysia'
         }],
+
         credits: { enabled: false }
     });
+
+    /* ── "← All States" back button, visible only in zoom mode ── */
+    if (isZoom) {
+        const btnW = 130;
+        chart.renderer
+            .button(
+                '← All States',
+                chart.chartWidth - btnW - 10,
+                10,
+                function () {
+                    currentZoom = null;
+                    buildChart();
+                },
+                {
+                    fill: '#1a3a5c', stroke: 'none', r: 6,
+                    style: {
+                        color: '#ffffff', fontSize: '11px', fontWeight: '700',
+                        fontFamily: "'Source Sans 3', sans-serif", cursor: 'pointer'
+                    },
+                    padding: 9
+                },
+                { fill: '#c8972a', style: { color: '#ffffff' } },
+                { fill: '#b07820', style: { color: '#ffffff' } }
+            )
+            .attr({ zIndex: 20 })
+            .add();
+    }
 }
 
 initChart();
