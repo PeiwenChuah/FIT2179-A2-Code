@@ -36,9 +36,9 @@ function renderChart03(selectedYear) {
         "Sarawak":           "#2a6699",
         "Selangor":          "#1a3a5c",
         "Terengganu":        "#634908",
-        "W.P. Kuala Lumpur": "#c8972a",
-        "W.P. Putrajaya":    "#7a4a78",
-        "W.P. Labuan":       "#0d5073"
+        "Kuala Lumpur":      "#c8972a",
+        "Putrajaya":         "#7a4a78",
+        "WP Labuan":         "#0d5073"
     };
 
     const filteredData = cachedCSVRows.map(row => {
@@ -71,7 +71,6 @@ function renderChart03(selectedYear) {
 
     let chartData = [];
     states.forEach(state => {
-        // Compute total beds per state for the top-level tile value
         const stateBeds = Object.entries(districtTotals)
             .filter(([k]) => k.startsWith(state + '|'))
             .reduce((sum, [, v]) => sum + v, 0);
@@ -100,115 +99,125 @@ function renderChart03(selectedYear) {
             height: 700,
             backgroundColor: 'transparent',
             style: { fontFamily: "'Source Sans 3', sans-serif" },
-            animation: { duration: 300 },
-            // Show breadcrumb-style back button when drilled in
+            animation: { duration: 400 },
             events: {
                 render: function() {
                     const chart = this;
-                    // If drilled down, update subtitle to hint at back navigation
                     if (chart.series && chart.series[0] && chart.series[0].rootNode && chart.series[0].rootNode !== '') {
                         chart.setTitle(null, {
-                            text: 'Click the state header to zoom back out · Showing district detail',
-                            style: { color: '#c8972a', fontSize: '11px', fontFamily: "'Source Sans 3', sans-serif", fontWeight: '600' }
+                            text: '← Click the state title header bar to zoom back out',
+                            style: { color: '#c8972a', fontSize: '12px', fontWeight: '600' }
                         }, false);
                     } else {
                         chart.setTitle(null, {
-                            text: 'Click any state or district to drill down · Click the header bar to zoom back out',
-                            style: { color: '#6b7a90', fontSize: '11px', fontFamily: "'Source Sans 3', sans-serif" }
+                            text: 'Click any state or individual district tile to drill down into detail',
+                            style: { color: '#6b7a90', fontSize: '12px', fontWeight: '400' }
                         }, false);
                     }
                 }
             }
         },
         title: {
-            text: `Hospital Beds by State & District — ${selectedYear}`,
+            text: `Hospital Beds Capacity by State & District — ${selectedYear}`,
+            align: 'left',
             style: {
                 color: '#1a1f2e',
-                fontWeight: '700',
-                fontSize: '15px',
-                fontFamily: "'Source Sans 3', sans-serif"
+                fontWeight: '800',
+                fontSize: '18px',
+                letterSpacing: '-0.3px'
             }
         },
         subtitle: {
-            text: 'Click any state or district to drill down · Click the header bar to zoom back out',
+            text: 'Click any state or individual district tile to drill down into detail',
+            align: 'left',
             style: {
                 color: '#6b7a90',
-                fontSize: '11px',
-                fontFamily: "'Source Sans 3', sans-serif"
+                fontSize: '12px'
             }
         },
         tooltip: {
             enabled: true,
             useHTML: true,
-            backgroundColor: '#FFFFFF',
-            shadow: false,
-            borderWidth: 1,
-            borderColor: '#e2e6ea',
-            style: { fontSize: '12px', color: '#1a1f2e', fontFamily: "'Source Sans 3', sans-serif" },
-            pointFormat: '<b>{point.name}</b><br>{point.value} beds'
+            backgroundColor: 'rgba(255, 255, 255, 0.96)',
+            borderRadius: 6,
+            shadow: true,
+            borderWidth: 0,
+            style: { fontSize: '13px', color: '#1a1f2e' },
+            pointFormat: '<div style="padding: 4px 6px;"><b>{point.name}</b><br><span style="color:#6b7a90;">Capacity:</span> <b>{point.value}</b> total beds</div>'
         },
         plotOptions: {
             treemap: {
                 layoutAlgorithm: 'squarified',
-                // interactByLeaf: true  → clicking a district tile drills into its parent state
-                // interactByLeaf: false → clicking the state tile itself drills into it
-                // We want BOTH: clicking a district drills into the state, clicking the
-                // state label bar (when already drilled) zooms back out.
-                // Setting interactByLeaf: true achieves this perfectly.
                 interactByLeaf: true,
                 allowDrillToNode: true,
-                animationLimit: 1000,
+                animationLimit: 1500,
                 levels: [
                     {
                         level: 1,
-                        borderWidth: 3,
+                        borderWidth: 2,
                         borderColor: '#ffffff',
                         dataLabels: {
                             enabled: true,
                             useHTML: true,
                             align: 'left',
                             verticalAlign: 'top',
-                            style: { zIndex: 1 },
-                            backgroundColor: 'rgba(26,31,46,0.82)',
-                            padding: 4,
+                            style: { zIndex: 3 },
+                            backgroundColor: 'rgba(255, 255, 255, 0.15)',
+                            padding: 5,
+                            borderRadius: 4,
                             formatter: function() {
-                                const wp = ["W.P. Labuan", "W.P. Putrajaya", "W.P. Kuala Lumpur"];
-                                if (wp.includes(this.point.name)) return null;
-                                return `<span style="color:#fff;font-size:10px;font-weight:700;font-family:'Source Sans 3',sans-serif;">${this.point.name.toUpperCase()} ›</span>`;
+                                const w = this.point.shapeArgs ? this.point.shapeArgs.width : 100;
+                                const h = this.point.shapeArgs ? this.point.shapeArgs.height : 100;
+
+                                // Hide top header banners for territories that don't need sub-divisions
+                                if (w < 110 || h < 90) {
+                                    return null;
+                                }
+                                return `<span style="color:#ffffff; font-size:10px; font-weight:800; letter-spacing: 0.5px; text-shadow: 1px 1px 3px rgba(0,0,0,0.4);">${this.point.name.toUpperCase()}</span>`;
                             }
                         }
                     },
                     {
                         level: 2,
-                        borderWidth: 1,
-                        borderColor: 'rgba(255,255,255,0.35)',
+                        borderWidth: 0.5,
+                        borderColor: 'rgba(255,255,255,0.25)',
                         dataLabels: {
                             enabled: true,
                             useHTML: true,
                             allowOverlap: true,
                             crop: false,
                             overflow: 'allow',
-                            padding: 0,
                             style: {
                                 color: '#ffffff',
                                 fontWeight: '700',
-                                textOutline: '1.5px rgba(0,0,0,0.55)',
+                                textOutline: '1px rgba(0,0,0,0.35)',
                                 textAlign: 'center',
-                                zIndex: 2,
-                                fontFamily: "'Source Sans 3', sans-serif"
+                                zIndex: 2
                             },
                             formatter: function() {
                                 const w = this.point.shapeArgs ? this.point.shapeArgs.width  : 60;
                                 const h = this.point.shapeArgs ? this.point.shapeArgs.height : 40;
-                                let fontSize = Math.max(w * 0.12, 6.5);
-                                if (fontSize > 13) fontSize = 13;
-                                const valueText = (h > 40 && w > 40)
-                                    ? `<div style="font-size:9px;color:rgba(255,255,255,0.85);font-weight:400;margin-top:1px;">${this.point.value} beds</div>`
+                                
+                                if (w < 20 || h < 15) return null;
+
+                                let labelFontSize = '11px';
+                                if (w < 60) labelFontSize = '9px';
+                                if (w < 40) labelFontSize = '7.5px';
+
+                                // Clean Text Format: Single districts get a single clean uppercase name without repeating lines
+                                const singleDistricts = ["Perlis", "Kuala Lumpur", "Putrajaya", "WP Labuan"];
+                                const displayName = singleDistricts.includes(this.point.name)
+                                    ? this.point.name.toUpperCase()
+                                    : this.point.name;
+
+                                const valueDisplay = (h > 40 && w > 55)
+                                    ? `<div style="font-size: 8.5px; color: rgba(255,255,255,0.85); font-weight: 500; margin-top: 2px;">${this.point.value} beds</div>`
                                     : '';
+                                    
                                 return `
-                                <div style="width:${w}px;height:${h}px;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;">
-                                    <div style="font-size:${fontSize}px;line-height:1;width:92%;word-wrap:break-word;">${this.point.name}</div>
-                                    ${valueText}
+                                <div style="width:${w}px; height:${h}px; display:flex; flex-direction:column; align-items:center; justify-content:center; padding: 2px; box-sizing: border-box;">
+                                    <div style="font-size:${labelFontSize}; line-height:1.1; width:98%; word-wrap:break-word; font-weight:700;">${displayName}</div>
+                                    ${valueDisplay}
                                 </div>`;
                             }
                         }
@@ -221,10 +230,8 @@ function renderChart03(selectedYear) {
             allowDrillToNode: true,
             interactByLeaf: true,
             data: chartData,
-            // When drilled into a state, show a coloured header bar using the state's colour
             point: {
                 events: {
-                    // clicking the drilled-in root header zooms back out
                     click: function() {
                         const series = this.series;
                         if (this.node && this.node.isRoot) {
