@@ -57,7 +57,7 @@
 
   "layer": [
     {
-      "description": "Thick invisible interaction catcher path that hosts the solitary tracking parameter setup",
+      "description": "Thick invisible interaction catcher path that hosts the tracking parameter safely",
       "params": [
         {
           "name": "hoveredCause",
@@ -75,16 +75,13 @@
       }
     },
     {
-      "description": "Trajectory-colored bump chart lines (Blue = Rise, Red = Drop, Gray = Unchanged)",
+      "description": "Trajectory-colored lines with natural sizing (Blue = Rise, Red = Drop, Gray = Unchanged)",
       "mark": { "type": "line", "strokeCap": "round" },
       "encoding": {
         "detail": { "field": "cause_short" },
         "strokeWidth": {
-          "condition": {
-            "test": "hoveredCause.cause_short && datum.cause_short === hoveredCause.cause_short",
-            "value": 5.5
-          },
-          "value": 3.5
+          "condition": { "param": "hoveredCause", "empty": false, "value": 4.5 },
+          "value": 2.5
         },
         "color": {
           "field": "trajectory",
@@ -92,45 +89,37 @@
           "scale": {
             "domain": ["rise", "drop", "unchanged"],
             "range": ["#2563eb", "#dc2626", "#94a3b8"]
+          },
+          "legend": {
+            "title": "Trajectory",
+            "labelExpr": "upper(slice(datum.label, 0, 1)) + slice(datum.label, 1)",
+            "titleFontSize": 12,
+            "labelFontSize": 11,
+            "orient": "right"
           }
         },
         "opacity": {
-          "condition": {
-            "test": "!hoveredCause.cause_short || datum.cause_short === hoveredCause.cause_short",
-            "value": 1
-          },
+          "condition": { "param": "hoveredCause", "empty": true, "value": 1 },
           "value": 0.15
         }
       }
     },
     {
-      "description": "Data node points that adapt color to match line trajectory",
+      "description": "Data node points with natural sizing matching trajectory lines",
       "mark": { "type": "circle", "stroke": "white" },
       "encoding": {
         "detail": { "field": "cause_short" },
         "size": {
-          "condition": {
-            "test": "hoveredCause.cause_short && datum.cause_short === hoveredCause.cause_short",
-            "value": 120
-          },
-          "value": 55
+          "condition": { "param": "hoveredCause", "empty": false, "value": 100 },
+          "value": 45
         },
         "strokeWidth": {
-          "condition": {
-            "test": "hoveredCause.cause_short && datum.cause_short === hoveredCause.cause_short",
-            "value": 2
-          },
+          "condition": { "param": "hoveredCause", "empty": false, "value": 2 },
           "value": 1
         },
-        "color": {
-          "field": "trajectory",
-          "type": "nominal"
-        },
+        "color": { "field": "trajectory", "type": "nominal" },
         "opacity": {
-          "condition": {
-            "test": "!hoveredCause.cause_short || datum.cause_short === hoveredCause.cause_short",
-            "value": 1
-          },
+          "condition": { "param": "hoveredCause", "empty": true, "value": 1 },
           "value": 0.2
         },
         "tooltip": [
@@ -142,54 +131,53 @@
       }
     },
     {
-      "description": "Clean inline labels positioned exactly at the end of each trend trajectory line at 2024",
+      "description": "Background text layer: Throws down a thick white stroke buffer to mask background line cross paths",
       "transform": [
-        { "filter": "datum.year == '2024'" }
+        {
+          "filter": "datum.year == '2024' || (datum.year == '2022' && datum.rank == 10) || (datum.year == '2023' && datum.rank == 10)"
+        }
       ],
       "mark": {
         "type": "text",
-        "align": "left",
-        "dx": 12,
+        "align": "center",
+        "baseline": "bottom",
+        "dy": -10,
+        "font": "Source Sans 3, sans-serif",
+        "fontSize": 10.5,
+        "fontWeight": 600,
+        "stroke": "#ffffff",
+        "strokeWidth": 4,
+        "strokeJoin": "round"
+      },
+      "encoding": {
+        "text": { "field": "cause_short", "type": "nominal" },
+        "opacity": {
+          "condition": { "param": "hoveredCause", "empty": true, "value": 1 },
+          "value": 0.2
+        }
+      }
+    },
+    {
+      "description": "Foreground text layer: Sits directly over the white outline to paint the colorful letters crisp and clean",
+      "transform": [
+        {
+          "filter": "datum.year == '2024' || (datum.year == '2022' && datum.rank == 10) || (datum.year == '2023' && datum.rank == 10)"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "align": "center",
+        "baseline": "bottom",
+        "dy": -10,
         "font": "Source Sans 3, sans-serif",
         "fontSize": 10.5,
         "fontWeight": 600
       },
       "encoding": {
         "text": { "field": "cause_short", "type": "nominal" },
-        "color": {
-          "field": "trajectory",
-          "type": "nominal"
-        },
-        "opacity": {
-          "condition": {
-            "test": "!hoveredCause.cause_short || datum.cause_short === hoveredCause.cause_short",
-            "value": 1
-          },
-          "value": 0.2
-        }
-      }
-    },
-    {
-      "description": "Isolates and labels historical Rank 10 items right at their specific peak columns so they never cross-collide at 2024",
-      "transform": [
-        { "filter": "(datum.cause_short == 'Pregnancy' && datum.year == '2022') || (datum.cause_short == 'Perinatal' && datum.year == '2023')" }
-      ],
-      "mark": {
-        "type": "text",
-        "align": "center",
-        "dy": -14,
-        "font": "Source Sans 3, sans-serif",
-        "fontSize": 10,
-        "fontWeight": 600
-      },
-      "encoding": {
-        "text": { "field": "cause_short", "type": "nominal" },
         "color": { "field": "trajectory", "type": "nominal" },
         "opacity": {
-          "condition": {
-            "test": "!hoveredCause.cause_short || datum.cause_short === hoveredCause.cause_short",
-            "value": 1
-          },
+          "condition": { "param": "hoveredCause", "empty": true, "value": 1 },
           "value": 0.2
         }
       }
