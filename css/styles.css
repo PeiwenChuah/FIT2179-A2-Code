@@ -383,3 +383,21 @@ body {
     width: 100%;
     height: 360px;
 }
+
+.highcharts-tooltip-container,
+.highcharts-tooltip {
+    z-index: 9999 !important;
+}
+
+/* 2. Ensure the Highcharts SVG tooltip box is 100% solid white */
+.highcharts-tooltip box {
+    fill: #ffffff !important;
+    fill-opacity: 1 !important;
+}
+
+/* 3. Drop the opacity of background labels slightly when inspecting a tile 
+   so the user's focus goes entirely to the tooltip text */
+.highcharts-container:hover .highcharts-data-labels {
+    opacity: 0.25 !important;
+    transition: opacity 0.2s ease;
+}

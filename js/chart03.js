@@ -101,6 +101,21 @@ function renderChart03(selectedYear) {
             style: { fontFamily: "'Source Sans 3', sans-serif" },
             animation: { duration: 400 },
             events: {
+                load: function() {
+                    const style = document.createElement('style');
+                    style.type = 'text/css';
+                    style.innerHTML = `
+                        /* Prevent internal collision sweeps from dropping or flickering text labels */
+                        .highcharts-data-labels, 
+                        .highcharts-data-labels text, 
+                        .highcharts-data-label-level-1,
+                        .highcharts-data-label-level-2 {
+                            visibility: visible !important;
+                            opacity: 1 !important;
+                        }
+                    `;
+                    document.getElementsByTagName('head')[0].appendChild(style);
+                },
                 render: function() {
                     const chart = this;
                     if (chart.series && chart.series[0] && chart.series[0].rootNode && chart.series[0].rootNode !== '') {
@@ -138,12 +153,16 @@ function renderChart03(selectedYear) {
         tooltip: {
             enabled: true,
             useHTML: true,
-            backgroundColor: 'rgba(255, 255, 255, 0.96)',
+            backgroundColor: '#ffffff', // Change from rgba() to 100% solid white
             borderRadius: 6,
             shadow: true,
             borderWidth: 0,
-            style: { fontSize: '13px', color: '#1a1f2e' },
-            pointFormat: '<div style="padding: 4px 6px;"><b>{point.name}</b><br><span style="color:#6b7a90;">Capacity:</span> <b>{point.value}</b> total beds</div>'
+            style: { 
+                fontSize: '13px', 
+                color: '#1a1f2e',
+                zIndex: 9999 // Forces the HTML content layer onto the top layer
+            },
+            pointFormat: '<div style="padding: 4px 6px; background: #ffffff;"><b>{point.name}</b><br><span style="color:#6b7a90;">Capacity:</span> <b>{point.value}</b> total beds</div>'
         },
         plotOptions: {
             treemap: {
@@ -151,6 +170,16 @@ function renderChart03(selectedYear) {
                 interactByLeaf: true,
                 allowDrillToNode: true,
                 animationLimit: 1500,
+                states: {
+                    hover: {
+                        /* Fix: Keep background colors consistent on hover to match HTML text,
+                          and highlight the active tile with a crisp white border instead.
+                        */
+                        brightness: 0, 
+                        borderColor: '#ffffff',
+                        borderWidth: 3
+                    }
+                },
                 levels: [
                     {
                         level: 1,
@@ -161,7 +190,8 @@ function renderChart03(selectedYear) {
                             useHTML: true,
                             align: 'left',
                             verticalAlign: 'top',
-                            style: { zIndex: 3 },
+                            className: 'highcharts-data-label-level-1',
+                            style: { zIndex: 3, pointerEvents: 'none' },
                             backgroundColor: 'rgba(255, 255, 255, 0.15)',
                             padding: 5,
                             borderRadius: 4,
@@ -169,7 +199,6 @@ function renderChart03(selectedYear) {
                                 const w = this.point.shapeArgs ? this.point.shapeArgs.width : 100;
                                 const h = this.point.shapeArgs ? this.point.shapeArgs.height : 100;
 
-                                // Hide top header banners for territories that don't need sub-divisions
                                 if (w < 110 || h < 90) {
                                     return null;
                                 }
@@ -187,12 +216,14 @@ function renderChart03(selectedYear) {
                             allowOverlap: true,
                             crop: false,
                             overflow: 'allow',
+                            className: 'highcharts-data-label-level-2',
                             style: {
                                 color: '#ffffff',
                                 fontWeight: '700',
                                 textOutline: '1px rgba(0,0,0,0.35)',
                                 textAlign: 'center',
-                                zIndex: 2
+                                zIndex: 2,
+                                pointerEvents: 'none'
                             },
                             formatter: function() {
                                 const w = this.point.shapeArgs ? this.point.shapeArgs.width  : 60;
@@ -204,7 +235,6 @@ function renderChart03(selectedYear) {
                                 if (w < 60) labelFontSize = '9px';
                                 if (w < 40) labelFontSize = '7.5px';
 
-                                // Clean Text Format: Single districts get a single clean uppercase name without repeating lines
                                 const singleDistricts = ["Perlis", "Kuala Lumpur", "Putrajaya", "WP Labuan"];
                                 const displayName = singleDistricts.includes(this.point.name)
                                     ? this.point.name.toUpperCase()
