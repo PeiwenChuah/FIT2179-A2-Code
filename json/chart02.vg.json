@@ -1,33 +1,129 @@
 {
   "$schema": "https://vega.github.io/schema/vega/v5.json",
   "width": 460,
-  "height": 360,
-  "padding": {"top": 20, "left": 20, "right": 100, "bottom": 40},
+  "height": 380,
+  "padding": {"top": 20, "left": 20, "right": 110, "bottom": 40},
   "autosize": {"type": "fit", "contains": "padding"},
 
   "signals": [
     {"name": "radius", "update": "120"},
     {"name": "cx",     "update": "230"},
-    {"name": "cy",     "update": "150"}
+    {"name": "cy",     "update": "155"},
+    {
+      "name": "stateA",
+      "value": "Sarawak",
+      "bind": {"input": "select", "options": ["Johor","Kedah","Kelantan","Melaka","Negeri Sembilan","Pahang","Perak","Perlis","Pulau Pinang","Sabah","Sarawak","Selangor","Terengganu"], "name": "State A: "}
+    },
+    {
+      "name": "stateB",
+      "value": "Selangor",
+      "bind": {"input": "select", "options": ["Johor","Kedah","Kelantan","Melaka","Negeri Sembilan","Pahang","Perak","Perlis","Pulau Pinang","Sabah","Sarawak","Selangor","Terengganu"], "name": "State B: "}
+    }
   ],
 
   "data": [
     {
-      "name": "table",
+      "name": "raw",
       "values": [
-        {"key": "Pharmacists",  "value": 0.463, "category": 0},
-        {"key": "Hospital Beds","value": 0.477, "category": 0},
-        {"key": "Nurses",       "value": 0.397, "category": 0},
-        {"key": "Doctors",      "value": 0.299, "category": 0},
-        {"key": "Dentists",     "value": 0.175, "category": 0},
-        {"key": "Deaths",       "value": 0.459, "category": 0},
-        {"key": "Pharmacists",  "value": 0.611, "category": 1},
-        {"key": "Hospital Beds","value": 0.000, "category": 1},
-        {"key": "Nurses",       "value": 0.236, "category": 1},
-        {"key": "Doctors",      "value": 0.642, "category": 1},
-        {"key": "Dentists",     "value": 0.500, "category": 1},
-        {"key": "Deaths",       "value": 1.000, "category": 1}
+        {"state":"Johor","key":"Pharmacists","value":0.296296296},
+        {"state":"Kedah","key":"Pharmacists","value":0.425925926},
+        {"state":"Kelantan","key":"Pharmacists","value":0.314814815},
+        {"state":"Melaka","key":"Pharmacists","value":0.555555556},
+        {"state":"Negeri Sembilan","key":"Pharmacists","value":0.648148148},
+        {"state":"Pahang","key":"Pharmacists","value":0.462962963},
+        {"state":"Perak","key":"Pharmacists","value":0.574074074},
+        {"state":"Perlis","key":"Pharmacists","value":0.759259259},
+        {"state":"Pulau Pinang","key":"Pharmacists","value":1.0},
+        {"state":"Sabah","key":"Pharmacists","value":0.0},
+        {"state":"Sarawak","key":"Pharmacists","value":0.462962963},
+        {"state":"Selangor","key":"Pharmacists","value":0.611111111},
+        {"state":"Terengganu","key":"Pharmacists","value":0.481481481},
+        {"state":"Johor","key":"Hospital Beds","value":0.207996918},
+        {"state":"Kedah","key":"Hospital Beds","value":0.166017967},
+        {"state":"Kelantan","key":"Hospital Beds","value":0.427203751},
+        {"state":"Melaka","key":"Hospital Beds","value":0.280379535},
+        {"state":"Negeri Sembilan","key":"Hospital Beds","value":0.44461135},
+        {"state":"Pahang","key":"Hospital Beds","value":0.454666929},
+        {"state":"Pulau Pinang","key":"Hospital Beds","value":0.119490273},
+        {"state":"Perak","key":"Hospital Beds","value":1.0},
+        {"state":"Perlis","key":"Hospital Beds","value":0.537622065},
+        {"state":"Selangor","key":"Hospital Beds","value":0.0},
+        {"state":"Terengganu","key":"Hospital Beds","value":0.292874619},
+        {"state":"Sabah","key":"Hospital Beds","value":0.249442177},
+        {"state":"Sarawak","key":"Hospital Beds","value":0.47743777},
+        {"state":"Johor","key":"Nurses","value":0.095041322},
+        {"state":"Kedah","key":"Nurses","value":0.214876033},
+        {"state":"Kelantan","key":"Nurses","value":0.421487603},
+        {"state":"Melaka","key":"Nurses","value":0.685950413},
+        {"state":"Negeri Sembilan","key":"Nurses","value":0.462809917},
+        {"state":"Pahang","key":"Nurses","value":0.570247934},
+        {"state":"Perak","key":"Nurses","value":0.450413223},
+        {"state":"Perlis","key":"Nurses","value":0.495867769},
+        {"state":"Pulau Pinang","key":"Nurses","value":1.0},
+        {"state":"Sabah","key":"Nurses","value":0.0},
+        {"state":"Sarawak","key":"Nurses","value":0.396694215},
+        {"state":"Selangor","key":"Nurses","value":0.23553719},
+        {"state":"Terengganu","key":"Nurses","value":0.458677686},
+        {"state":"Johor","key":"Doctors","value":0.284671533},
+        {"state":"Kedah","key":"Doctors","value":0.364963504},
+        {"state":"Kelantan","key":"Doctors","value":0.890510949},
+        {"state":"Melaka","key":"Doctors","value":0.912408759},
+        {"state":"Negeri Sembilan","key":"Doctors","value":1.0},
+        {"state":"Pahang","key":"Doctors","value":0.722627737},
+        {"state":"Perak","key":"Doctors","value":0.620437956},
+        {"state":"Perlis","key":"Doctors","value":0.95620438},
+        {"state":"Pulau Pinang","key":"Doctors","value":0.832116788},
+        {"state":"Sabah","key":"Doctors","value":0.0},
+        {"state":"Sarawak","key":"Doctors","value":0.299270073},
+        {"state":"Selangor","key":"Doctors","value":0.642335766},
+        {"state":"Terengganu","key":"Doctors","value":0.729927007},
+        {"state":"Johor","key":"Dentists","value":0.3},
+        {"state":"Kedah","key":"Dentists","value":0.325},
+        {"state":"Kelantan","key":"Dentists","value":0.55},
+        {"state":"Melaka","key":"Dentists","value":0.8},
+        {"state":"Negeri Sembilan","key":"Dentists","value":0.75},
+        {"state":"Pahang","key":"Dentists","value":0.75},
+        {"state":"Perak","key":"Dentists","value":0.35},
+        {"state":"Perlis","key":"Dentists","value":1.0},
+        {"state":"Pulau Pinang","key":"Dentists","value":0.65},
+        {"state":"Sabah","key":"Dentists","value":0.0},
+        {"state":"Sarawak","key":"Dentists","value":0.175},
+        {"state":"Selangor","key":"Dentists","value":0.5},
+        {"state":"Terengganu","key":"Dentists","value":0.725},
+        {"state":"Johor","key":"Deaths","value":0.594594595},
+        {"state":"Kedah","key":"Deaths","value":0.162162162},
+        {"state":"Kelantan","key":"Deaths","value":0.486486486},
+        {"state":"Melaka","key":"Deaths","value":0.594594595},
+        {"state":"Negeri Sembilan","key":"Deaths","value":0.405405405},
+        {"state":"Pahang","key":"Deaths","value":0.486486486},
+        {"state":"Perak","key":"Deaths","value":0.0},
+        {"state":"Perlis","key":"Deaths","value":0.216216216},
+        {"state":"Pulau Pinang","key":"Deaths","value":0.351351351},
+        {"state":"Sabah","key":"Deaths","value":0.972972973},
+        {"state":"Sarawak","key":"Deaths","value":0.459459459},
+        {"state":"Selangor","key":"Deaths","value":1.0},
+        {"state":"Terengganu","key":"Deaths","value":0.459459459}
       ]
+    },
+    {
+      "name": "tableA",
+      "source": "raw",
+      "transform": [
+        {"type": "filter", "expr": "datum.state === stateA"},
+        {"type": "formula", "as": "category", "expr": "0"}
+      ]
+    },
+    {
+      "name": "tableB",
+      "source": "raw",
+      "transform": [
+        {"type": "filter", "expr": "datum.state === stateB"},
+        {"type": "formula", "as": "category", "expr": "1"}
+      ]
+    },
+    {
+      "name": "table",
+      "source": ["tableA", "tableB"]
     },
     {
       "name": "keys",
@@ -62,7 +158,7 @@
   ],
 
   "encode": {
-    "enter": { "x": {"value": 0}, "y": {"value": 0} }
+    "enter": {"x": {"value": 0}, "y": {"value": 0}}
   },
 
   "marks": [
@@ -82,7 +178,6 @@
       "marks": [
         {
           "type": "line",
-          "name": "category-line",
           "from": {"data": "facet"},
           "encode": {
             "enter": {
@@ -135,8 +230,7 @@
           ],
           "fill": {"value": "#3d4a5c"},
           "fontSize": {"value": 11.5},
-          "fontWeight": {"value": "600"},
-          "font": {"value": "Source Sans 3, sans-serif"}
+          "fontWeight": {"value": "600"}
         }
       }
     },
@@ -159,12 +253,13 @@
       "from": {"data": "table"},
       "zindex": 2,
       "encode": {
-        "enter": {
+        "update": {
           "x": {"signal": "cx + scale('radial', datum.value) * cos(scale('angular', datum.key))"},
           "y": {"signal": "cy + scale('radial', datum.value) * sin(scale('angular', datum.key))"},
           "size": {"value": 40},
           "fill": {"scale": "color", "field": "category"},
-          "opacity": {"value": 0.9}
+          "opacity": {"value": 0.9},
+          "tooltip": {"signal": "{'Metric': datum.key, 'Normalised': format(datum.value, '.3f'), 'State': datum.state}"}
         }
       }
     },
@@ -173,7 +268,7 @@
       "from": {"data": "table"},
       "zindex": 3,
       "encode": {
-        "enter": {
+        "update": {
           "x": {"signal": "cx + scale('radial', datum.value) * cos(scale('angular', datum.key))"},
           "y": {"signal": "cy + scale('radial', datum.value) * sin(scale('angular', datum.key))"},
           "text": {"signal": "format(datum.value, '.2f')"},
@@ -182,8 +277,7 @@
           "dy": {"value": -7},
           "fill": {"scale": "color", "field": "category"},
           "fontSize": {"value": 9},
-          "fontWeight": {"value": "700"},
-          "font": {"value": "Source Sans 3, sans-serif"}
+          "fontWeight": {"value": "700"}
         }
       }
     },
@@ -192,12 +286,11 @@
       "encode": {
         "enter": {
           "x": {"value": 10},
-          "y": {"signal": "cy + radius + 55"},
+          "y": {"signal": "cy + radius + 52"},
           "text": {"value": "State:"},
           "fill": {"value": "#3d4a5c"},
           "fontSize": {"value": 11},
           "fontWeight": {"value": "bold"},
-          "font": {"value": "Source Sans 3, sans-serif"},
           "align": {"value": "left"},
           "baseline": {"value": "top"}
         }
@@ -206,14 +299,13 @@
     {
       "type": "text",
       "encode": {
-        "enter": {
+        "update": {
           "x": {"value": 55},
-          "y": {"signal": "cy + radius + 55"},
-          "text": {"value": "● Sarawak"},
+          "y": {"signal": "cy + radius + 52"},
+          "text": {"signal": "'● ' + stateA"},
           "fill": {"value": "#c8972a"},
           "fontSize": {"value": 11},
           "fontWeight": {"value": "bold"},
-          "font": {"value": "Source Sans 3, sans-serif"},
           "align": {"value": "left"},
           "baseline": {"value": "top"}
         }
@@ -222,14 +314,13 @@
     {
       "type": "text",
       "encode": {
-        "enter": {
-          "x": {"value": 150},
-          "y": {"signal": "cy + radius + 55"},
-          "text": {"value": "● Selangor"},
+        "update": {
+          "x": {"value": 185},
+          "y": {"signal": "cy + radius + 52"},
+          "text": {"signal": "'● ' + stateB"},
           "fill": {"value": "#1a3a5c"},
           "fontSize": {"value": 11},
           "fontWeight": {"value": "bold"},
-          "font": {"value": "Source Sans 3, sans-serif"},
           "align": {"value": "left"},
           "baseline": {"value": "top"}
         }
