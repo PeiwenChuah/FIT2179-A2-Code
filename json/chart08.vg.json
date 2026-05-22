@@ -1,7 +1,7 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "description": "Trajectory-colored bump chart of hospitalisation causes in Malaysia (2022–2024)",
-  "width": "container",
+  "width": 400,
   "height": 550,
   "data": { "url": "data/malaysia_hospitalisation_causes.csv" },
 
