@@ -1,0 +1,143 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": "container",
+  "height": 500,
+  "projection": {"type": "mercator"},
+  "layer": [
+    {
+      "data": {
+        "url": "json/neighbour.topojson",
+        "format": {"type": "topojson", "feature": "selection"}
+      },
+      "mark": { "type": "geoshape", "fill": "#f5f5f5", "stroke": "#e2e2e2", "strokeWidth": 0.5 }
+    },
+    {
+      "data": {
+        "url": "json/neighbour.topojson",
+        "format": {"type": "topojson", "feature": "malaysia.state"}
+      },
+      "mark": { "type": "geoshape", "fill": "#dce9f5", "stroke": "white", "strokeWidth": 0.5 }
+    },
+    {
+      "data": {
+        "values": [
+          {"state": "Kuala Lumpur", "lon1": 100.385522, "lat1": 3.132668, "lon2": 101.6951, "lat2": 3.1483},
+          {"state": "Putrajaya", "lon1": 100.583810, "lat1": 2.905202, "lon2": 101.6885, "lat2": 2.9394},
+          {"state": "Selangor", "lon1": 100.518843, "lat1": 3.370843, "lon2": 101.4010, "lat2": 3.3789},
+          {"state": "Pulau Pinang", "lon1": 99.609136, "lat1": 5.599600, "lon2": 100.3283, "lat2": 5.3678},
+          {"state": "Negeri Sembilan", "lon1": 100.896697, "lat1": 2.514112, "lon2": 102.1461, "lat2": 2.7526},
+          {"state": "Melaka", "lon1": 101.757084, "lat1": 2.222282, "lon2": 102.3183, "lat2": 2.2474}
+        ]
+      },
+      "mark": {
+        "type": "rule",
+        "color": "#6b2309",
+        "opacity": 0.8,
+        "strokeWidth": 1.0
+      },
+      "encoding": {
+        "longitude": {"field": "lon1", "type": "quantitative"},
+        "latitude": {"field": "lat1", "type": "quantitative"},
+        "longitude2": {"field": "lon2"},
+        "latitude2": {"field": "lat2"}
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {"state": "Johor", "latitude": 2.050526, "longitude": 103.389868, "hospitals": 49},
+          {"state": "Kedah", "latitude": 5.945551, "longitude": 100.716961, "hospitals": 18},
+          {"state": "Kelantan", "latitude": 5.209135, "longitude": 102.028609, "hospitals": 15},
+          {"state": "Kuala Lumpur", "latitude": 3.132668, "longitude": 101.6951, "hospitals": 49},
+          {"state": "Melaka", "latitude": 2.222282, "longitude": 102.3183, "hospitals": 9},
+          {"state": "Negeri Sembilan", "latitude": 2.514112, "longitude": 102.1461, "hospitals": 18},
+          {"state": "Pahang", "latitude": 3.732014, "longitude": 102.541958, "hospitals": 20},
+          {"state": "Perak", "latitude": 4.570655, "longitude": 100.97635, "hospitals": 37},
+          {"state": "Perlis", "latitude": 6.894973, "longitude": 100.242018, "hospitals": 2},
+          {"state": "Pulau Pinang", "latitude": 5.599600, "longitude": 100.3283, "hospitals": 24},
+          {"state": "Putrajaya", "latitude": 2.905202, "longitude": 101.6885, "hospitals": 4},
+          {"state": "Sabah", "latitude": 5.038, "longitude": 116.911, "hospitals": 34},
+          {"state": "Sarawak", "latitude": 2.629, "longitude": 113.799, "hospitals": 41},
+          {"state": "Selangor", "latitude": 3.370843, "longitude": 101.4010, "hospitals": 83},
+          {"state": "Terengganu", "latitude": 4.826731, "longitude": 102.952536, "hospitals": 10}
+        ]
+      },
+      "mark": {
+        "type": "circle",
+        "opacity": 0.70,
+        "stroke": "#1a3a5c",
+        "strokeWidth": 1.0
+      },
+      "encoding": {
+        "longitude": {"field": "longitude", "type": "quantitative"},
+        "latitude": {"field": "latitude", "type": "quantitative"},
+        "size": {
+          "field": "hospitals",
+          "type": "quantitative",
+          "scale": {
+            "type": "sqrt",
+            "range": [20, 1800]
+          },
+          "legend": {
+            "title": "No. of Hospitals",
+            "orient": "right",
+            "direction": "vertical",
+            "labelFontSize": 11,
+            "titleFontSize": 12,
+            "labelColor": "#1a2430",
+            "titleColor": "#1a2430",
+            "labelFont": "Source Sans 3, sans-serif",
+            "titleFont": "Source Sans 3, sans-serif",
+            "values": [2, 10, 20, 40, 83]
+          }
+        },
+        "color": {
+          "value": "#2a6899"
+        },
+        "tooltip": [
+          {"field": "state", "type": "nominal", "title": "State"},
+          {"field": "hospitals", "type": "quantitative", "title": "No. of Hospitals"}
+        ]
+      }
+    },
+    {
+      "data": {"url": "data/state_info.csv"},
+      "mark": {
+        "type": "text",
+        "fontSize": 10,
+        "fontWeight": 700,
+        "font": "Source Sans 3, sans-serif",
+        "stroke": "#fcfaf2",
+        "strokeWidth": 2.5,
+        "strokeJoin": "round",
+        "baseline": "middle"
+      },
+      "encoding": {
+        "longitude": {"field": "longitude", "type": "quantitative"},
+        "latitude": {"field": "latitude", "type": "quantitative"},
+        "text": {"field": "state", "type": "nominal"}
+      }
+    },
+    {
+      "data": {"url": "data/state_info.csv"},
+      "mark": {
+        "type": "text",
+        "fontSize": 10,
+        "fontWeight": 700,
+        "font": "Source Sans 3, sans-serif",
+        "fill": "#1a2430",
+        "baseline": "middle"
+      },
+      "encoding": {
+        "longitude": {"field": "longitude", "type": "quantitative"},
+        "latitude": {"field": "latitude", "type": "quantitative"},
+        "text": {"field": "state", "type": "nominal"}
+      }
+    }
+  ],
+  "config": {
+    "background": "transparent",
+    "view": {"stroke": "transparent"},
+    "font": "Source Sans 3, sans-serif"
+  }
+}
