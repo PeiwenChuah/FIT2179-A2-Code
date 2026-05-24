@@ -6,33 +6,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Healthcare In Malaysia</title>
 
-    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,700&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
 
-    <!-- Vega-Lite -->
     <script src="https://cdn.jsdelivr.net/npm/vega@5.20.2"></script>
     <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.6.0"></script>
     <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.17.0"></script>
 
-    <!-- Plotly (Sankey) -->
     <script src="https://cdn.plot.ly/plotly-2.24.1.min.js"></script>
 
-    <!-- Highcharts (Treemap) -->
     <script src="https://code.highcharts.com/highcharts.js"></script>
     <script src="https://code.highcharts.com/modules/treemap.js"></script>
     <script src="https://code.highcharts.com/modules/drilldown.js"></script>
 
-    <!-- CSS -->
     <link rel="stylesheet" href="css/styles.css" media="all">
 </head>
 
 <body>
 
-<!-- ══════════════════════════════════════════
-     HEADER
-══════════════════════════════════════════ -->
 <header class="dashboard-header">
     <h1>Healthcare in Malaysia</h1>
     <p class="header-sub">
@@ -40,7 +32,6 @@
     </p>
 </header>
 
-<!-- Sticky section nav -->
 <nav class="section-nav">
     <a href="#s1">Overview</a>
     <a href="#s2">Infrastructure</a>
@@ -51,9 +42,6 @@
 
 <div class="page">
 
-    <!-- ══════════════════════════════════════
-         SECTION 1 · National Overview
-    ══════════════════════════════════════ -->
     <section class="section" id="s1">
 
         <p class="section-label">Section 1</p>
@@ -64,13 +52,11 @@
 
         <div class="grid-2">
 
-            <!-- Chart 01 -->
             <div class="card">
 
                 <p class="card-title">Birth and Death Rates, 2000 to 2023</p>
-               
+                
                 <div id="chart01"></div>
-
 
                 <p class="chart-analysis">
                     Delayed marriages and declining urban fertility actively
@@ -82,7 +68,6 @@
 
             </div>
 
-            <!-- Chart 02 -->
             <div class="card">
 
                 <p class="card-title">Sarawak vs Selangor: Six Dimensions</p>
@@ -104,9 +89,6 @@
 
     </section>
 
-    <!-- ══════════════════════════════════════
-         SECTION 2 · Infrastructure
-    ══════════════════════════════════════ -->
     <section class="section" id="s2">
 
         <p class="section-label">Section 2</p>
@@ -115,8 +97,6 @@
             Healthcare Infrastructure
         </h2>
 
-
-        <!-- Chart 04 -->
         <div class="grid-1">
 
             <div class="card">
@@ -153,16 +133,12 @@
 
                 <div id="chart03"></div>
 
-
             </div>
 
         </div>
 
     </section>
 
-    <!-- ══════════════════════════════════════
-         SECTION 3 · Workforce
-    ══════════════════════════════════════ -->
     <section class="section" id="s3">
 
         <p class="section-label">Section 3</p>
@@ -173,29 +149,40 @@
 
         <div class="grid-2" style="margin-bottom:2rem;">
 
-            <!-- Chart 05 -->
             <div class="card">
 
                 <p class="card-title">Total Staff Count, 2014 to 2022</p>
 
                 <div id="chart05"></div>
 
+                <p class="chart-analysis">
+                    The steady rise in healthcare staff from 2014 to 2022
+                    reflects a deliberate push to strengthen Malaysia’s health system. Nurses drive
+                    most of the growth, while parallel increases in doctors, pharmacists, and
+                    dentists signal a more balanced workforce. This expansion points to a strategic
+                    effort to broaden coverage and reduce accessibility gaps nationwide.
+                </p>
 
             </div>
 
-            <!-- Chart 06 -->
             <div class="card">
 
                 <p class="card-title">Rates per 10,000 Population, 1990 to 2023</p>
 
                 <div id="chart06"></div>
 
+                <p class="chart-analysis">
+                    Overall, the trend in healthcare professional density from
+                    1990 to 2023 is clearly upward, reflecting steady improvements in workforce
+                    capacity. Doctors and pharmacists show consistent growth, while nurses remain
+                    the largest group despite fluctuations. This upward trajectory signals progress
+                    in strengthening Malaysia’s health system and expanding access to care.
+                </p>
 
             </div>
 
         </div>
 
-        <!-- Chart 07 -->
         <div class="grid-1">
 
             <div class="card">
@@ -210,9 +197,6 @@
 
     </section>
 
-    <!-- ══════════════════════════════════════
-         SECTION 4 · Disease Burden
-    ══════════════════════════════════════ -->
     <section class="section" id="s4">
 
         <p class="section-label">Section 4</p>
@@ -223,22 +207,41 @@
 
         <div class="grid-2">
 
-            <!-- Chart 08 -->
             <div class="card">
 
                 <p class="card-title">Top 10 Admission Causes, 2022 to 2024</p>
 
                 <div id="chart08"></div>
 
+                <p class="chart-analysis">
+                    Hospital admissions from 2022 to 2024 reveal deeper
+                    pressures on the health system. Respiratory diseases remain dominant,
+                    reflecting vulnerability to outbreaks and air quality. Digestive cases are
+                    rising, pointing to lifestyle-driven demands that strain resources. Perinatal
+                    admissions decline, suggesting gains in maternal and child health. Overall,
+                    Malaysia’s system must balance entrenched respiratory burdens with emerging
+                    non-communicable challenges.
+                </p>
+
             </div>
 
-            <!-- Chart 09 -->
             <div class="card">
 
                 <p class="card-title">Inpatient and Outpatient Visits by Sector, 2024</p>
 
                 <div id="chart09"></div>
 
+                <p class="chart-analysis">
+                    Malaysia’s healthcare demand in 2024 is overwhelmingly
+                    absorbed by the MOH public sector, which dominates both inpatient and
+                    outpatient visits. This reliance reflects the affordability and accessibility
+                    of public facilities, but it also signals heavy strain on government resources.
+                    Private hospitals capture a notable share of inpatient care, suggesting their
+                    role as an alternative for those who can afford it, while their limited
+                    outpatient use points to cost barriers. The imbalance highlights how Malaysia’s
+                    health system depends on public infrastructure as the primary safety net, with
+                    private care serving a narrower, more selective segment of the population.
+                </p>
 
             </div>
 
@@ -246,9 +249,6 @@
 
     </section>
 
-    <!-- ══════════════════════════════════════
-         SECTION 5 · Finance
-    ══════════════════════════════════════ -->
     <section class="section" id="s5">
 
         <p class="section-label">Section 5</p>
@@ -257,7 +257,6 @@
             Healthcare Finance
         </h2>
 
-        <!-- Chart 10 -->
         <div class="grid-1" style="margin-bottom:2rem;">
 
             <div class="card">
@@ -269,12 +268,21 @@
 
                 <div id="chart10"></div>
 
+                <p class="chart-analysis">
+                    Malaysia’s health financing in 2024 is almost evenly split
+                    between public and private sources, showing that households and government
+                    contribute at similar levels. Yet the allocation reveals a strong bias toward
+                    hospital-based curative care, while preventive services receive only a fraction
+                    of funding. This imbalance suggests that while resources are substantial, the
+                    system is oriented toward treatment rather than prevention, which may limit
+                    long-term sustainability and keep the population vulnerable to avoidable health
+                    burdens.
+                </p>
 
             </div>
 
         </div>
 
-        <!-- Chart 11 -->
         <div class="grid-1">
 
             <div class="card">
@@ -291,9 +299,6 @@
 
 </div>
 
-<!-- ══════════════════════════════════════
-     FOOTER
-══════════════════════════════════════ -->
 <footer class="dashboard-footer">
     <p>
         <strong>Data Sources</strong> &nbsp;&middot;&nbsp;
@@ -306,9 +311,6 @@
     </p>
 </footer>
 
-<!-- ══════════════════════════════════════
-     CHART SCRIPTS
-══════════════════════════════════════ -->
 <script src="js/chart01.js"></script>
 <script src="js/chart02.js"></script>
 <script src="js/chart03.js"></script>
