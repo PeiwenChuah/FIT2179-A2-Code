@@ -91,11 +91,11 @@
         const layout = {
             font: {
                 family: 'Source Sans 3, sans-serif',
-                size: 10,
+                size: 12,
                 color: '#1a1f2e'
             },
-            margin: { l: 80, r: 100, b: 20, t: 20 },
-            height: 580,
+            margin: { l: 0, r: 0, b: 0, t: 20 },
+            height: 500,
             autosize: true,
             paper_bgcolor: 'transparent',
             plot_bgcolor: 'transparent'

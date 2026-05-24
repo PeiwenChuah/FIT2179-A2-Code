@@ -117,7 +117,7 @@
           },
           "legend": {
             "orient": "right",
-            "titleFontSize": 15,
+            "titleFontSize": 16,
             "labelFontSize": 15,
             "symbolSize": 100,
             "offset": 0,
