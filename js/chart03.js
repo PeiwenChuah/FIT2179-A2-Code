@@ -31,11 +31,6 @@ async function initChart() {
 
 /* ══════════════════════════════════════════════════════════
    STATE COLOUR MAP
-   Each state gets its own distinct hue.
-   No colour here duplicates the profession palette
-   (#1a6b9a Doctor, #4dab91 Nurse, #e07b39 Pharmacist,
-    #7a6db0 Dentist) nor the sector palette
-   (#2d5a8e MOH, #c07a1a Non-MOH, #5b3fa0 Private).
 ══════════════════════════════════════════════════════════ */
 const STATE_COLORS = {
     'Johor': '#1f4e79',
@@ -253,36 +248,11 @@ function buildChart() {
             backgroundColor: 'transparent',
             style: { fontFamily: "'Source Sans 3', sans-serif" },
             animation: { duration: 320 },
-            margin: [60, 10, 10, 10]
+            // INCREASED TOP MARGIN TO 45px TO CREATE SPACE FOR THE BUTTON
+            margin: [35, 10, 10, 10]
         },
 
-        title: {
-            text: isZoom
-                ? `${zoom} — District Bed Capacity (${currentYear})`
-                : `Hospital Bed Capacity by State and District — ${currentYear}`,
-            align: 'left',
-            style: {
-                color: '#1a1f2e',
-                fontWeight: '700',
-                fontSize: '15px',
-                fontFamily: "'Playfair Display', Georgia, serif",
-                letterSpacing: '-0.2px'
-            }
-        },
-
-        subtitle: {
-            text: isZoom
-                ? `Districts in <b>${zoom}</b> &nbsp;·&nbsp; Click "All States" to return`
-                : 'Click any district tile to zoom into that state',
-            useHTML: true,
-            align: 'left',
-            style: {
-                color: isZoom ? '#c8972a' : '#6b7a90',
-                fontSize: '11px',
-                fontWeight: isZoom ? '600' : '400',
-                fontFamily: "'Source Sans 3', sans-serif"
-            }
-        },
+        title: null,
 
         tooltip: {
             enabled: true,
@@ -359,7 +329,7 @@ function buildChart() {
             .button(
                 '← All States',
                 chart.chartWidth - btnW - 10,
-                10,
+                0, // PLACED SAFELY AT Y=5 WITHIN THE 45px MARGIN
                 function () {
                     currentZoom = null;
                     buildChart();

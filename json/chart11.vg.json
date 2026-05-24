@@ -13,74 +13,126 @@
     },
     {"calculate": "toNumber(datum.amount)", "as": "amount"}
   ],
-  "mark": {"type": "bar", "tooltip": true},
-  "encoding": {
-    "x": {
-      "field": "Programme",
-      "type": "nominal",
-      "title": "Programme",
-      "sort": {"field": "budget_val", "op": "max", "order": "descending"},
-      "axis": {
-        "labelAngle": -30,
-        "labelFontSize": 11,
-        "labelLimit": 130,
-        "titleFontSize": 12,
-        "titleFontWeight": "normal",
-        "titlePadding": 10,
-        "labelFont": "Source Sans 3, sans-serif",
-        "titleFont": "Source Sans 3, sans-serif"
+  "layer": [
+    {
+      "mark": {"type": "bar", "tooltip": true},
+      "encoding": {
+        "x": {
+          "field": "Programme",
+          "type": "nominal",
+          "title": "Programme",
+          "sort": {"field": "budget_val", "op": "max", "order": "descending"},
+          "axis": {
+            "labelAngle": -30,
+            "labelFontSize": 11,
+            "labelLimit": 130,
+            "titleFontSize": 12,
+            "titleFontWeight": "normal",
+            "titlePadding": 10,
+            "labelFont": "Source Sans 3, sans-serif",
+            "titleFont": "Source Sans 3, sans-serif"
+          }
+        },
+        "xOffset": {
+          "field": "type_label",
+          "type": "nominal",
+          "sort": ["Budget", "Actual Spending"]
+        },
+        "y": {
+          "field": "amount",
+          "type": "quantitative",
+          "title": "Amount (RM)",
+          "axis": {
+            "labelFontSize": 11,
+            "titleFontSize": 12,
+            "titleFontWeight": "normal",
+            "titlePadding": 10,
+            "labelExpr": "datum.value >= 1000000000 ? format(datum.value / 1000000000, '.1f') + 'B' : datum.value >= 1000000 ? format(datum.value / 1000000, '.0f') + 'M' : datum.value >= 1000 ? format(datum.value / 1000, '.0f') + 'K' : datum.value",
+            "gridColor": "#eef0f3",
+            "gridOpacity": 1,
+            "labelFont": "Source Sans 3, sans-serif",
+            "titleFont": "Source Sans 3, sans-serif"
+          }
+        },
+        "color": {
+          "field": "type_label",
+          "type": "nominal",
+          "title": "Type",
+          "sort": ["Budget", "Actual Spending"],
+          "scale": {
+            "domain": ["Budget", "Actual Spending"],
+            "range": ["#2c5986", "#b54a0a"]
+          },
+          "legend": {
+            "title": "Type",
+            "titleOrient": "left",
+            "orient": "top",
+            "direction": "horizontal",
+            "titleFontSize": 11,
+            "labelFontSize": 11,
+            "symbolSize": 100,
+            "padding": 5,
+            "offset": 6,
+            "labelFont": "Source Sans 3, sans-serif",
+            "titleFont": "Source Sans 3, sans-serif"
+          }
+        },
+        "tooltip": [
+          {"field": "Programme",  "type": "nominal",      "title": "Programme"},
+          {"field": "type_label", "type": "nominal",      "title": "Type"},
+          {"field": "amount",     "type": "quantitative", "title": "Amount (RM)", "format": ","}
+        ]
       }
     },
-    "xOffset": {
-      "field": "type_label",
-      "type": "nominal",
-      "sort": ["Budget", "Actual Spending"]
-    },
-    "y": {
-      "field": "amount",
-      "type": "quantitative",
-      "title": "Amount (RM)",
-      "axis": {
-        "labelFontSize": 11,
-        "titleFontSize": 12,
-        "titleFontWeight": "normal",
-        "titlePadding": 10,
-        "labelExpr": "datum.value >= 1000000000 ? format(datum.value / 1000000000, '.1f') + 'B' : datum.value >= 1000000 ? format(datum.value / 1000000, '.0f') + 'M' : datum.value >= 1000 ? format(datum.value / 1000, '.0f') + 'K' : datum.value",
-        "gridColor": "#eef0f3",
-        "gridOpacity": 1,
-        "labelFont": "Source Sans 3, sans-serif",
-        "titleFont": "Source Sans 3, sans-serif"
-      }
-    },
-    "color": {
-      "field": "type_label",
-      "type": "nominal",
-      "title": "Type",
-      "sort": ["Budget", "Actual Spending"],
-      "scale": {
-        "domain": ["Budget", "Actual Spending"],
-        "range": ["#2c5986", "#b54a0a"]
+    {
+      "data": {
+        "values": [
+          {
+            "Programme": "Medical",
+            "y": 16650000000,
+            "label": [
+              "Medical Programmes", "Largest share of spending,",
+              "underscoring Malaysia’s treatment-heavy orientation",
+              "and the priority given to hospital services."
+            ]
+          },
+          {
+            "Programme": "Public Health",
+            "y": 11000000000,
+            "label": [
+              "Public Health","Consistently lower allocations, highlighting",
+              "the structural underinvestment in preventive",
+              "care compared to curative programmes."
+            ]
+          },
+          {
+            "Programme": "Research",
+            "y": 5000000000,
+            "label": [
+              "Research", "Minimal allocations", "showing limited", "emphasis on long",
+              "term innovation."
+            ]
+          }
+        ]
       },
-      "legend": {
-        "title": "Type",
-        "titleOrient": "left",
-        "orient": "top",
-        "direction": "horizontal",
-        "titleFontSize": 11,
-        "labelFontSize": 11,
-        "symbolSize": 100,
-        "padding": 5,
-        "offset": 6,
-        "labelFont": "Source Sans 3, sans-serif",
-        "titleFont": "Source Sans 3, sans-serif"
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "baseline": "bottom",
+        "dx": -25,
+        "dy": -10,
+        "fontSize": 15,
+        "lineHeight": 20,
+        "color": "black",
+        "font": "Source Sans 3, sans-serif"
+      },
+      "encoding": {
+        "x": {"field": "Programme", "type": "nominal"},
+        "y": {"field": "y", "type": "quantitative"},
+        "text": {"field": "label"}
       }
-    },
-    "tooltip": [
-      {"field": "Programme",  "type": "nominal",      "title": "Programme"},
-      {"field": "type_label", "type": "nominal",      "title": "Type"},
-      {"field": "amount",     "type": "quantitative", "title": "Amount (RM)", "format": ","}
-    ]
-  },
+    }
+  ],
   "config": {
     "background": "transparent",
     "view": {"stroke": "transparent"},
