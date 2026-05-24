@@ -53,7 +53,7 @@
         "type": "text",
         "align": "left",
         "dx": 5,
-        "fontSize": 9.5,
+        "fontSize": 15,
         "color": "#7a2e0e",
         "font": "Source Sans 3, sans-serif",
         "fontStyle": "italic"
@@ -117,8 +117,8 @@
           },
           "legend": {
             "orient": "right",
-            "titleFontSize": 11,
-            "labelFontSize": 11,
+            "titleFontSize": 15,
+            "labelFontSize": 15,
             "symbolSize": 100,
             "offset": 0,
             "padding": 0,
