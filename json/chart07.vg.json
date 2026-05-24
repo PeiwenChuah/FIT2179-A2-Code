@@ -112,7 +112,150 @@
         "latitude": {"field": "latitude", "type": "quantitative"},
         "text": {"field": "state", "type": "nominal"}
       }
-    }
+    },
+    {
+  "data": {
+    "values": [
+      {
+        "longitude": 112.5,
+        "latitude": 6.8,
+        "label": "Sabah & Sarawak"
+      },
+      {
+        "longitude": 99.2,
+        "latitude": 1.75,
+        "label": "Selangor & Kuala Lumpur"
+      },
+      {
+        "longitude": 102.9,
+        "latitude": 7.0,
+        "label": "Northern Peninsular Malaysia"
+      }
+    ]
+  },
+  "mark": {
+    "type": "text",
+    "fontSize": 13,
+    "fontWeight": 700,
+    "font": "Source Sans 3, sans-serif",
+    "fill": "#7a2e0e",
+    "baseline": "middle",
+    "align": "left"
+  },
+  "encoding": {
+    "longitude": {"field": "longitude", "type": "quantitative"},
+    "latitude": {"field": "latitude", "type": "quantitative"},
+    "text": {"field": "label", "type": "nominal"}
+  }
+},
+{
+  "data": {
+    "values": [
+      {
+        "longitude": 112.5,
+        "latitude": 6.55,
+        "label": "Significantly lower doctor density reflecting"
+      },
+      {
+        "longitude": 99.2,
+        "latitude": 1.5,
+        "label": "Highest doctor density driven by strong"
+      },
+      {
+        "longitude": 102.9,
+        "latitude": 6.75,
+        "label": "Noticeably lower doctor density compared"
+      }
+    ]
+  },
+  "mark": {
+    "type": "text",
+    "fontSize": 11,
+    "fontWeight": 400,
+    "fontStyle": "italic",
+    "font": "Source Sans 3, sans-serif",
+    "fill": "#3d4a5c",
+    "baseline": "middle",
+    "align": "left"
+  },
+  "encoding": {
+    "longitude": {"field": "longitude", "type": "quantitative"},
+    "latitude": {"field": "latitude", "type": "quantitative"},
+    "text": {"field": "label", "type": "nominal"}
+  }
+},
+{
+  "data": {
+    "values": [
+      {
+        "longitude": 112.5,
+        "latitude": 6.3,
+        "label": "healthcare access challenges across"
+      },
+      {
+        "longitude": 99.2,
+        "latitude": 1.25,
+        "label": "urban healthcare infrastructure and"
+      },
+      {
+        "longitude": 102.9,
+        "latitude": 6.5,
+        "label": "to central and western healthcare hubs"
+      }
+    ]
+  },
+  "mark": {
+    "type": "text",
+    "fontSize": 11,
+    "fontWeight": 400,
+    "fontStyle": "italic",
+    "font": "Source Sans 3, sans-serif",
+    "fill": "#3d4a5c",
+    "baseline": "middle",
+    "align": "left"
+  },
+  "encoding": {
+    "longitude": {"field": "longitude", "type": "quantitative"},
+    "latitude": {"field": "latitude", "type": "quantitative"},
+    "text": {"field": "label", "type": "nominal"}
+  }
+},
+{
+  "data": {
+    "values": [
+      {
+        "longitude": 112.5,
+        "latitude": 6.05,
+        "label": "vast rural and remote regions"
+      },
+      {
+        "longitude": 99.2,
+        "latitude": 1.0,
+        "label": "metropolitan resource concentration"
+      },
+      {
+        "longitude": 102.9,
+        "latitude": 6.25,
+        "label": "highlighting regional workforce disparity"
+      }
+    ]
+  },
+  "mark": {
+    "type": "text",
+    "fontSize": 11,
+    "fontWeight": 400,
+    "fontStyle": "italic",
+    "font": "Source Sans 3, sans-serif",
+    "fill": "#3d4a5c",
+    "baseline": "middle",
+    "align": "left"
+  },
+  "encoding": {
+    "longitude": {"field": "longitude", "type": "quantitative"},
+    "latitude": {"field": "latitude", "type": "quantitative"},
+    "text": {"field": "label", "type": "nominal"}
+  }
+}
   ],
   "config": {
     "background": "transparent",

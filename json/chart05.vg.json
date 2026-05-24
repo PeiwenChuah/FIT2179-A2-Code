@@ -57,6 +57,7 @@
         "titleFontSize": 11,
         "labelFontSize": 11,
         "symbolSize": 100,
+        "symbolType": "circle",
         "offset": 8,
         "labelFont": "Source Sans 3, sans-serif",
         "titleFont": "Source Sans 3, sans-serif"

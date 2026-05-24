@@ -168,6 +168,101 @@
         "latitude":  {"field": "latitude",  "type": "quantitative"},
         "text":      {"field": "state",     "type": "nominal"}
       }
+    },
+    {
+      "data": {
+        "values": [
+          {"longitude": 112.5, "latitude": 6.8,  "label": "Sabah & Sarawak"},
+          {"longitude": 99.2, "latitude": 1.75,  "label": "Selangor, KL & Putrajaya"},
+          {"longitude": 103.0,  "latitude": 7.0,  "label": "Northern Peninsular Malaysia"}
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "fontSize": 13,
+        "fontWeight": 700,
+        "font": "Source Sans 3, sans-serif",
+        "fill": "#7a2e0e",
+        "baseline": "middle",
+        "align": "left"
+      },
+      "encoding": {
+        "longitude": {"field": "longitude", "type": "quantitative"},
+        "latitude":  {"field": "latitude",  "type": "quantitative"},
+        "text":      {"field": "label",     "type": "nominal"}
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {"longitude": 112.5, "latitude": 6.55, "label": "Sparse hospital presence"},
+          {"longitude": 99.2, "latitude": 1.5, "label": "Major hub, highest"},
+          {"longitude": 103.0,  "latitude": 6.75, "label": "Noticeably lower"}
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "fontSize": 11,
+        "fontWeight": 400,
+        "fontStyle": "italic",
+        "font": "Source Sans 3, sans-serif",
+        "fill": "#3d4a5c",
+        "baseline": "middle",
+        "align": "left"
+      },
+      "encoding": {
+        "longitude": {"field": "longitude", "type": "quantitative"},
+        "latitude":  {"field": "latitude",  "type": "quantitative"},
+        "text":      {"field": "label",     "type": "nominal"}
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {"longitude": 112.5, "latitude": 6.3,  "label": "across wide geography"},
+          {"longitude": 99.2, "latitude": 1.25,  "label": "hospital density"},
+          {"longitude": 103.0,  "latitude": 6.5,  "label": "hospital density"}
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "fontSize": 11,
+        "fontWeight": 400,
+        "fontStyle": "italic",
+        "font": "Source Sans 3, sans-serif",
+        "fill": "#3d4a5c",
+        "baseline": "middle",
+        "align": "left"
+      },
+      "encoding": {
+        "longitude": {"field": "longitude", "type": "quantitative"},
+        "latitude":  {"field": "latitude",  "type": "quantitative"},
+        "text":      {"field": "label",     "type": "nominal"}
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {"longitude": 112.5, "latitude": 6.05, "label": "underscoring limited infrastructure"},
+          {"longitude": 99.2, "latitude": 1, "label": "concentrated investment"},
+          {"longitude": 103.0,  "latitude": 6.25, "label": "uneven infrastructure distribution"}
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "fontSize": 11,
+        "fontWeight": 400,
+        "fontStyle": "italic",
+        "font": "Source Sans 3, sans-serif",
+        "fill": "#3d4a5c",
+        "baseline": "middle",
+        "align": "left"
+      },
+      "encoding": {
+        "longitude": {"field": "longitude", "type": "quantitative"},
+        "latitude":  {"field": "latitude",  "type": "quantitative"},
+        "text":      {"field": "label",     "type": "nominal"}
+      }
     }
   ],
   "config": {

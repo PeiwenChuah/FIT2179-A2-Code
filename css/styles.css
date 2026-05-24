@@ -198,8 +198,9 @@ body {
     grid-template-columns: 1fr 1fr;
     gap: 2.2rem;
     width: 100%;
-    align-items: start;
+    align-items: stretch;
 }
+
 
 .grid-1 {
     display: grid;
@@ -227,8 +228,9 @@ body {
     background: transparent;
     border: none;
     padding: 0;
+    display: flex;
+    flex-direction: column;
 }
-
 /* ── Chart Title ─────────────────────────────────────── */
 .card-title {
     font-family: 'Playfair Display', Georgia, serif;
@@ -421,3 +423,13 @@ body {
     font-style: italic;
 }
 
+/* ── Chart Analysis Paragraph ────────────────────────── */
+.card .chart-analysis {
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 18px;
+    color: var(--text-mid);
+    line-height: 1.75;
+    margin-top: auto;
+    padding-top: 3rem;
+    width: 88%;
+}
