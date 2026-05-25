@@ -76,6 +76,11 @@
     --c-actual:      #b54a0a;
 
     --radius: 8px;
+
+    /* Consistent spacing tokens */
+    --space-section:  4rem;     /* between sections */
+    --space-card-gap: 2.4rem;   /* gap between cards in a row */
+    --space-post-map: 3rem;     /* extra space after maps / sankey */
 }
 
 /* ── Base ──────────────────────────────────────────────── */
@@ -93,24 +98,25 @@ body {
 
 /* ── Dashboard Header ──────────────────────────────────── */
 .dashboard-header {
-    padding: 3rem 2rem 1rem;
+    padding: 3.5rem 2rem 1.25rem;
     text-align: center;
     background: none;
 }
 
+/* LARGEST — dashboard title */
 .dashboard-header h1 {
     font-family: 'Playfair Display', Georgia, serif;
-    font-size: clamp(2.6rem, 5.5vw, 4.2rem);
+    font-size: clamp(3rem, 6vw, 4.8rem);
     font-weight: 800;
     letter-spacing: -0.02em;
     color: var(--text-dark);
-    line-height: 1.1;
-    margin-bottom: 0.55rem;
+    line-height: 1.08;
+    margin-bottom: 0.6rem;
 }
 
 .dashboard-header .header-sub {
     font-family: 'Source Sans 3', sans-serif;
-    font-size: 1rem;
+    font-size: 1.05rem;
     color: var(--text-muted);
     font-weight: 400;
     letter-spacing: 0.01em;
@@ -122,21 +128,22 @@ body {
     top: 0;
     z-index: 100;
     background: rgba(255,255,255,0.97);
-    padding: 0.1rem 0.1rem;
+    border-bottom: 1px solid var(--border);
+    padding: 0.45rem 0.5rem;
     display: flex;
-    gap: 0.1rem;
+    gap: 0.2rem;
     flex-wrap: wrap;
     justify-content: center;
 }
 
 .section-nav a {
-    font-size: 0.73rem;
+    font-size: 0.75rem;
     font-weight: 700;
-    letter-spacing: 0.07em;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
     text-decoration: none;
     color: var(--text-muted);
-    padding: 0.28rem 0.75rem;
+    padding: 0.32rem 0.9rem;
     border-radius: 100px;
     transition: background 0.15s, color 0.15s;
     font-family: 'Source Sans 3', sans-serif;
@@ -150,56 +157,54 @@ body {
 /* ── Page Layout ───────────────────────────────────────── */
 .page {
     width: 90%;
-    margin: 0 auto; /* You can keep or remove this; it won't affect a 100% width element */
-    padding: 0 1.5rem 5rem;
+    margin: 0 auto;
+    padding: 0 0 5rem;
 }
 
 /* ── Section Wrapper ───────────────────────────────────── */
 .section {
-    margin-top: 3rem;
-    padding-top: 0.75rem;
+    margin-top: var(--space-section);
+    padding-top: 1rem;
     border-top: 2px solid var(--accent-gold);
 }
 
 .section-label {
-    font-size: 0.66rem;
+    font-size: 0.7rem;
     font-weight: 700;
     letter-spacing: 0.22em;
     text-transform: uppercase;
     color: var(--accent-gold);
-    margin-bottom: 0.2rem;
+    margin-bottom: 0.25rem;
     font-family: 'Source Sans 3', sans-serif;
 }
 
+/* SECOND largest — section title */
 .section-title {
     font-family: 'Playfair Display', Georgia, serif;
-    font-size: clamp(1.55rem, 3vw, 2.1rem);
+    font-size: clamp(1.7rem, 3.2vw, 2.3rem);
     font-weight: 700;
     color: var(--text-dark);
-    margin-bottom: 2rem;
+    margin-bottom: 2.2rem;
     line-height: 1.15;
 }
 
 .section-narrative {
     font-family: 'Source Sans 3', sans-serif;
-    font-size: 0.92rem;
+    font-size: 0.95rem;
     color: var(--text-muted);
     max-width: 680px;
-    margin-bottom: 1.6rem;
+    margin-bottom: 1.8rem;
     line-height: 1.75;
 }
 
 /* ── Grid Helpers ─────────────────────────────────────── */
-/* All grids share the same outer width; no horizontal scroll */
-
 .grid-2 {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 2.2rem;
+    gap: var(--space-card-gap);
     width: 100%;
     align-items: stretch;
 }
-
 
 .grid-1 {
     display: grid;
@@ -207,11 +212,11 @@ body {
     width: 100%;
 }
 
-/* Finance section: chart left, stat panel right */
+/* Finance / treemap: chart left, text right */
 .grid-2-text {
     display: grid;
     grid-template-columns: 1.75fr 1fr;
-    gap: 2.2rem;
+    gap: var(--space-card-gap);
     align-items: start;
     width: 100%;
 }
@@ -219,10 +224,10 @@ body {
 @media (max-width: 860px) {
     .grid-2,
     .grid-2-text { grid-template-columns: 1fr; }
-    .page { padding: 0 1rem 3rem; }
+    .page { padding: 0 0 3rem; }
 }
 
-/* ── Card — borderless, no shadow ────────────────────── */
+/* ── Card — borderless ────────────────────────────────── */
 .card {
     background: transparent;
     border: none;
@@ -230,30 +235,31 @@ body {
     display: flex;
     flex-direction: column;
 }
-/* ── Chart Title ─────────────────────────────────────── */
+
+/* THIRD largest — chart title (20 px) */
 .card-title {
     font-family: 'Playfair Display', Georgia, serif;
     font-size: 20px;
     font-weight: 700;
     color: var(--text-dark);
-    margin-bottom: 1rem;
+    margin-bottom: 0.3rem;   /* tighter — subtitle sits closer to title */
     line-height: 1.25;
 }
 
 .card-subtitle {
     font-family: 'Source Sans 3', sans-serif;
-    font-size: 0.8rem;
+    font-size: 0.82rem;
     color: var(--text-muted);
-    margin-bottom: 0.9rem;
+    margin-bottom: 0.75rem;  /* space below subtitle before controls/chart */
     line-height: 1.5;
 }
 
-/* ── Key Insight ── plain, left-ruled, no box ───────── */
+/* ── Key Insight ────────────────────────────────────── */
 .insight {
     padding: 0.6rem 0 0 0.9rem;
     margin-top: 0.9rem;
     border-left: 2px solid var(--border);
-    font-size: 0.83rem;
+    font-size: 0.86rem;
     color: var(--text-mid);
     line-height: 1.6;
     background: none;
@@ -261,7 +267,7 @@ body {
 
 .insight strong {
     display: block;
-    font-size: 0.68rem;
+    font-size: 0.7rem;
     font-weight: 700;
     letter-spacing: 0.12em;
     text-transform: uppercase;
@@ -272,11 +278,10 @@ body {
 
 .insight p {
     margin: 0;
-    font-size: 0.83rem;
+    font-size: 0.86rem;
     line-height: 1.65;
     color: var(--text-mid);
 }
-
 
 /* ── Year Selector ──────────────────────────────────── */
 .year-control {
@@ -288,7 +293,7 @@ body {
 
 .year-control label {
     font-family: 'Source Sans 3', sans-serif;
-    font-size: 0.8rem;
+    font-size: 0.82rem;
     font-weight: 700;
     color: var(--text-dark);
     letter-spacing: 0.04em;
@@ -297,13 +302,13 @@ body {
 
 .year-control select {
     font-family: 'Source Sans 3', sans-serif;
-    font-size: 0.86rem;
+    font-size: 0.88rem;
     font-weight: 600;
     color: var(--text-dark);
     background: var(--bg);
     border: 1.5px solid var(--border);
     border-radius: 6px;
-    padding: 0.25rem 0.7rem;
+    padding: 0.28rem 0.75rem;
     cursor: pointer;
     outline: none;
     transition: border-color 0.15s;
@@ -323,6 +328,12 @@ body {
 #chart02 {
     width: 100%;
     height: 370px;
+}
+
+/* ── Post-map / post-sankey spacing ─────────────────── */
+/* Adds bottom breathing room after full-width maps & sankey */
+.map-spacer {
+    margin-bottom: var(--space-post-map);
 }
 
 /* ── Sankey Chart ───────────────────────────────────── */
@@ -349,6 +360,22 @@ body {
     z-index: 9999 !important;
 }
 
+/* ── Paragraph text (18 px) ────────────────────────── */
+.card .chart-analysis {
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 18px;
+    color: var(--text-mid);
+    line-height: 1.75;
+    margin-top: auto;
+    padding-top: 2rem;
+    width: 88%;          /* full card width for symmetry */
+}
+
+/* ── Divider between treemap row and next section ───── */
+.section-gap {
+    margin-top: var(--space-post-map);
+}
+
 /* ── Footer ──────────────────────────────────────────── */
 .dashboard-footer {
     border-top: 1px solid var(--border);
@@ -359,7 +386,7 @@ body {
 
 .dashboard-footer p {
     font-family: 'Source Sans 3', sans-serif;
-    font-size: 0.77rem;
+    font-size: 0.79rem;
     color: var(--text-muted);
     line-height: 1.9;
 }
@@ -373,19 +400,8 @@ body {
 .map-note,
 .drill-note {
     font-family: 'Source Sans 3', sans-serif;
-    font-size: 0.77rem;
+    font-size: 0.79rem;
     color: var(--text-muted);
     margin-top: 0.4rem;
     font-style: italic;
-}
-
-/* ── Chart Analysis Paragraph ────────────────────────── */
-.card .chart-analysis {
-    font-family: 'Source Sans 3', sans-serif;
-    font-size: 18px;
-    color: var(--text-mid);
-    line-height: 1.75;
-    margin-top: auto;
-    padding-top: 3rem;
-    width: 88%;
 }

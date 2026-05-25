@@ -27,7 +27,6 @@
 
 <header class="dashboard-header">
     <h1>Healthcare in Malaysia</h1>
- 
 </header>
 
 <nav class="section-nav">
@@ -40,22 +39,17 @@
 
 <div class="page">
 
+    <!-- ═══════════════════════════════════ SECTION 1 ══ -->
     <section class="section" id="s1">
 
         <p class="section-label">Section 1</p>
-
-        <h2 class="section-title">
-            National Healthcare Overview
-        </h2>
+        <h2 class="section-title">National Healthcare Overview</h2>
 
         <div class="grid-2">
 
             <div class="card">
-
-                <p class="card-title">Birth and Death Rates, 2000 to 2023</p>
-                
+                <p class="card-title">Birth and Death Rates, 2000–2023</p>
                 <div id="chart01"></div>
-
                 <p class="chart-analysis">
                     Delayed marriages and declining urban fertility actively
                     drive Malaysia toward an ageing population, mirroring
@@ -63,15 +57,11 @@
                     falling birth rates and the 2020 pandemic mortality spike
                     rapidly accelerate the closing gap between births and deaths.
                 </p>
-
             </div>
 
             <div class="card">
-
-                <p class="card-title">State-by-State Healthcare Comparison</p>
-                
+                <p class="card-title">State Healthcare Comparison</p>
                 <div id="chart02"></div>
-
                 <p class="chart-analysis">
                     The western region holds a clear advantage in
                     healthcare capacity, with greater access to professionals,
@@ -80,40 +70,32 @@
                     leaving the east comparatively less equipped to meet
                     population needs.
                 </p>
-
             </div>
 
         </div>
 
     </section>
 
+    <!-- ═══════════════════════════════════ SECTION 2 ══ -->
     <section class="section" id="s2">
 
         <p class="section-label">Section 2</p>
+        <h2 class="section-title">Healthcare Infrastructure</h2>
 
-        <h2 class="section-title">
-            Healthcare Infrastructure
-        </h2>
-
-        <div class="grid-1">
-
+        <!-- Hospital density map — full width, then space below -->
+        <div class="grid-1 map-spacer">
             <div class="card">
-
                 <p class="card-title">Hospital Density by State</p>
                 <div id="chart04"></div>
-
             </div>
-
         </div>
 
-        <div class="grid-2-text" style="grid-template-columns: 3fr 1fr; gap: 0.5rem;">
+        <!-- Treemap + side text -->
+        <div class="grid-2-text" style="grid-template-columns: 4fr 1fr; gap: 2.4rem;">
 
             <div class="card">
-
                 <p class="card-title">Hospital Bed Capacity by State and District</p>
-                <p class="card-subtitle">
-                    Click any district tile to zoom into that state
-                </p>
+                <p class="card-subtitle">Click any district tile to zoom into that state</p>
 
                 <div class="year-control">
                     <label for="yearSelect">Year:</label>
@@ -130,35 +112,29 @@
                 </div>
 
                 <div id="chart03"></div>
-
             </div>
 
-            <div class="text-panel" style="justify-content: center; padding-left: 1rem;">
-                <p class="chart-analysis" style="width: 100%; padding-top: 0; margin-top: 0; line-height: 1.75;
-                    font-family: 'Source Sans 3', sans-serif; font-size: 18px; color: var(--text-mid);">
+            <div class="text-panel" style="display:flex; align-items:center; padding-left:1rem;">
+                <p class="chart-analysis" style="width:100%; padding-top:0; margin-top:0;">
                     <br><br><br><br><br><br>The treemap highlights stark differences in hospital bed capacity across Malaysia. Western urban districts such as Kuala Lumpur, Ipoh, Rawang, and Johor Bahru dominate with far larger allocations, while eastern and northern states show much smaller capacities. This contrast underscores how healthcare infrastructure is concentrated in central urban hubs, leaving peripheral regions comparatively under resourced.
                 </p>
             </div>
 
         </div>
+
     </section>
 
+    <!-- ═══════════════════════════════════ SECTION 3 ══ -->
     <section class="section" id="s3">
 
         <p class="section-label">Section 3</p>
+        <h2 class="section-title">Healthcare Workforce</h2>
 
-        <h2 class="section-title">
-            Healthcare Workforce
-        </h2>
-
-        <div class="grid-2" style="margin-bottom:2rem;">
+        <div class="grid-2" style="margin-bottom: 2.4rem;">
 
             <div class="card">
-
-                <p class="card-title">Total Staff Count, 2014 to 2022</p>
-
+                <p class="card-title">Total Staff Count, 2014–2022</p>
                 <div id="chart05"></div>
-
                 <p class="chart-analysis">
                     The steady rise in healthcare staff from 2014 to 2022
                     reflects a deliberate push to strengthen Malaysia’s health system. Nurses drive
@@ -166,15 +142,11 @@
                     dentists signal a more balanced workforce. This expansion points to a strategic
                     effort to broaden coverage and reduce accessibility gaps nationwide.
                 </p>
-
             </div>
 
             <div class="card">
-
-                <p class="card-title">Rates per 10,000 Population, 1990 to 2023</p>
-
+                <p class="card-title">Staff Rate per 10,000 Population, 1990–2023</p>
                 <div id="chart06"></div>
-
                 <p class="chart-analysis">
                     Overall, the trend in healthcare professional density from
                     1990 to 2023 is clearly upward, reflecting steady improvements in workforce
@@ -182,41 +154,31 @@
                     the largest group despite fluctuations. This upward trajectory signals progress
                     in strengthening Malaysia’s health system and expanding access to care.
                 </p>
-
             </div>
 
         </div>
 
-        <div class="grid-1">
-
+        <!-- Doctor density map — full width, then space below -->
+        <div class="grid-1 map-spacer">
             <div class="card">
-
                 <p class="card-title">Doctor Density by State</p>
-
                 <div id="chart07"></div>
-
             </div>
-
         </div>
 
     </section>
 
+    <!-- ═══════════════════════════════════ SECTION 4 ══ -->
     <section class="section" id="s4">
 
         <p class="section-label">Section 4</p>
-
-        <h2 class="section-title">
-            Disease Burden
-        </h2>
+        <h2 class="section-title">Disease Burden</h2>
 
         <div class="grid-2">
 
             <div class="card">
-
-                <p class="card-title">Top 10 Admission Causes, 2022 to 2024</p>
-
+                <p class="card-title">Top 10 Admission Causes, 2022–2024</p>
                 <div id="chart08"></div>
-
                 <p class="chart-analysis">
                     Hospital admissions from 2022 to 2024 reveal deeper
                     pressures on the health system. Respiratory diseases remain dominant,
@@ -226,46 +188,39 @@
                     Malaysia’s system must balance entrenched respiratory burdens with emerging
                     non-communicable challenges.
                 </p>
-
             </div>
 
             <div class="card">
-
                 <p class="card-title">Inpatient and Outpatient Visits by Sector, 2024</p>
-
                 <div id="chart09"></div>
-
                 <p class="chart-analysis">
                     Malaysia’s healthcare demand in 2024 is largely carried by the MOH public sector, reflecting affordability but also creating strain on government capacity. Private hospitals contribute mainly to inpatient care for wealthier groups, while their outpatient role remains limited due to cost barriers. Non‑MOH public facilities are minimal, reinforcing the system’s heavy reliance on MOH as the central national safety net for all citizens and ensuring universal healthcare access.
                 </p>
-
             </div>
 
         </div>
 
     </section>
 
+    <!-- ═══════════════════════════════════ SECTION 5 ══ -->
     <section class="section" id="s5">
 
         <p class="section-label">Section 5</p>
+        <h2 class="section-title">Healthcare Finance</h2>
 
-        <h2 class="section-title">
-            Healthcare Finance
-        </h2>
-
-        <div class="grid-2-text" style="margin-bottom:2rem; grid-template-columns: 3fr 1fr; gap: 0.5rem;">
+        <!-- Sankey + side text — space below -->
+        <div class="grid-2-text map-spacer" style="grid-template-columns: 4fr 1fr; gap: 2.4rem;">
 
             <div class="card">
-                <p class="card-title">Flow of Health Funds &mdash; RM 89,827 Million</p>
+                <p class="card-title">Flow of Health Funds — RM 89,827 Million</p>
                 <p class="card-subtitle">
                     Financing sources &rarr; Aggregators &rarr; Providers &rarr; Health functions
                 </p>
-                <div id="chart10" style="width: 100%;"></div>
+                <div id="chart10" style="width:100%;"></div>
             </div>
 
-            <div class="text-panel" style="justify-content: center; padding-left: 1rem;">
-                <p class="chart-analysis" style="width: 100%; padding-top: 0; margin-top: 0; line-height: 1.75;
-                    font-family: 'Source Sans 3', sans-serif; font-size: 18px;color: var(--text-mid);">
+            <div class="text-panel" style="display:flex; align-items:center; padding-left:1rem;">
+                <p class="chart-analysis" style="width:100%; padding-top:0; margin-top:0;">
                     <br><br>Malaysia’s health financing in 2024 is almost
                     evenly split between public and private sources,
                     showing that households and government contribute at
@@ -282,16 +237,12 @@
 
         </div>
 
+        <!-- Budget chart — full width -->
         <div class="grid-1">
-
             <div class="card">
-
                 <p class="card-title">Budget vs Actual Spending by Programme, 2024</p>
-
                 <div id="chart11"></div>
-
             </div>
-
         </div>
 
     </section>
@@ -306,7 +257,8 @@
         World Health Organization Global Health Observatory
     </p>
     <p style="margin-top:0.35rem;">
-        FIT2179 Data Visualisation 2 &nbsp;&middot;&nbsp; Monash University Malaysia &nbsp;&middot;&nbsp; 2026
+        FIT2179 Data Visualisation 2 &nbsp;&middot;&nbsp;
+        Monash University Malaysia &nbsp;&middot;&nbsp; 2026
     </p>
 </footer>
 
