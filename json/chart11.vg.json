@@ -11,7 +11,42 @@
       "calculate": "datum.type === 'Actual_Spending' ? 'Actual Spending' : 'Budget'",
       "as": "type_label"
     },
-    {"calculate": "toNumber(datum.amount)", "as": "amount"}
+    {"calculate": "toNumber(datum.amount)", "as": "amount"},
+    {
+      "lookup": "Programme",
+      "from": {
+        "data": {
+          "values": [
+            {
+              "Programme": "Medical",
+              "y_pos": 16650000000,
+              "label": [
+                "Medical Programmes", "Largest share of spending, underscoring", "Malaysia’s treatment heavy orientation",
+                "and the priority given to hospital services."
+              ]
+            },
+            {
+              "Programme": "Public Health",
+              "y_pos": 11000000000,
+              "label": [
+                "Public Health", "Consistently lower allocations, highlighting",
+                "the structural underinvestment in preventive",
+                "care compared to curative programmes."
+              ]
+            },
+            {
+              "Programme": "Research",
+              "y_pos": 5000000000,
+              "label": [
+                "Research", "Minimal allocations, showing limited", "emphasis on long-term innovation."
+              ]
+            }
+          ]
+        },
+        "key": "Programme",
+        "fields": ["label", "y_pos"]
+      }
+    }
   ],
   "layer": [
     {
@@ -85,36 +120,9 @@
       }
     },
     {
-      "data": {
-        "values": [
-          {
-            "Programme": "Medical",
-            "y": 16650000000,
-            "label": [
-              "Medical Programmes", "Largest share of spending,",
-              "underscoring Malaysia’s treatment-heavy orientation",
-              "and the priority given to hospital services."
-            ]
-          },
-          {
-            "Programme": "Public Health",
-            "y": 11000000000,
-            "label": [
-              "Public Health","Consistently lower allocations, highlighting",
-              "the structural underinvestment in preventive",
-              "care compared to curative programmes."
-            ]
-          },
-          {
-            "Programme": "Research",
-            "y": 5000000000,
-            "label": [
-              "Research", "Minimal allocations", "showing limited", "emphasis on long",
-              "term innovation."
-            ]
-          }
-        ]
-      },
+      "transform": [
+        {"filter": "datum.type === 'Budget' && datum.label != null"}
+      ],
       "mark": {
         "type": "text",
         "align": "left",
@@ -127,8 +135,15 @@
         "font": "Source Sans 3, sans-serif"
       },
       "encoding": {
-        "x": {"field": "Programme", "type": "nominal"},
-        "y": {"field": "y", "type": "quantitative"},
+        "x": {
+          "field": "Programme",
+          "type": "nominal",
+          "sort": {"field": "budget_val", "op": "max", "order": "descending"}
+        },
+        "y": {
+          "field": "y_pos",
+          "type": "quantitative"
+        },
         "text": {"field": "label"}
       }
     }

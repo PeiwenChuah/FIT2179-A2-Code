@@ -249,7 +249,7 @@ function buildChart() {
             style: { fontFamily: "'Source Sans 3', sans-serif" },
             animation: { duration: 320 },
             // INCREASED TOP MARGIN TO 45px TO CREATE SPACE FOR THE BUTTON
-            margin: [35, 10, 10, 10]
+            margin: [35, 0, 10, 0]
         },
 
         title: null,
@@ -328,7 +328,7 @@ function buildChart() {
         chart.renderer
             .button(
                 '← All States',
-                chart.chartWidth - btnW - 10,
+                0,
                 0, // PLACED SAFELY AT Y=5 WITHIN THE 45px MARGIN
                 function () {
                     currentZoom = null;
