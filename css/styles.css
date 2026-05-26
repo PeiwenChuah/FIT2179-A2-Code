@@ -203,7 +203,7 @@ body {
     grid-template-columns: 1fr 1fr;
     gap: var(--space-card-gap);
     width: 100%;
-    align-items: stretch;
+    align-items: start;
 }
 
 .grid-1 {
@@ -363,7 +363,7 @@ body {
     font-size: 18px;
     color: var(--text-mid);
     line-height: 1.75;
-    margin-top: auto;
+    margin-top: 0;
     padding-top: 2rem;
     width: 88%;          /* full card width for symmetry */
 }

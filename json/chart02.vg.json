@@ -155,7 +155,7 @@
   "encode": {
     "enter": {
       "x": {"signal": "width/2"},
-      "y": {"signal": "height/2 -100"}
+      "y": {"signal": "height/2 -80"}
     }
   },
 

@@ -175,8 +175,8 @@
       "data": {
         "values": [
           {"longitude": 112.5, "latitude": 6.75, "label": "Sabah & Sarawak"},
-          {"longitude": 99.2, "latitude": 1.7, "label": "Selangor, KL & Putrajaya"},
-          {"longitude": 104.0, "latitude": 6.95, "label": "Northern Peninsular Malaysia"}
+          {"longitude": 99.2,  "latitude": 1.7,  "label": "Selangor, KL & Putrajaya"},
+          {"longitude": 104.0, "latitude": 6.75, "label": "Northern Peninsular Malaysia"}
         ]
       },
       "mark": {
@@ -198,8 +198,8 @@
       "data": {
         "values": [
           {"longitude": 112.5, "latitude": 6.45, "label": "Sparse hospital presence"},
-          {"longitude": 99.2, "latitude": 1.4, "label": "Major hub, highest"},
-          {"longitude": 104.0, "latitude": 6.65, "label": "Noticeably lower"}
+          {"longitude": 99.2,  "latitude": 1.4,  "label": "Major hub, highest"},
+          {"longitude": 104.0, "latitude": 6.45, "label": "Noticeably lower"}
         ]
       },
       "mark": {
@@ -221,8 +221,8 @@
       "data": {
         "values": [
           {"longitude": 112.5, "latitude": 6.15, "label": "across wide geography"},
-          {"longitude": 99.2, "latitude": 1.1, "label": "hospital density"},
-          {"longitude": 104.0, "latitude": 6.35, "label": "hospital density"}
+          {"longitude": 99.2,  "latitude": 1.1,  "label": "hospital density"},
+          {"longitude": 104.0, "latitude": 6.15, "label": "hospital density"}
         ]
       },
       "mark": {
@@ -244,8 +244,8 @@
       "data": {
         "values": [
           {"longitude": 112.5, "latitude": 5.85, "label": "underscoring limited infrastructure"},
-          {"longitude": 99.2, "latitude": 0.8, "label": "concentrated investment"},
-          {"longitude": 104.0, "latitude": 6.05, "label": "uneven infrastructure distribution"}
+          {"longitude": 99.2,  "latitude": 0.8,  "label": "concentrated investment"},
+          {"longitude": 104.0, "latitude": 5.85, "label": "uneven infrastructure distribution"}
         ]
       },
       "mark": {
