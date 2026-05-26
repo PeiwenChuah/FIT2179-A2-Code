@@ -24,7 +24,10 @@
 
           "axis": {
             "titleFontSize": 14,
-            "labelFontSize": 12
+            "labelFontSize": 12,
+
+            "titleFont": "Source Sans 3",
+            "labelFont": "Source Sans 3"
           }
         },
 
@@ -34,8 +37,10 @@
           "title": "Cases per 1,000 population",
 
           "axis": {
-            "titleFontSize": 14,
+            "titleFontSize": 20,
             "labelFontSize": 12
+
+            
           }
         },
 
@@ -43,14 +48,21 @@
           "field": "Type",
           "type": "nominal",
 
+          "scale": {
+            "domain": ["Birth", "Death"],
+            "range": ["#3a7fc1", "#7a2e0e"]
+          },
+
           "legend": {
-            "titleFontSize": 14,
+            "titleFontSize": 10,
             "labelFontSize": 12,
-            
             "symbolSize": 100,
 
             "titleFontWeight": "normal",
-            "labelFontWeight": "normal"
+            "labelFontWeight": "normal",
+
+            "titleFont": "Source Sans 3",
+            "labelFont": "Source Sans 3"
           }
         }
       }
@@ -94,7 +106,9 @@
       "mark": {
         "type": "text",
         "dy": -20,
-        "color": "#7a2e0e"
+        "color": "#7a2e0e",
+        "font": "Source Sans 3",
+        "fontWeight": "bold"
       },
 
       "encoding": {
@@ -114,7 +128,7 @@
         },
 
         "size": {
-          "value": 14
+          "value": 20
         }
       }
     },
@@ -153,7 +167,7 @@
         },
 
         "size": {
-          "value": 14
+          "value": 20
         }
       }
     }
