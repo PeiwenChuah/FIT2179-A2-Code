@@ -9,61 +9,76 @@
         "url": "json/neighbour.topojson",
         "format": {"type": "topojson", "feature": "selection"}
       },
-      "mark": { "type": "geoshape", "fill": "#f5f5f5", "stroke": "#e2e2e2", "strokeWidth": 0.5 }
+      "mark": {
+        "type": "geoshape",
+        "fill": "#f5f5f5",
+        "stroke": "#e2e2e2",
+        "strokeWidth": 0.5
+      }
     },
     {
       "data": {
         "url": "json/neighbour.topojson",
         "format": {"type": "topojson", "feature": "malaysia.state"}
       },
-      "mark": { "type": "geoshape", "fill": "#dce9f5", "stroke": "white", "strokeWidth": 0.5 }
-    },
-    {
-      "data": {
-        "values": [
-          {"state": "Johor",           "lon1": 103.389868, "lat1": 2.050526,  "lon2": 104.389868, "lat2": 2.050526},
-          {"state": "Kedah",           "lon1": 100.716961, "lat1": 5.945551,  "lon2": 101.396961, "lat2": 6.045551},
-          {"state": "Kelantan",        "lon1": 102.028609, "lat1": 5.209135,  "lon2": 103.328609, "lat2": 5.709135},
-          {"state": "Kuala Lumpur",    "lon1": 101.6951,   "lat1": 3.1483,    "lon2": 100.385522, "lat2": 3.132668},
-          {"state": "Melaka",          "lon1": 102.3183,   "lat1": 2.2474,    "lon2": 101.757084, "lat2": 2.222282},
-          {"state": "Negeri Sembilan", "lon1": 102.1461,   "lat1": 2.7526,    "lon2": 100.896697, "lat2": 2.514112},
-          {"state": "Pahang",          "lon1": 102.541958, "lat1": 3.732014,  "lon2": 103.741958, "lat2": 3.732014},
-          {"state": "Perak",           "lon1": 100.97635,  "lat1": 4.570655,  "lon2": 100.27635,  "lat2": 4.570655},
-          {"state": "Perlis",          "lon1": 100.242018, "lat1": 6.494973,  "lon2": 100.942018, "lat2": 6.594973},
-          {"state": "Pulau Pinang",    "lon1": 100.283,    "lat1": 5.4096,    "lon2": 99.509136,  "lat2": 5.599600},
-          {"state": "Putrajaya",       "lon1": 101.6885,   "lat1": 2.9394,    "lon2": 100.583810, "lat2": 2.905202},
-          {"state": "Sabah",           "lon1": 116.911,    "lat1": 5.038,     "lon2": 116.111,    "lat2": 5.038},
-          {"state": "Sarawak",         "lon1": 113.799,    "lat1": 2.629,     "lon2": 112.799,    "lat2": 2.629},
-          {"state": "Selangor",        "lon1": 101.4010,   "lat1": 3.370843,  "lon2": 100.518843, "lat2": 3.370843},
-          {"state": "Terengganu",      "lon1": 102.952536, "lat1": 4.826731,  "lon2": 103.952536, "lat2": 4.826731}
-        ]
-      },
-      "mark": { "type": "rule", "color": "#6b2309", "opacity": 0.8, "strokeWidth": 1.0 },
-      "encoding": {
-        "longitude":  {"field": "lon1", "type": "quantitative"},
-        "latitude":   {"field": "lat1", "type": "quantitative"},
-        "longitude2": {"field": "lon2"},
-        "latitude2":  {"field": "lat2"}
+      "mark": {
+        "type": "geoshape",
+        "fill": "#dce9f5",
+        "stroke": "white",
+        "strokeWidth": 0.5
       }
     },
     {
       "data": {
         "values": [
-          {"state": "Johor",           "latitude": 2.050526, "longitude": 103.389868, "hospitals": 49},
-          {"state": "Kedah",           "latitude": 5.945551, "longitude": 100.716961, "hospitals": 18},
-          {"state": "Kelantan",        "latitude": 5.209135, "longitude": 102.028609, "hospitals": 15},
-          {"state": "Kuala Lumpur",    "latitude": 3.132668, "longitude": 101.6951,   "hospitals": 49},
-          {"state": "Melaka",          "latitude": 2.322282, "longitude": 102.3183,   "hospitals": 9},
-          {"state": "Negeri Sembilan", "latitude": 2.814112, "longitude": 102.1461,   "hospitals": 18},
-          {"state": "Pahang",          "latitude": 3.732014, "longitude": 102.541958, "hospitals": 20},
-          {"state": "Perak",           "latitude": 4.570655, "longitude": 100.97635,  "hospitals": 37},
-          {"state": "Perlis",          "latitude": 6.494973, "longitude": 100.242018, "hospitals": 2},
-          {"state": "Pulau Pinang",    "latitude": 5.409600, "longitude": 100.283,    "hospitals": 24},
-          {"state": "Putrajaya",       "latitude": 2.905202, "longitude": 101.6885,   "hospitals": 4},
-          {"state": "Sabah",           "latitude": 5.038,    "longitude": 116.911,    "hospitals": 34},
-          {"state": "Sarawak",         "latitude": 2.629,    "longitude": 113.799,    "hospitals": 41},
-          {"state": "Selangor",        "latitude": 3.370843, "longitude": 101.4010,   "hospitals": 83},
-          {"state": "Terengganu",      "latitude": 4.826731, "longitude": 102.952536, "hospitals": 10}
+          {"state": "Johor", "lon1": 103.389868, "lat1": 2.050526, "lon2": 104.389868, "lat2": 2.050526},
+          {"state": "Kedah", "lon1": 100.716961, "lat1": 5.945551, "lon2": 101.396961, "lat2": 6.045551},
+          {"state": "Kelantan", "lon1": 102.028609, "lat1": 5.209135, "lon2": 103.328609, "lat2": 5.709135},
+          {"state": "Kuala Lumpur", "lon1": 101.6951, "lat1": 3.1483, "lon2": 100.385522, "lat2": 3.132668},
+          {"state": "Melaka", "lon1": 102.3183, "lat1": 2.2474, "lon2": 101.757084, "lat2": 2.222282},
+          {"state": "Negeri Sembilan", "lon1": 102.1461, "lat1": 2.7526, "lon2": 100.896697, "lat2": 2.514112},
+          {"state": "Pahang", "lon1": 102.541958, "lat1": 3.732014, "lon2": 103.741958, "lat2": 3.732014},
+          {"state": "Perak", "lon1": 100.97635, "lat1": 4.570655, "lon2": 100.27635, "lat2": 4.570655},
+          {"state": "Perlis", "lon1": 100.242018, "lat1": 6.494973, "lon2": 100.942018, "lat2": 6.594973},
+          {"state": "Pulau Pinang", "lon1": 100.283, "lat1": 5.4096, "lon2": 99.509136, "lat2": 5.599600},
+          {"state": "Putrajaya", "lon1": 101.6885, "lat1": 2.9394, "lon2": 100.583810, "lat2": 2.905202},
+          {"state": "Sabah", "lon1": 116.911, "lat1": 5.038, "lon2": 116.111, "lat2": 5.038},
+          {"state": "Sarawak", "lon1": 113.799, "lat1": 2.629, "lon2": 112.799, "lat2": 2.629},
+          {"state": "Selangor", "lon1": 101.4010, "lat1": 3.370843, "lon2": 100.518843, "lat2": 3.370843},
+          {"state": "Terengganu", "lon1": 102.952536, "lat1": 4.826731, "lon2": 103.952536, "lat2": 4.826731}
+        ]
+      },
+      "mark": {
+        "type": "rule",
+        "color": "#6b2309",
+        "opacity": 0.8,
+        "strokeWidth": 1.0
+      },
+      "encoding": {
+        "longitude": {"field": "lon1", "type": "quantitative"},
+        "latitude": {"field": "lat1", "type": "quantitative"},
+        "longitude2": {"field": "lon2"},
+        "latitude2": {"field": "lat2"}
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {"state": "Johor", "latitude": 2.050526, "longitude": 103.389868, "hospitals": 49},
+          {"state": "Kedah", "latitude": 5.945551, "longitude": 100.716961, "hospitals": 18},
+          {"state": "Kelantan", "latitude": 5.209135, "longitude": 102.028609, "hospitals": 15},
+          {"state": "Kuala Lumpur", "latitude": 3.132668, "longitude": 101.6951, "hospitals": 49},
+          {"state": "Melaka", "latitude": 2.322282, "longitude": 102.3183, "hospitals": 9},
+          {"state": "Negeri Sembilan", "latitude": 2.814112, "longitude": 102.1461, "hospitals": 18},
+          {"state": "Pahang", "latitude": 3.732014, "longitude": 102.541958, "hospitals": 20},
+          {"state": "Perak", "latitude": 4.570655, "longitude": 100.97635, "hospitals": 37},
+          {"state": "Perlis", "latitude": 6.494973, "longitude": 100.242018, "hospitals": 2},
+          {"state": "Pulau Pinang", "latitude": 5.409600, "longitude": 100.283, "hospitals": 24},
+          {"state": "Putrajaya", "latitude": 2.905202, "longitude": 101.6885, "hospitals": 4},
+          {"state": "Sabah", "latitude": 5.038, "longitude": 116.911, "hospitals": 34},
+          {"state": "Sarawak", "latitude": 2.629, "longitude": 113.799, "hospitals": 41},
+          {"state": "Selangor", "latitude": 3.370843, "longitude": 101.4010, "hospitals": 83},
+          {"state": "Terengganu", "latitude": 4.826731, "longitude": 102.952536, "hospitals": 10}
         ]
       },
       "mark": {
@@ -74,7 +89,7 @@
       },
       "encoding": {
         "longitude": {"field": "longitude", "type": "quantitative"},
-        "latitude":  {"field": "latitude",  "type": "quantitative"},
+        "latitude": {"field": "latitude", "type": "quantitative"},
         "size": {
           "field": "hospitals",
           "type": "quantitative",
@@ -85,189 +100,146 @@
             "direction": "vertical",
             "labelFontSize": 11,
             "titleFontSize": 12,
+            "labelFontWeight": "normal",
+            "titleFontWeight": "normal",
             "labelColor": "#1a2430",
             "titleColor": "#1a2430",
-            "labelFont": "Source Sans 3",
-            "titleFont": "Source Sans 3",
             "values": [2, 10, 20, 40, 83]
           }
         },
         "color": {"value": "#2a6899"},
         "tooltip": [
-          {"field": "state",     "type": "nominal",      "title": "State"},
-          {"field": "hospitals", "type": "quantitative", "title": "No. of Hospitals"}
+          {"field": "state", "type": "nominal", "title": "State"},
+          {"field": "hospitals", "type": "quantitative", "title": "Number of Hospitals"}
         ]
       }
     },
     {
       "data": {
         "values": [
-          {"state": "Johor",           "latitude": 2.050526, "longitude": 104.389868},
-          {"state": "Kedah",           "latitude": 6.045551, "longitude": 101.396961},
-          {"state": "Kelantan",        "latitude": 5.709135, "longitude": 103.328609},
-          {"state": "Kuala Lumpur",    "latitude": 3.132668, "longitude": 100.385522},
-          {"state": "Melaka",          "latitude": 2.222282, "longitude": 101.757084},
+          {"state": "Johor", "latitude": 2.050526, "longitude": 104.389868},
+          {"state": "Kedah", "latitude": 6.045551, "longitude": 101.396961},
+          {"state": "Kelantan", "latitude": 5.709135, "longitude": 103.328609},
+          {"state": "Kuala Lumpur", "latitude": 3.132668, "longitude": 100.385522},
+          {"state": "Melaka", "latitude": 2.222282, "longitude": 101.757084},
           {"state": "Negeri Sembilan", "latitude": 2.514112, "longitude": 100.896697},
-          {"state": "Pahang",          "latitude": 3.732014, "longitude": 103.741958},
-          {"state": "Perak",           "latitude": 4.570655, "longitude": 100.27635},
-          {"state": "Perlis",          "latitude": 6.594973, "longitude": 100.942018},
-          {"state": "Pulau Pinang",    "latitude": 5.599600, "longitude": 99.509136},
-          {"state": "Putrajaya",       "latitude": 2.905202, "longitude": 100.583810},
-          {"state": "Sabah",           "latitude": 5.038,    "longitude": 116.111},
-          {"state": "Sarawak",         "latitude": 2.629,    "longitude": 112.799},
-          {"state": "Selangor",        "latitude": 3.370843, "longitude": 100.518843},
-          {"state": "Terengganu",      "latitude": 4.826731, "longitude": 103.952536}
+          {"state": "Pahang", "latitude": 3.732014, "longitude": 103.741958},
+          {"state": "Perak", "latitude": 4.570655, "longitude": 100.27635},
+          {"state": "Perlis", "latitude": 6.594973, "longitude": 100.942018},
+          {"state": "Pulau Pinang", "latitude": 5.599600, "longitude": 99.509136},
+          {"state": "Putrajaya", "latitude": 2.905202, "longitude": 100.583810},
+          {"state": "Sabah", "latitude": 5.038, "longitude": 116.111},
+          {"state": "Sarawak", "latitude": 2.629, "longitude": 112.799},
+          {"state": "Selangor", "latitude": 3.370843, "longitude": 100.518843},
+          {"state": "Terengganu", "latitude": 4.826731, "longitude": 103.952536}
         ]
       },
       "mark": {
         "type": "text",
-        "fontSize": 10,
-        "fontWeight": 700,
-        "font": "Source Sans 3",
-        "stroke": "#fcfaf2",
-        "strokeWidth": 2.5,
-        "strokeJoin": "round",
+        "fontSize": 11,
+        "fontWeight": "normal",
+        "fill": "black",
+        "stroke": "white",
+        "strokeWidth": 0.1,
         "baseline": "middle"
       },
       "encoding": {
         "longitude": {"field": "longitude", "type": "quantitative"},
-        "latitude":  {"field": "latitude",  "type": "quantitative"},
-        "text":      {"field": "state",     "type": "nominal"}
+        "latitude": {"field": "latitude", "type": "quantitative"},
+        "text": {"field": "state", "type": "nominal"}
       }
     },
     {
       "data": {
         "values": [
-          {"state": "Johor",           "latitude": 2.050526, "longitude": 104.389868},
-          {"state": "Kedah",           "latitude": 6.045551, "longitude": 101.396961},
-          {"state": "Kelantan",        "latitude": 5.709135, "longitude": 103.328609},
-          {"state": "Kuala Lumpur",    "latitude": 3.132668, "longitude": 100.385522},
-          {"state": "Melaka",          "latitude": 2.222282, "longitude": 101.757084},
-          {"state": "Negeri Sembilan", "latitude": 2.514112, "longitude": 100.896697},
-          {"state": "Pahang",          "latitude": 3.732014, "longitude": 103.741958},
-          {"state": "Perak",           "latitude": 4.570655, "longitude": 100.27635},
-          {"state": "Perlis",          "latitude": 6.594973, "longitude": 100.942018},
-          {"state": "Pulau Pinang",    "latitude": 5.599600, "longitude": 99.509136},
-          {"state": "Putrajaya",       "latitude": 2.905202, "longitude": 100.583810},
-          {"state": "Sabah",           "latitude": 5.038,    "longitude": 116.111},
-          {"state": "Sarawak",         "latitude": 2.629,    "longitude": 112.799},
-          {"state": "Selangor",        "latitude": 3.370843, "longitude": 100.518843},
-          {"state": "Terengganu",      "latitude": 4.826731, "longitude": 103.952536}
+          {"longitude": 112.5, "latitude": 6.75, "label": "Sabah & Sarawak"},
+          {"longitude": 99.2, "latitude": 1.7, "label": "Selangor, KL & Putrajaya"},
+          {"longitude": 104.0, "latitude": 6.95, "label": "Northern Peninsular Malaysia"}
         ]
       },
       "mark": {
         "type": "text",
-        "fontSize": 10,
+        "fontSize": 14,
         "fontWeight": 700,
-        "font": "Source Sans 3",
-        "fill": "#1a2430",
-        "baseline": "middle"
-      },
-      "encoding": {
-        "longitude": {"field": "longitude", "type": "quantitative"},
-        "latitude":  {"field": "latitude",  "type": "quantitative"},
-        "text":      {"field": "state",     "type": "nominal"}
-      }
-    },
-    {
-      "data": {
-        "values": [
-          {"longitude": 112.5, "latitude": 6.8,  "label": "Sabah & Sarawak"},
-          {"longitude": 99.2, "latitude": 1.75,  "label": "Selangor, KL & Putrajaya"},
-          {"longitude": 103.0,  "latitude": 7.0,  "label": "Northern Peninsular Malaysia"}
-        ]
-      },
-      "mark": {
-        "type": "text",
-        "fontSize": 13,
-        "fontWeight": 700,
-        "font": "Source Sans 3",
         "fill": "#7a2e0e",
         "baseline": "middle",
         "align": "left"
       },
       "encoding": {
         "longitude": {"field": "longitude", "type": "quantitative"},
-        "latitude":  {"field": "latitude",  "type": "quantitative"},
-        "text":      {"field": "label",     "type": "nominal"}
+        "latitude": {"field": "latitude", "type": "quantitative"},
+        "text": {"field": "label", "type": "nominal"}
       }
     },
     {
       "data": {
         "values": [
-          {"longitude": 112.5, "latitude": 6.55, "label": "Sparse hospital presence"},
-          {"longitude": 99.2, "latitude": 1.5, "label": "Major hub, highest"},
-          {"longitude": 103.0,  "latitude": 6.75, "label": "Noticeably lower"}
+          {"longitude": 112.5, "latitude": 6.45, "label": "Sparse hospital presence"},
+          {"longitude": 99.2, "latitude": 1.4, "label": "Major hub, highest"},
+          {"longitude": 104.0, "latitude": 6.65, "label": "Noticeably lower"}
         ]
       },
       "mark": {
         "type": "text",
-        "fontSize": 11,
+        "fontSize": 14,
         "fontWeight": 400,
-        "fontStyle": "italic",
-        "font": "Source Sans 3",
         "fill": "#3d4a5c",
         "baseline": "middle",
         "align": "left"
       },
       "encoding": {
         "longitude": {"field": "longitude", "type": "quantitative"},
-        "latitude":  {"field": "latitude",  "type": "quantitative"},
-        "text":      {"field": "label",     "type": "nominal"}
+        "latitude": {"field": "latitude", "type": "quantitative"},
+        "text": {"field": "label", "type": "nominal"}
       }
     },
     {
       "data": {
         "values": [
-          {"longitude": 112.5, "latitude": 6.3,  "label": "across wide geography"},
-          {"longitude": 99.2, "latitude": 1.25,  "label": "hospital density"},
-          {"longitude": 103.0,  "latitude": 6.5,  "label": "hospital density"}
+          {"longitude": 112.5, "latitude": 6.15, "label": "across wide geography"},
+          {"longitude": 99.2, "latitude": 1.1, "label": "hospital density"},
+          {"longitude": 104.0, "latitude": 6.35, "label": "hospital density"}
         ]
       },
       "mark": {
         "type": "text",
-        "fontSize": 11,
+        "fontSize": 14,
         "fontWeight": 400,
-        "fontStyle": "italic",
-        "font": "Source Sans 3",
         "fill": "#3d4a5c",
         "baseline": "middle",
         "align": "left"
       },
       "encoding": {
         "longitude": {"field": "longitude", "type": "quantitative"},
-        "latitude":  {"field": "latitude",  "type": "quantitative"},
-        "text":      {"field": "label",     "type": "nominal"}
+        "latitude": {"field": "latitude", "type": "quantitative"},
+        "text": {"field": "label", "type": "nominal"}
       }
     },
     {
       "data": {
         "values": [
-          {"longitude": 112.5, "latitude": 6.05, "label": "underscoring limited infrastructure"},
-          {"longitude": 99.2, "latitude": 1, "label": "concentrated investment"},
-          {"longitude": 103.0,  "latitude": 6.25, "label": "uneven infrastructure distribution"}
+          {"longitude": 112.5, "latitude": 5.85, "label": "underscoring limited infrastructure"},
+          {"longitude": 99.2, "latitude": 0.8, "label": "concentrated investment"},
+          {"longitude": 104.0, "latitude": 6.05, "label": "uneven infrastructure distribution"}
         ]
       },
       "mark": {
         "type": "text",
-        "fontSize": 11,
+        "fontSize": 14,
         "fontWeight": 400,
-        "fontStyle": "italic",
-        "font": "Source Sans 3",
         "fill": "#3d4a5c",
         "baseline": "middle",
         "align": "left"
       },
       "encoding": {
         "longitude": {"field": "longitude", "type": "quantitative"},
-        "latitude":  {"field": "latitude",  "type": "quantitative"},
-        "text":      {"field": "label",     "type": "nominal"}
+        "latitude": {"field": "latitude", "type": "quantitative"},
+        "text": {"field": "label", "type": "nominal"}
       }
     }
   ],
   "config": {
     "background": "transparent",
-    "view": {"stroke": "transparent"},
-    "font": "Source Sans 3"
+    "view": {"stroke": "transparent"}
   }
 }

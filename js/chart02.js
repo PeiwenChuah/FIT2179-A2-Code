@@ -46,7 +46,7 @@ if (container) {
   const labelA = document.createElement('label');
   labelA.textContent = 'State 1: ';
   labelA.style.cssText = `
-    font-size: 0.9rem;
+    font-size: 1rem;
     font-weight: normal;
     color: black;
   `;
@@ -79,7 +79,7 @@ if (container) {
   const labelB = document.createElement('label');
   labelB.textContent = 'State 2: ';
   labelB.style.cssText = `
-    font-size: 0.9rem;
+    font-size: 1rem;
     font-weight: normal;
     color: black;
   `;
