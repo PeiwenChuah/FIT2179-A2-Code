@@ -3,6 +3,7 @@
 
   "width": "container",
   "height": 340,
+  "padding": {"right": 20},
 
   "data": {
     "url": "data/birth_death.csv"
@@ -12,8 +13,110 @@
 
     {
       "mark": {
+        "type": "rule",
+        "strokeDash": [5, 4],
+        "stroke": "#7a2e0e",
+        "strokeWidth": 1.5,
+        "opacity": 0.55
+      },
+
+      "data": {
+        "values": [
+          { "x": "2020-01-01" }
+        ]
+      },
+
+      "encoding": {
+        "x": {
+          "field": "x",
+          "type": "temporal"
+        }
+      }
+    },
+
+    {
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "dx": 5,
+        "fontSize": 14,
+        "fontWeight": "normal",
+        "color": "#7a2e0e"
+      },
+
+      "data": {
+        "values": [
+          {
+            "x": "2020-01-01",
+            "y": 9.5,
+            "label": "COVID-19 onset"
+          }
+        ]
+      },
+
+      "encoding": {
+        "x": {
+          "field": "x",
+          "type": "temporal"
+        },
+
+        "y": {
+          "field": "y",
+          "type": "quantitative"
+        },
+
+        "text": {
+          "field": "label"
+        }
+      }
+    },
+
+    {
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "dx": 5,
+        "fontSize": 14,
+        "fontWeight": "normal",
+        "color": "#7a2e0e"
+      },
+
+      "data": {
+        "values": [
+          {
+            "x": "2020-01-01",
+            "y": 8.4,
+            "label": "Death rate spiked in 2020"
+          }
+        ]
+      },
+
+      "encoding": {
+        "x": {
+          "field": "x",
+          "type": "temporal"
+        },
+
+        "y": {
+          "field": "y",
+          "type": "quantitative"
+        },
+
+        "text": {
+          "field": "label"
+        }
+      }
+    },
+
+    {
+      "mark": {
         "type": "line",
-        "point": true
+        "point": {
+          "size": 50,
+          "filled": true
+        },
+        "strokeWidth": 2.5,
+        "tooltip": true
       },
 
       "encoding": {
@@ -21,13 +124,15 @@
         "x": {
           "field": "Date",
           "type": "temporal",
+          "title": "Year",
 
           "axis": {
-            "titleFontSize": 14,
+            "labelAngle": 0,
             "labelFontSize": 12,
-
-            "titleFont": "Source Sans 3",
-            "labelFont": "Source Sans 3"
+            "titleFontSize": 14,
+            "titleFontWeight": "normal",
+            "titlePadding": 10,
+            "grid": false
           }
         },
 
@@ -37,16 +142,20 @@
           "title": "Cases per 1,000 population",
 
           "axis": {
-            "titleFontSize": 20,
-            "labelFontSize": 12
-
-            
+            "labelFontSize": 12,
+            "titleFontSize": 14,
+            "titleFontWeight": "normal",
+            "titlePadding": 10,
+            "gridColor": "#eef0f3",
+            "gridOpacity": 1,
+            "format": ".1f"
           }
         },
 
         "color": {
           "field": "Type",
           "type": "nominal",
+          "title": "Indicator",
 
           "scale": {
             "domain": ["Birth", "Death"],
@@ -54,123 +163,54 @@
           },
 
           "legend": {
-            "titleFontSize": 10,
-            "labelFontSize": 12,
+            "orient": "right",
+            "titleFontSize": 14,
+            "labelFontSize": 14,
             "symbolSize": 100,
 
             "titleFontWeight": "normal",
             "labelFontWeight": "normal",
 
-            "titleFont": "Source Sans 3",
-            "labelFont": "Source Sans 3"
+            "offset": 0,
+            "padding": 0,
+            "legendX": 0,
+            "legendY": 80
           }
-        }
-      }
-    },
+        },
 
-    {
-      "data": {
-        "values": [
+        "tooltip": [
           {
-            "Date": "2020-01-01"
+            "field": "Date",
+            "type": "temporal",
+            "title": "Year"
+          },
+          {
+            "field": "Type",
+            "type": "nominal",
+            "title": "Indicator"
+          },
+          {
+            "field": "Rate",
+            "type": "quantitative",
+            "title": "Rate",
+            "format": ".1f"
           }
         ]
-      },
-
-      "mark": {
-        "type": "rule",
-        "color": "#7a2e0e",
-        "strokeWidth": 2,
-        "strokeDash": [6, 6]
-      },
-
-      "encoding": {
-        "x": {
-          "field": "Date",
-          "type": "temporal"
-        }
-      }
-    },
-
-    {
-      "data": {
-        "values": [
-          {
-            "Date": "2020-01-01",
-            "Rate": 10,
-            "label": "COVID-19 onset"
-          }
-        ]
-      },
-
-      "mark": {
-        "type": "text",
-        "dy": -20,
-        "color": "#7a2e0e",
-        "font": "Source Sans 3",
-        "fontWeight": "bold"
-      },
-
-      "encoding": {
-
-        "x": {
-          "field": "Date",
-          "type": "temporal"
-        },
-
-        "y": {
-          "field": "Rate",
-          "type": "quantitative"
-        },
-
-        "text": {
-          "field": "label"
-        },
-
-        "size": {
-          "value": 14
-        }
-      }
-    },
-
-    {
-      "data": {
-        "values": [
-          {
-            "Date": "2020-01-01",
-            "Rate": 9,
-            "label": "Death rate spiked in 2020"
-          }
-        ]
-      },
-
-      "mark": {
-        "type": "text",
-        "dy": 20,
-        "color": "#7a2e0e"
-      },
-
-      "encoding": {
-
-        "x": {
-          "field": "Date",
-          "type": "temporal"
-        },
-
-        "y": {
-          "field": "Rate",
-          "type": "quantitative"
-        },
-
-        "text": {
-          "field": "label"
-        },
-
-        "size": {
-          "value": 14
-        }
       }
     }
 
-  ]
+  ],
+
+  "config": {
+    "background": "transparent",
+
+    "view": {
+      "stroke": "transparent"
+    },
+
+    "axis": {
+      "domainColor": "#ccc",
+      "tickColor": "#ccc"
+    }
+  }
 }
