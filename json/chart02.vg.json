@@ -231,7 +231,7 @@
           "fill": {"value": "#3d4a5c"},
           "fontSize": {"value": 11},
           "fontWeight": {"value": "600"},
-          "font": {"value": "Source Sans 3, sans-serif"}
+          "font": {"value": "Source Sans 3"}
         }
       }
     },

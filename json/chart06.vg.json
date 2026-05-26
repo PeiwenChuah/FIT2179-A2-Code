@@ -25,8 +25,8 @@
         "titlePadding": 10,
         "grid": false,
         "format": "d",
-        "labelFont": "Source Sans 3, sans-serif",
-        "titleFont": "Source Sans 3, sans-serif"
+        "labelFont": "Source Sans 3",
+        "titleFont": "Source Sans 3"
       }
     },
     "y": {
@@ -41,8 +41,8 @@
         "gridColor": "#eef0f3",
         "gridOpacity": 1,
         "format": ".1f",
-        "labelFont": "Source Sans 3, sans-serif",
-        "titleFont": "Source Sans 3, sans-serif"
+        "labelFont": "Source Sans 3",
+        "titleFont": "Source Sans 3"
       }
     },
     "color": {
@@ -59,8 +59,8 @@
         "labelFontSize": 11,
         "symbolSize": 100,
         "offset": 8,
-        "labelFont": "Source Sans 3, sans-serif",
-        "titleFont": "Source Sans 3, sans-serif"
+        "labelFont": "Source Sans 3",
+        "titleFont": "Source Sans 3"
       }
     },
     "tooltip": [
@@ -75,6 +75,6 @@
     "axis": { "domainColor": "#ccc", "tickColor": "#ccc" },
     "line": { "strokeWidth": 2.5 },
     "point": { "filled": true, "size": 50 },
-    "font": "Source Sans 3, sans-serif"
+    "font": "Source Sans 3"
   }
 }

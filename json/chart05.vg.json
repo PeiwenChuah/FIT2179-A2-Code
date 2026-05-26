@@ -23,8 +23,8 @@
         "titleFontSize": 12,
         "titleFontWeight": "normal",
         "titlePadding": 10,
-        "labelFont": "Source Sans 3, sans-serif",
-        "titleFont": "Source Sans 3, sans-serif"
+        "labelFont": "Source Sans 3",
+        "titleFont": "Source Sans 3"
       }
     },
     "y": {
@@ -40,8 +40,8 @@
         "labelExpr": "format(datum.value, ',')",
         "gridColor": "#eef0f3",
         "gridOpacity": 1,
-        "labelFont": "Source Sans 3, sans-serif",
-        "titleFont": "Source Sans 3, sans-serif"
+        "labelFont": "Source Sans 3",
+        "titleFont": "Source Sans 3"
       }
     },
     "color": {
@@ -59,8 +59,8 @@
         "symbolSize": 100,
         "symbolType": "circle",
         "offset": 8,
-        "labelFont": "Source Sans 3, sans-serif",
-        "titleFont": "Source Sans 3, sans-serif"
+        "labelFont": "Source Sans 3",
+        "titleFont": "Source Sans 3"
       }
     },
     "order": { "field": "staff_num", "aggregate": "sum", "sort": "descending" },
@@ -75,6 +75,6 @@
     "view": { "stroke": "transparent" },
     "axis": { "domainColor": "#ccc", "tickColor": "#ccc" },
     "bar": { "cornerRadiusTopLeft": 2, "cornerRadiusTopRight": 2 },
-    "font": "Source Sans 3, sans-serif"
+    "font": "Source Sans 3"
   }
 }

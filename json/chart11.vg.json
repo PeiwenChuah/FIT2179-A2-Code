@@ -64,8 +64,8 @@
             "titleFontSize": 12,
             "titleFontWeight": "normal",
             "titlePadding": 10,
-            "labelFont": "Source Sans 3, sans-serif",
-            "titleFont": "Source Sans 3, sans-serif"
+            "labelFont": "Source Sans 3",
+            "titleFont": "Source Sans 3"
           }
         },
         "xOffset": {
@@ -85,8 +85,8 @@
             "labelExpr": "datum.value >= 1000000000 ? format(datum.value / 1000000000, '.1f') + 'B' : datum.value >= 1000000 ? format(datum.value / 1000000, '.0f') + 'M' : datum.value >= 1000 ? format(datum.value / 1000, '.0f') + 'K' : datum.value",
             "gridColor": "#eef0f3",
             "gridOpacity": 1,
-            "labelFont": "Source Sans 3, sans-serif",
-            "titleFont": "Source Sans 3, sans-serif"
+            "labelFont": "Source Sans 3",
+            "titleFont": "Source Sans 3"
           }
         },
         "color": {
@@ -108,8 +108,8 @@
             "symbolSize": 100,
             "padding": 5,
             "offset": 6,
-            "labelFont": "Source Sans 3, sans-serif",
-            "titleFont": "Source Sans 3, sans-serif"
+            "labelFont": "Source Sans 3",
+            "titleFont": "Source Sans 3"
           }
         },
         "tooltip": [
@@ -132,7 +132,7 @@
         "fontSize": 15,
         "lineHeight": 20,
         "color": "black",
-        "font": "Source Sans 3, sans-serif"
+        "font": "Source Sans 3"
       },
       "encoding": {
         "x": {
@@ -153,6 +153,6 @@
     "view": {"stroke": "transparent"},
     "axis": {"domainColor": "#ccc", "tickColor": "#ccc"},
     "bar": {"cornerRadiusTopLeft": 2, "cornerRadiusTopRight": 2},
-    "font": "Source Sans 3, sans-serif"
+    "font": "Source Sans 3"
   }
 }

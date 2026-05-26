@@ -33,7 +33,7 @@
         "tickSize": 0,
         "domainColor": "#cbd5e1",
         "labelPadding": 12,
-        "labelFont": "Source Sans 3, sans-serif"
+        "labelFont": "Source Sans 3"
       },
       "scale": {"padding": 0.5}
     },
@@ -52,8 +52,8 @@
         "gridColor": "#f1f5f9",
         "domain": false,
         "ticks": false,
-        "labelFont": "Source Sans 3, sans-serif",
-        "titleFont": "Source Sans 3, sans-serif"
+        "labelFont": "Source Sans 3",
+        "titleFont": "Source Sans 3"
       }
     }
   },
@@ -96,8 +96,8 @@
             "titleFontSize": 11,
             "labelFontSize": 11,
             "orient": "right",
-            "labelFont": "Source Sans 3, sans-serif",
-            "titleFont": "Source Sans 3, sans-serif"
+            "labelFont": "Source Sans 3",
+            "titleFont": "Source Sans 3"
           }
         },
         "opacity": {
@@ -142,7 +142,7 @@
         "align": "center",
         "baseline": "bottom",
         "dy": -9,
-        "font": "Source Sans 3, sans-serif",
+        "font": "Source Sans 3",
         "fontSize": 10,
         "fontWeight": 600,
         "stroke": "#ffffff",
@@ -167,7 +167,7 @@
         "align": "center",
         "baseline": "bottom",
         "dy": -9,
-        "font": "Source Sans 3, sans-serif",
+        "font": "Source Sans 3",
         "fontSize": 10,
         "fontWeight": 600
       },
@@ -185,6 +185,6 @@
   "config": {
     "background": "transparent",
     "view": {"stroke": "transparent"},
-    "font": "Source Sans 3, sans-serif"
+    "font": "Source Sans 3"
   }
 }

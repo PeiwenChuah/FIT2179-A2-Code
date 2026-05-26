@@ -45,8 +45,8 @@
             "format": ".0f",
             "labelColor": "#1a2430",
             "titleColor": "#1a2430",
-            "labelFont": "Source Sans 3, sans-serif",
-            "titleFont": "Source Sans 3, sans-serif"
+            "labelFont": "Source Sans 3",
+            "titleFont": "Source Sans 3"
           }
         },
         "tooltip": [
@@ -85,7 +85,7 @@
         "type": "text",
         "fontSize": 10,
         "fontWeight": 700,
-        "font": "Source Sans 3, sans-serif",
+        "font": "Source Sans 3",
         "stroke": "#fcfaf2",
         "strokeWidth": 2.5,
         "strokeJoin": "round",
@@ -103,7 +103,7 @@
         "type": "text",
         "fontSize": 10,
         "fontWeight": 700,
-        "font": "Source Sans 3, sans-serif",
+        "font": "Source Sans 3",
         "fill": "#1a2430",
         "baseline": "middle"
       },
@@ -137,7 +137,7 @@
     "type": "text",
     "fontSize": 13,
     "fontWeight": 700,
-    "font": "Source Sans 3, sans-serif",
+    "font": "Source Sans 3",
     "fill": "#7a2e0e",
     "baseline": "middle",
     "align": "left"
@@ -173,7 +173,7 @@
     "fontSize": 11,
     "fontWeight": 400,
     "fontStyle": "italic",
-    "font": "Source Sans 3, sans-serif",
+    "font": "Source Sans 3",
     "fill": "#3d4a5c",
     "baseline": "middle",
     "align": "left"
@@ -209,7 +209,7 @@
     "fontSize": 11,
     "fontWeight": 400,
     "fontStyle": "italic",
-    "font": "Source Sans 3, sans-serif",
+    "font": "Source Sans 3",
     "fill": "#3d4a5c",
     "baseline": "middle",
     "align": "left"
@@ -245,7 +245,7 @@
     "fontSize": 11,
     "fontWeight": 400,
     "fontStyle": "italic",
-    "font": "Source Sans 3, sans-serif",
+    "font": "Source Sans 3",
     "fill": "#3d4a5c",
     "baseline": "middle",
     "align": "left"
@@ -260,6 +260,6 @@
   "config": {
     "background": "transparent",
     "view": { "stroke": "transparent" },
-    "font": "Source Sans 3, sans-serif"
+    "font": "Source Sans 3"
   }
 }

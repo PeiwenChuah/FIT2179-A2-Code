@@ -90,7 +90,7 @@
 
         const layout = {
             font: {
-                family: 'Source Sans 3, sans-serif',
+                family: 'Source Sans 3',
                 size: 12,
                 color: '#1a1f2e'
             },
