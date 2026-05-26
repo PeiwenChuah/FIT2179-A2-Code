@@ -288,23 +288,20 @@ body {
     display: flex;
     align-items: center;
     gap: 0.65rem;
-    margin-bottom: 0.9rem;
+    margin-bottom: 0.3rem;
 }
 
 .year-control label {
-    font-family: 'Source Sans 3', sans-serif;
-    font-size: 0.82rem;
-    font-weight: 700;
+    font-size: 1rem;
+    font-weight: 600;
     color: var(--text-dark);
     letter-spacing: 0.04em;
-    text-transform: uppercase;
 }
 
 .year-control select {
-    font-family: 'Source Sans 3', sans-serif;
     font-size: 0.88rem;
-    font-weight: 600;
     color: var(--text-dark);
+    font-weight: 500;
     background: var(--bg);
     border: 1.5px solid var(--border);
     border-radius: 6px;

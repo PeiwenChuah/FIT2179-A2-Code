@@ -105,6 +105,7 @@ function buildData(districtMap, stateMap, zoom) {
                 color: STATE_COLORS[state] || '#4a5a6a'
             });
         });
+
         Object.entries(districtMap).forEach(([k, beds]) => {
             const [state, district] = k.split('||');
             data.push({
@@ -115,6 +116,7 @@ function buildData(districtMap, stateMap, zoom) {
                 color:  STATE_COLORS[state] || '#4a5a6a'
             });
         });
+
     } else {
         const col = STATE_COLORS[zoom] || '#4a5a6a';
         Object.entries(districtMap)
@@ -129,32 +131,41 @@ function buildData(districtMap, stateMap, zoom) {
 }
 
 /* ══════════════════════════════════════════════════════════
-   DISTRICT LABEL FORMATTER
+   DISTRICT LABEL FORMATTER (DYNAMIC SIZING)
 ══════════════════════════════════════════════════════════ */
 function districtLabel() {
     const w = (this.point.shapeArgs && this.point.shapeArgs.width)  || 0;
     const h = (this.point.shapeArgs && this.point.shapeArgs.height) || 0;
     if (w < 22 || h < 16) return null;
 
-    let fs = '11px';
-    if (w < 80) fs = '9.5px';
-    if (w < 50) fs = '8px';
-    if (w < 35) fs = '7px';
+    // Detect if we are currently zoomed into a state
+    const isZoom = currentZoom !== null;
+
+    // District text: smaller in overview, larger when zoomed
+    let fs = isZoom ? '16px' : '11.5px'; 
+    if (w < 80) fs = isZoom ? '14px' : '10px';
+    if (w < 50) fs = isZoom ? '12px' : '9px';
+    if (w < 35) fs = isZoom ? '10px' : '8px';
 
     const showBeds = h > 44 && w > 58;
+    
+    // Beds text: size is ok (10px) in overview, larger (13px) when zoomed
+    const bedsFs = isZoom ? '13px' : '10px'; 
 
     return `<div style="
         width:${w}px;height:${h}px;
         display:flex;flex-direction:column;
         align-items:center;justify-content:center;
         padding:3px;box-sizing:border-box;text-align:center;">
+
       <div style="font-size:${fs};line-height:1.2;width:98%;
-                  word-wrap:break-word;font-weight:700;font-family:'Source Sans 3',sans-serif;">
+                  word-wrap:break-word;font-weight:700;">
         ${this.point.name}
       </div>
+
       ${showBeds
-        ? `<div style="font-size:8px;color:rgba(255,255,255,0.82);
-                       font-weight:500;margin-top:2px;font-family:'Source Sans 3',sans-serif;">
+        ? `<div style="font-size:${bedsFs};color:rgba(255,255,255,0.82);
+                       font-weight:600;margin-top:2px;">
              ${Highcharts.numberFormat(this.point.value, 0)} beds
            </div>`
         : ''}
@@ -185,14 +196,20 @@ function buildChart() {
                 useHTML: true,
                 align: 'left',
                 verticalAlign: 'top',
-                padding: 5,
+                padding: 2,   // ⬅ Reduced from 5 to prevent the box from spilling over tight borders
                 borderRadius: 3,
                 backgroundColor: 'rgba(0,0,0,0.20)',
                 style: { zIndex: 3, pointerEvents: 'none' },
                 formatter: function () {
-                    return `<span style="color:#fff;font-size:10px;font-weight:800;
-                        letter-spacing:.5px;text-shadow:1px 1px 3px rgba(0,0,0,.45);
-                        font-family:'Source Sans 3',sans-serif;">
+                    return `<span style="
+                        display:inline-block;
+                        line-height:1;   /* ⬅ Added to tighten up the vertical height of the box */
+                        color:#fff;
+                        font-size:12px;
+                        font-weight:800;
+                        letter-spacing:.5px;
+                        text-shadow:1px 1px 3px rgba(0,0,0,.45);
+                        ">
                         ${this.key.toUpperCase()} ›</span>`;
                 }
             }
@@ -210,6 +227,7 @@ function buildChart() {
                 style: {
                     color: '#fff',
                     fontWeight: '700',
+                    fontSize: '12px',
                     textOutline: '1px rgba(0,0,0,.35)',
                     zIndex: 2,
                     pointerEvents: 'none'
@@ -233,6 +251,7 @@ function buildChart() {
                 style: {
                     color: '#fff',
                     fontWeight: '700',
+                    fontSize: '12px',
                     textOutline: '1px rgba(0,0,0,.35)',
                     zIndex: 2,
                     pointerEvents: 'none'
@@ -246,9 +265,8 @@ function buildChart() {
         chart: {
             height: 680,
             backgroundColor: 'transparent',
-            style: { fontFamily: "'Source Sans 3', sans-serif" },
+            style: { fontFamily: "sans-serif" },
             animation: { duration: 320 },
-            // INCREASED TOP MARGIN TO 45px TO CREATE SPACE FOR THE BUTTON
             margin: [35, 0, 10, 0]
         },
 
@@ -263,10 +281,11 @@ function buildChart() {
             shadow: false,
             borderWidth: 1,
             borderColor: '#e2e6ea',
-            style: { fontSize: '12px', color: '#1a1f2e', padding: '0' },
+            style: { fontSize: '12px', color: '#1a1f2e' },
             formatter: function () {
                 const stateName = isZoom ? zoom : (this.point.parent || this.point.name);
                 const isStateTile = !this.point.parent && !isZoom;
+
                 return `
                 <div style="padding:9px 13px;min-width:150px;">
                   <div style="font-size:12px;font-weight:700;color:#1a1f2e;margin-bottom:3px;">
@@ -324,12 +343,11 @@ function buildChart() {
     });
 
     if (isZoom) {
-        const btnW = 120;
         chart.renderer
             .button(
-                '← All States',
+                '← BACK TO ALL STATES',
                 0,
-                0, // PLACED SAFELY AT Y=5 WITHIN THE 45px MARGIN
+                0,
                 function () {
                     currentZoom = null;
                     buildChart();
@@ -337,15 +355,14 @@ function buildChart() {
                 {
                     fill: '#1a3a5c',
                     stroke: 'none',
-                    r: 5,
+                    r: 6,
                     style: {
                         color: '#ffffff',
-                        fontSize: '11px',
-                        fontWeight: '700',
-                        fontFamily: "'Source Sans 3', sans-serif",
+                        fontSize: '10px',
+                        fontWeight: '800',
                         cursor: 'pointer'
                     },
-                    padding: 8
+                    padding: 10
                 },
                 { fill: '#c8972a', style: { color: '#ffffff' } },
                 { fill: '#a07010', style: { color: '#ffffff' } }
