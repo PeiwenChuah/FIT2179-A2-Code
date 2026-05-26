@@ -19,12 +19,10 @@
       "title": "Year",
       "axis": {
         "labelAngle": 0,
-        "labelFontSize": 11,
-        "titleFontSize": 12,
+        "labelFontSize": 12,
+        "titleFontSize": 14,
         "titleFontWeight": "normal",
-        "titlePadding": 10,
-        "labelFont": "Source Sans 3",
-        "titleFont": "Source Sans 3"
+        "titlePadding": 10
       }
     },
     "y": {
@@ -33,15 +31,13 @@
       "title": "Number of Staff",
       "stack": "zero",
       "axis": {
-        "labelFontSize": 11,
-        "titleFontSize": 12,
+        "labelFontSize": 12,
+        "titleFontSize": 14,
         "titleFontWeight": "normal",
         "titlePadding": 10,
         "labelExpr": "format(datum.value, ',')",
         "gridColor": "#eef0f3",
-        "gridOpacity": 1,
-        "labelFont": "Source Sans 3",
-        "titleFont": "Source Sans 3"
+        "gridOpacity": 1
       }
     },
     "color": {
@@ -54,13 +50,13 @@
       },
       "legend": {
         "orient": "top-left",
-        "titleFontSize": 11,
-        "labelFontSize": 11,
+        "titleFontSize": 14,
+        "labelFontSize": 14,
         "symbolSize": 100,
         "symbolType": "circle",
         "offset": 8,
-        "labelFont": "Source Sans 3",
-        "titleFont": "Source Sans 3"
+        "titleFontWeight": "bold",
+        "labelFontWeight": "normal"
       }
     },
     "order": { "field": "staff_num", "aggregate": "sum", "sort": "descending" },
@@ -74,7 +70,6 @@
     "background": "transparent",
     "view": { "stroke": "transparent" },
     "axis": { "domainColor": "#ccc", "tickColor": "#ccc" },
-    "bar": { "cornerRadiusTopLeft": 2, "cornerRadiusTopRight": 2 },
-    "font": "Source Sans 3"
+    "bar": { "cornerRadiusTopLeft": 2, "cornerRadiusTopRight": 2 }
   }
 }

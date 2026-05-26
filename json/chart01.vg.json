@@ -168,7 +168,7 @@
             "labelFontSize": 14,
             "symbolSize": 100,
 
-            "titleFontWeight": "normal",
+            "titleFontWeight": "bold",
             "labelFontWeight": "normal",
 
             "offset": 0,

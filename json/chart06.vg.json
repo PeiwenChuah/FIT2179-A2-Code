@@ -12,6 +12,7 @@
     }
   ],
   "mark": { "type": "line", "point": true, "tooltip": true },
+
   "encoding": {
     "x": {
       "field": "year",
@@ -19,32 +20,30 @@
       "title": "Year",
       "axis": {
         "labelAngle": 0,
-        "labelFontSize": 11,
-        "titleFontSize": 12,
+        "labelFontSize": 12,
+        "titleFontSize": 14,
         "titleFontWeight": "normal",
         "titlePadding": 10,
         "grid": false,
-        "format": "d",
-        "labelFont": "Source Sans 3",
-        "titleFont": "Source Sans 3"
+        "format": "d"
       }
     },
+
     "y": {
       "field": "rate",
       "type": "quantitative",
       "title": "Professionals per 10,000 population",
       "axis": {
-        "labelFontSize": 11,
-        "titleFontSize": 12,
+        "labelFontSize": 12,
+        "titleFontSize": 14,
         "titleFontWeight": "normal",
         "titlePadding": 10,
         "gridColor": "#eef0f3",
         "gridOpacity": 1,
-        "format": ".1f",
-        "labelFont": "Source Sans 3",
-        "titleFont": "Source Sans 3"
+        "format": ".1f"
       }
     },
+
     "color": {
       "field": "type_label",
       "type": "nominal",
@@ -53,28 +52,25 @@
         "domain": ["Doctor", "Nurse", "Pharmacist"],
         "range": ["#1a6b9a", "#4dab91", "#e07b39"]
       },
+
       "legend": {
         "orient": "top-left",
-        "titleFontSize": 11,
-        "labelFontSize": 11,
+        "titleFontSize": 14,
+        "labelFontSize": 14,
         "symbolSize": 100,
         "offset": 8,
-        "labelFont": "Source Sans 3",
-        "titleFont": "Source Sans 3"
+
+        "titleFontWeight": "bold",
+        "labelFontWeight": "normal"
       }
-    },
-    "tooltip": [
-      { "field": "year", "type": "quantitative", "title": "Year", "format": "d" },
-      { "field": "type_label", "type": "nominal", "title": "Profession" },
-      { "field": "rate", "type": "quantitative", "title": "Rate per 10,000", "format": ".2f" }
-    ]
+    }
   },
+
   "config": {
     "background": "transparent",
     "view": { "stroke": "transparent" },
     "axis": { "domainColor": "#ccc", "tickColor": "#ccc" },
     "line": { "strokeWidth": 2.5 },
-    "point": { "filled": true, "size": 50 },
-    "font": "Source Sans 3"
+    "point": { "filled": true, "size": 50 }
   }
 }

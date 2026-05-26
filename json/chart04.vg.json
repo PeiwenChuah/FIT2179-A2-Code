@@ -102,7 +102,7 @@
             "labelFontSize": 14,
             "titleFontSize": 14,
             "labelFontWeight": "normal",
-            "titleFontWeight": "normal",
+            "titleFontWeight": "bold",
             "labelColor": "#1a2430",
             "titleColor": "#1a2430",
             "values": [2, 10, 20, 40, 83]
