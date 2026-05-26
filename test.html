@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+</head>
+
+<body>
+
+<div id="vis"></div>
+
+<script>
+
+const spec = {
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+
+  "width": 700,
+  "height": 400,
+
+  "data": {
+    "url": "data/birth_death.csv"
+  },
+
+  "layer": [
+
+    {
+      "mark": {
+        "type": "line",
+        "point": true
+      },
+
+      "encoding": {
+        "x": {
+          "field": "Date",
+          "type": "temporal"
+        },
+
+        "y": {
+          "field": "Rate",
+          "type": "quantitative"
+        },
+
+        "color": {
+          "field": "Type",
+          "type": "nominal"
+        }
+      }
+    },
+
+    {
+      "data": {
+        "values": [
+          {
+            "Date": "2020-01-01",
+            "Rate": 10,
+            "label": "COVID-19 onset"
+          }
+        ]
+      },
+
+      "mark": {
+        "type": "text",
+        "dy": -20,
+        "color": "red"
+      },
+
+      "encoding": {
+
+        "x": {
+          "field": "Date",
+          "type": "temporal"
+        },
+
+        "y": {
+          "field": "Rate",
+          "type": "quantitative"
+        },
+
+        "text": {
+          "field": "label"
+        },
+
+        "size": {
+          "value": 60
+        }
+      }
+    }
+
+  ]
+};
+
+vegaEmbed("#vis", spec);
+
+</script>
+
+</body>
+</html>
