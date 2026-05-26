@@ -4,13 +4,20 @@
   "height": 412,
   "projection": {"type": "mercator"},
   "layer": [
+
     {
       "data": {
         "url": "json/neighbour.topojson",
         "format": {"type": "topojson", "feature": "selection"}
       },
-      "mark": { "type": "geoshape", "fill": "#f5f5f5", "stroke": "#e2e2e2", "strokeWidth": 0.5 }
+      "mark": {
+        "type": "geoshape",
+        "fill": "#f5f5f5",
+        "stroke": "#e2e2e2",
+        "strokeWidth": 0.5
+      }
     },
+
     {
       "data": {
         "url": "json/neighbour.topojson",
@@ -26,7 +33,11 @@
           }
         }
       ],
-      "mark": { "type": "geoshape", "stroke": "white", "strokeWidth": 0.5 },
+      "mark": {
+        "type": "geoshape",
+        "stroke": "white",
+        "strokeWidth": 0.5
+      },
       "encoding": {
         "color": {
           "field": "doctors_per_10000",
@@ -40,21 +51,21 @@
             "title": "Doctors per 10,000 population",
             "orient": "right",
             "direction": "vertical",
-            "labelFontSize": 11,
-            "titleFontSize": 12,
-            "format": ".0f",
+            "labelFontSize": 14,
+            "titleFontSize": 14,
+            "labelLimit": 0,
+            "titleLimit": 0,
             "labelColor": "#1a2430",
-            "titleColor": "#1a2430",
-            "labelFont": "Source Sans 3",
-            "titleFont": "Source Sans 3"
+            "titleColor": "#1a2430"
           }
         },
         "tooltip": [
           { "field": "properties.name", "type": "nominal", "title": "State" },
-          { "field": "doctors_per_10000", "type": "quantitative", "title": "Doctors per 10,000", "format": ".1f" }
+          { "field": "doctors_per_10000", "type": "quantitative", "title": "Doctors per 10,000 population", "format": ".1f" }
         ]
       }
     },
+
     {
       "data": {
         "values": [
@@ -79,14 +90,15 @@
         "latitude2": {"field": "lat2"}
       }
     },
+
     {
       "data": {"url": "data/state_info.csv"},
       "mark": {
         "type": "text",
-        "fontSize": 10,
-        "fontWeight": 700,
-        "font": "Source Sans 3",
-        "stroke": "#fcfaf2",
+        "fontSize": 11,
+        "fontWeight": "normal",
+        "fill": "white",
+        "stroke": "white",
         "strokeWidth": 2.5,
         "strokeJoin": "round",
         "baseline": "middle"
@@ -97,14 +109,14 @@
         "text": {"field": "state", "type": "nominal"}
       }
     },
+
     {
       "data": {"url": "data/state_info.csv"},
       "mark": {
         "type": "text",
-        "fontSize": 10,
-        "fontWeight": 700,
-        "font": "Source Sans 3",
-        "fill": "#1a2430",
+        "fontSize": 11,
+        "fontWeight": "normal",
+        "fill": "black",
         "baseline": "middle"
       },
       "encoding": {
@@ -113,153 +125,102 @@
         "text": {"field": "state", "type": "nominal"}
       }
     },
+
     {
-  "data": {
-    "values": [
-      {
-        "longitude": 112.5,
-        "latitude": 6.8,
-        "label": "Sabah & Sarawak"
+      "data": {
+        "values": [
+          {"longitude": 111.8, "latitude": 7.1, "label": "Sabah & Sarawak"},
+          {"longitude": 99.2, "latitude": 1.75, "label": "Selangor & Kuala Lumpur"},
+          {"longitude": 102.9, "latitude": 7.0, "label": "Northern Peninsular Malaysia"}
+        ]
       },
-      {
-        "longitude": 99.2,
-        "latitude": 1.75,
-        "label": "Selangor & Kuala Lumpur"
+      "mark": {
+        "type": "text",
+        "fontSize": 14,
+        "fontWeight": 700,
+        "fill": "#7a2e0e",
+        "baseline": "middle",
+        "align": "left"
       },
-      {
-        "longitude": 102.9,
-        "latitude": 7.0,
-        "label": "Northern Peninsular Malaysia"
+      "encoding": {
+        "longitude": {"field": "longitude"},
+        "latitude": {"field": "latitude"},
+        "text": {"field": "label"}
       }
-    ]
-  },
-  "mark": {
-    "type": "text",
-    "fontSize": 13,
-    "fontWeight": 700,
-    "font": "Source Sans 3",
-    "fill": "#7a2e0e",
-    "baseline": "middle",
-    "align": "left"
-  },
-  "encoding": {
-    "longitude": {"field": "longitude", "type": "quantitative"},
-    "latitude": {"field": "latitude", "type": "quantitative"},
-    "text": {"field": "label", "type": "nominal"}
-  }
-},
-{
-  "data": {
-    "values": [
-      {
-        "longitude": 112.5,
-        "latitude": 6.55,
-        "label": "Significantly lower doctor density reflecting"
+    },
+
+    {
+      "data": {
+        "values": [
+          {"longitude": 111.8, "latitude": 6.8, "label": "Significantly lower doctor density showing"},
+          {"longitude": 99.2, "latitude": 1.45, "label": "Highest doctor density due to strong"},
+          {"longitude": 102.9, "latitude": 6.7, "label": "Noticeably lower doctor density compared"}
+        ]
       },
-      {
-        "longitude": 99.2,
-        "latitude": 1.5,
-        "label": "Highest doctor density driven by strong"
+      "mark": {
+        "type": "text",
+        "fontSize": 14,
+        "fontWeight": 400,
+        "fill": "#3d4a5c",
+        "baseline": "middle",
+        "align": "left"
       },
-      {
-        "longitude": 102.9,
-        "latitude": 6.75,
-        "label": "Noticeably lower doctor density compared"
+      "encoding": {
+        "longitude": {"field": "longitude"},
+        "latitude": {"field": "latitude"},
+        "text": {"field": "label"}
       }
-    ]
-  },
-  "mark": {
-    "type": "text",
-    "fontSize": 11,
-    "fontWeight": 400,
-    "fontStyle": "italic",
-    "font": "Source Sans 3",
-    "fill": "#3d4a5c",
-    "baseline": "middle",
-    "align": "left"
-  },
-  "encoding": {
-    "longitude": {"field": "longitude", "type": "quantitative"},
-    "latitude": {"field": "latitude", "type": "quantitative"},
-    "text": {"field": "label", "type": "nominal"}
-  }
-},
-{
-  "data": {
-    "values": [
-      {
-        "longitude": 112.5,
-        "latitude": 6.3,
-        "label": "healthcare access challenges across"
+    },
+
+    {
+      "data": {
+        "values": [
+          {"longitude": 111.8, "latitude": 6.5, "label": "healthcare access challenges across"},
+          {"longitude": 99.2, "latitude": 1.15, "label": "urban healthcare infrastructure and"},
+          {"longitude": 102.9, "latitude": 6.4, "label": "to central and western healthcare hubs"}
+        ]
       },
-      {
-        "longitude": 99.2,
-        "latitude": 1.25,
-        "label": "urban healthcare infrastructure and"
+      "mark": {
+        "type": "text",
+        "fontSize": 14,
+        "fontWeight": 400,
+        "fill": "#3d4a5c",
+        "baseline": "middle",
+        "align": "left"
       },
-      {
-        "longitude": 102.9,
-        "latitude": 6.5,
-        "label": "to central and western healthcare hubs"
+      "encoding": {
+        "longitude": {"field": "longitude"},
+        "latitude": {"field": "latitude"},
+        "text": {"field": "label"}
       }
-    ]
-  },
-  "mark": {
-    "type": "text",
-    "fontSize": 11,
-    "fontWeight": 400,
-    "fontStyle": "italic",
-    "font": "Source Sans 3",
-    "fill": "#3d4a5c",
-    "baseline": "middle",
-    "align": "left"
-  },
-  "encoding": {
-    "longitude": {"field": "longitude", "type": "quantitative"},
-    "latitude": {"field": "latitude", "type": "quantitative"},
-    "text": {"field": "label", "type": "nominal"}
-  }
-},
-{
-  "data": {
-    "values": [
-      {
-        "longitude": 112.5,
-        "latitude": 6.05,
-        "label": "vast rural and remote regions"
+    },
+
+    {
+      "data": {
+        "values": [
+          {"longitude": 111.8, "latitude": 6.2, "label": "vast rural and remote regions"},
+          {"longitude": 99.2, "latitude": 0.85, "label": "metropolitan resource concentration"},
+          {"longitude": 102.9, "latitude": 6.1, "label": "highlighting regional workforce disparity"}
+        ]
       },
-      {
-        "longitude": 99.2,
-        "latitude": 1.0,
-        "label": "metropolitan resource concentration"
+      "mark": {
+        "type": "text",
+        "fontSize": 14,
+        "fontWeight": 400,
+        "fill": "#3d4a5c",
+        "baseline": "middle",
+        "align": "left"
       },
-      {
-        "longitude": 102.9,
-        "latitude": 6.25,
-        "label": "highlighting regional workforce disparity"
+      "encoding": {
+        "longitude": {"field": "longitude"},
+        "latitude": {"field": "latitude"},
+        "text": {"field": "label"}
       }
-    ]
-  },
-  "mark": {
-    "type": "text",
-    "fontSize": 11,
-    "fontWeight": 400,
-    "fontStyle": "italic",
-    "font": "Source Sans 3",
-    "fill": "#3d4a5c",
-    "baseline": "middle",
-    "align": "left"
-  },
-  "encoding": {
-    "longitude": {"field": "longitude", "type": "quantitative"},
-    "latitude": {"field": "latitude", "type": "quantitative"},
-    "text": {"field": "label", "type": "nominal"}
-  }
-}
+    }
+
   ],
   "config": {
     "background": "transparent",
-    "view": { "stroke": "transparent" },
-    "font": "Source Sans 3"
+    "view": {"stroke": "transparent"}
   }
 }

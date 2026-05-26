@@ -242,7 +242,7 @@ body {
     font-size: 20px;
     font-weight: 700;
     color: var(--text-dark);
-    margin-bottom: 1.5rem;   /* tighter — subtitle sits closer to title */
+    margin-bottom: 1rem;   /* tighter — subtitle sits closer to title */
     line-height: 1.25;
 }
 
