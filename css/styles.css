@@ -11,76 +11,44 @@
 /* ── CSS Variables ─────────────────────────────────────── */
 :root {
     --bg:          #ffffff;
-    --bg-section:  #f8f9fb;
+    --bg-section:  #ffffff;
     --bg-card:     #ffffff;
-    --border:      #e2e6ea;
-    --text-dark:   #1a1f2e;
-    --text-mid:    #3d4a5c;
-    --text-muted:  #6b7a90;
-    --text-label:  #9aa5b4;
+    --border:      #E3EDF0;
+    --text-dark:   #1F2D3D;
+    --text-mid:    #5B6B79;
+    --text-muted:  #8FA3AD;
+    --text-label:  #9AA6B2;
 
-    --accent-navy: #1a3a5c;
-    --accent-gold: #c8972a;
+    --accent-navy: #2A9D8F;
+    --accent-gold: #4A90E2;
 
     /*
       ── MASTER COLOUR REGISTER ──────────────────────────────
-      Each colour is assigned to exactly ONE semantic concept.
-      No two different concepts share a visually similar hue.
-
-      PROFESSION COLOURS  (chart02, chart05, chart06, chart07):
-        Doctor      → #1a6b9a  steel blue
-        Nurse       → #4dab91  teal green
-        Pharmacist  → #e07b39  warm orange
-        Dentist     → #7a6db0  violet
-
-      DEMOGRAPHIC  (chart01 only):
-        Birth Rate  → #3a7fc1  sky blue   (lighter than Doctor steel)
-        Death Rate  → #7a2e0e  dark sienna (darker tone)
-
-      DISEASE TRAJECTORY  (chart08 only):
-        Rising rank → #1b6b3a  forest green (NOT near Nurse teal)
-        Falling rank→ #a02020  dark red
-        Unchanged   → #6b7a8d  cool slate gray
-
-      SECTOR  (chart09 only):
-        MOH Public     → #2d5a8e  cobalt blue
-        Non-MOH Public → #c07a1a  amber
-        Private        → #5b3fa0  deep purple
-
-      FINANCE FLOW  (chart10 only):
-        Source nodes   → #1a5c7a  teal navy
-        Aggregator     → #5a6878  slate
-        Centre node    → #1a3050  very dark navy
-        Provider       → #3a8a70  forest teal
-        Agg2           → #b06020  burnt amber
-        Function       → #6850a8  indigo
-
-      BUDGET  (chart11 only):
-        Budget     → #2c5986  ink blue
-        Actual     → #b54a0a  rust
-      ──────────────────────────────────────────────────────
     */
-    --c-doctor:      #1a6b9a;
-    --c-nurse:       #4dab91;
-    --c-pharmacist:  #e07b39;
-    --c-dentist:     #7a6db0;
-    --c-birth:       #3a7fc1;
-    --c-death:       #7a2e0e;
-    --c-rise:        #1b6b3a;
-    --c-drop:        #a02020;
-    --c-unchanged:   #6b7a8d;
-    --c-moh:         #2d5a8e;
-    --c-nonmoh:      #c07a1a;
-    --c-private:     #5b3fa0;
-    --c-budget:      #2c5986;
-    --c-actual:      #b54a0a;
+    --c-doctor:      #2A9D8F;
+    --c-nurse:       #4A90E2;
+    --c-pharmacist:  #F4A261;
+    --c-dentist:     #7A6FF0;
+
+    --c-birth:       #4A90E2;
+    --c-death:       #6B4226;
+
+    --c-rise:        #2F4858;
+    --c-drop:        #5A0F2E;
+    --c-unchanged:   #9AA6B2;
+
+    --c-moh:         #2A9D8F;
+    --c-nonmoh:      #F4A261;
+    --c-private:     #7A6FF0;
+
+    --c-budget:      #4A90E2;
+    --c-actual:      #F4A261;
 
     --radius: 8px;
 
-    /* Consistent spacing tokens */
-    --space-section:  4rem;     /* between sections */
-    --space-card-gap: 2.4rem;   /* gap between cards in a row */
-    --space-post-map: 3rem;     /* extra space after maps / sankey */
+    --space-section:  4rem;
+    --space-card-gap: 2.4rem;
+    --space-post-map: 3rem;
 }
 
 /* ── Base ──────────────────────────────────────────────── */
@@ -242,7 +210,7 @@ body {
     font-size: 20px;
     font-weight: 700;
     color: var(--text-dark);
-    margin-bottom: 1rem;   /* tighter — subtitle sits closer to title */
+    margin-bottom: 1rem;
     line-height: 1.25;
 }
 
@@ -250,7 +218,7 @@ body {
     font-family: 'Source Sans 3', sans-serif;
     font-size: 0.82rem;
     color: var(--text-muted);
-    margin-bottom: 0.75rem;  /* space below subtitle before controls/chart */
+    margin-bottom: 0.75rem;
     line-height: 1.5;
 }
 
@@ -328,7 +296,6 @@ body {
 }
 
 /* ── Post-map / post-sankey spacing ─────────────────── */
-/* Adds bottom breathing room after full-width maps & sankey */
 .map-spacer {
     margin-bottom: var(--space-post-map);
 }
@@ -365,7 +332,7 @@ body {
     line-height: 1.75;
     margin-top: 0;
     padding-top: 2rem;
-    width: 88%;          /* full card width for symmetry */
+    width: 88%;
 }
 
 /* ── Divider between treemap row and next section ───── */
