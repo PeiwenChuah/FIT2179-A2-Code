@@ -30,27 +30,26 @@ async function initChart() {
 }
 
 /* ══════════════════════════════════════════════════════════
-   STATE COLOUR MAP
+   STATE COLOUR MAP (Untouched Pastels)
 ══════════════════════════════════════════════════════════ */
 const STATE_COLORS = {
-    'Johor': '#ADD8E6',          // light blue
-    'Kedah': '#FFE4E1',          // misty rose
-    'Kelantan': '#c5c5fb',       // lavender
-    'Melaka': '#FFFACD',         // lemon chiffon (soft yellow)
-    'Negeri Sembilan': '#D3D3D3',// light gray
-    'Pahang': '#AFEEEE',         // pale turquoise
-    'Perak': '#F5DEB3',          // wheat beige
-    'Perlis': '#E0FFFF',         // light cyan
-    'Pulau Pinang': '#FFB6C1',   // light pink
-    'Sabah': '#F0FFF0',          // honeydew
-    'Sarawak': '#c2a2d7',        // mauve
-    'Selangor': '#FFDAB9',       // peach puff
-    'Terengganu': '#e5edab',     // powder blue
-    'W.P. Kuala Lumpur': '#F5F5DC',   // beige
-    'W.P. Putrajaya': '#f5d1dd',      // lavender blush
-    'WP Labuan': '#C0C0C0'       // silver
+    'Johor': '#ADD8E6',          
+    'Kedah': '#FFE4E1',          
+    'Kelantan': '#c5c5fb',       
+    'Melaka': '#FFFACD',         
+    'Negeri Sembilan': '#D3D3D3',
+    'Pahang': '#AFEEEE',         
+    'Perak': '#F5DEB3',          
+    'Perlis': '#E0FFFF',         
+    'Pulau Pinang': '#FFB6C1',   
+    'Sabah': '#F0FFF0',          
+    'Sarawak': '#c2a2d7',        
+    'Selangor': '#FFDAB9',       
+    'Terengganu': '#e5edab',     
+    'W.P. Kuala Lumpur': '#F5F5DC',   
+    'W.P. Putrajaya': '#f5d1dd',      
+    'WP Labuan': '#C0C0C0'       
 };
-
 
 /* ══════════════════════════════════════════════════════════
    PARSE + AGGREGATE
@@ -132,7 +131,7 @@ function buildData(districtMap, stateMap, zoom) {
 }
 
 /* ══════════════════════════════════════════════════════════
-   DISTRICT LABEL FORMATTER (DYNAMIC SIZING)
+   DISTRICT LABEL FORMATTER 
 ══════════════════════════════════════════════════════════ */
 function districtLabel() {
     const w = (this.point.shapeArgs && this.point.shapeArgs.width)  || 0;
@@ -160,12 +159,12 @@ function districtLabel() {
         padding:3px;box-sizing:border-box;text-align:center;">
 
       <div style="font-size:${fs};line-height:1.2;width:98%;
-                  word-wrap:break-word;font-weight:700;">
+                  word-wrap:break-word;font-weight:700;color:#3d4a5c;">
         ${this.point.name}
       </div>
 
       ${showBeds
-        ? `<div style="font-size:${bedsFs};color:rgba(255,255,255,0.82);
+        ? `<div style="font-size:${bedsFs};color:#526075;
                        font-weight:600;margin-top:2px;">
              ${Highcharts.numberFormat(this.point.value, 0)} beds
            </div>`
@@ -191,25 +190,25 @@ function buildChart() {
         {
             level: 1,
             borderWidth: 2,
-            borderColor: 'grey',
+            borderColor: '#888888',
             dataLabels: {
                 enabled: true,
                 useHTML: true,
                 align: 'left',
                 verticalAlign: 'top',
-                padding: 2,   // ⬅ Reduced from 5 to prevent the box from spilling over tight borders
+                padding: 2,   
                 borderRadius: 3,
-                backgroundColor: 'rgba(0,0,0,0.20)',
+                backgroundColor: 'rgba(255,255,255,0.40)', /* ⬅ Swapped to a light frosted background */
                 style: { zIndex: 3, pointerEvents: 'none' },
                 formatter: function () {
                     return `<span style="
                         display:inline-block;
-                        line-height:1;   /* ⬅ Added to tighten up the vertical height of the box */
-                        color:#fff;
+                        line-height:1;   
+                        color:#413f3f; /* ⬅ Changed to solid black */
                         font-size:12px;
                         font-weight:800;
                         letter-spacing:.5px;
-                        text-shadow:1px 1px 3px rgba(0,0,0,.45);
+                        text-shadow:none; /* ⬅ Removed shadow for crisp black text */
                         ">
                         ${this.key.toUpperCase()} ›</span>`;
                 }
@@ -218,7 +217,7 @@ function buildChart() {
         {
             level: 2,
             borderWidth: 0.5,
-            borderColor: 'rgba(255,255,255,0.3)',
+            borderColor: '#888888', 
             dataLabels: {
                 enabled: true,
                 useHTML: true,
@@ -226,10 +225,10 @@ function buildChart() {
                 crop: false,
                 overflow: 'allow',
                 style: {
-                    color: '#fff',
+                    color: '#3d4a5c',      
                     fontWeight: '700',
                     fontSize: '12px',
-                    textOutline: '1px rgba(0,0,0,.35)',
+                    textOutline: 'none',   
                     zIndex: 2,
                     pointerEvents: 'none'
                 },
@@ -242,7 +241,7 @@ function buildChart() {
         {
             level: 1,
             borderWidth: 1.5,
-            borderColor: '#ffffff',
+            borderColor: '#888888', 
             dataLabels: {
                 enabled: true,
                 useHTML: true,
@@ -250,10 +249,10 @@ function buildChart() {
                 crop: false,
                 overflow: 'allow',
                 style: {
-                    color: '#fff',
+                    color: '#3d4a5c',      
                     fontWeight: '700',
                     fontSize: '12px',
-                    textOutline: '1px rgba(0,0,0,.35)',
+                    textOutline: 'none',   
                     zIndex: 2,
                     pointerEvents: 'none'
                 },
@@ -268,7 +267,7 @@ function buildChart() {
             backgroundColor: 'transparent',
             style: { fontFamily: "sans-serif" },
             animation: { duration: 320 },
-            margin: [35, 0, 10, 0]
+            margin: [37, 0, 10, 0]
         },
 
         title: null,
@@ -315,7 +314,7 @@ function buildChart() {
                 states: {
                     hover: {
                         brightness: 0.08,
-                        borderColor: '#ffffff',
+                        borderColor: '#cccccc',
                         borderWidth: 2
                     }
                 },

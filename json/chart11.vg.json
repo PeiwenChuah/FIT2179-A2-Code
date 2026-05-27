@@ -125,7 +125,7 @@
 
           "scale": {
             "domain": ["Budget", "Actual Spending"],
-            "range": ["#1E40AF", "#B45309"]
+            "range": ["#829df7", "#f7a362"]
           },
 
           "legend": {

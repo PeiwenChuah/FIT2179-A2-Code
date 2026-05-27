@@ -500,15 +500,15 @@ body {
   /* =========================
      SECTOR
   ========================= */
-  --color-moh: #0F766E;
-  --color-private: #9333EA;
-  --color-nonmoh: #CA8A04;
+  --color-moh: #5377be;
+  --color-private: #839128;
+  --color-nonmoh: #568433;
 
   /* =========================
      BUDGET
   ========================= */
-  --color-budget: #1E40AF;
-  --color-actual: #B45309;
+  --color-budget: #829df7;
+  --color-actual: #f7a362;
 
   /* =========================
      TREEMAP (DARK DISTINCT)
