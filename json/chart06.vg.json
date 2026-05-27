@@ -50,7 +50,7 @@
       "title": "Profession",
       "scale": {
         "domain": ["Doctor", "Nurse", "Pharmacist"],
-        "range": ["#1a6b9a", "#4dab91", "#e07b39"]
+        "range": ["#3A86A8", "#C08497", "#6B8E23"]
       },
 
       "legend": {

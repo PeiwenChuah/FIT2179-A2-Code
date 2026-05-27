@@ -46,7 +46,7 @@
       "title": "Profession",
       "scale": {
         "domain": ["Nurse", "Doctor", "Dentist", "Pharmacist"],
-        "range": ["#4dab91", "#1a6b9a", "#7a6db0", "#e07b39"]
+        "range": ["#C08497", "#3A86A8", "#A78BFA", "#6B8E23"]
       },
       "legend": {
         "orient": "top-left",

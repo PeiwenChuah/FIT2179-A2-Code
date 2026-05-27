@@ -15,7 +15,7 @@
       "mark": {
         "type": "rule",
         "strokeDash": [5, 4],
-        "stroke": "#7a2e0e",
+        "stroke": "#7F1D1D",
         "strokeWidth": 1.5,
         "opacity": 0.55
       },
@@ -41,7 +41,7 @@
         "dx": 5,
         "fontSize": 14,
         "fontWeight": "normal",
-        "color": "#7a2e0e"
+        "color": "#7F1D1D"
       },
 
       "data": {
@@ -78,7 +78,7 @@
         "dx": 5,
         "fontSize": 14,
         "fontWeight": "normal",
-        "color": "#7a2e0e"
+        "color": "#7F1D1D"
       },
 
       "data": {
@@ -159,7 +159,7 @@
 
           "scale": {
             "domain": ["Birth", "Death"],
-            "range": ["#3a7fc1", "#7a2e0e"]
+            "range": ["#0EA5A4", "#7F1D1D"]
           },
 
           "legend": {

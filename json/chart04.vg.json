@@ -108,7 +108,7 @@
             "values": [2, 10, 20, 40, 83]
           }
         },
-        "color": {"value": "#2a6899"},
+        "color": {"value": "#94f275"},
         "tooltip": [
           {"field": "state", "type": "nominal", "title": "State"},
           {"field": "hospitals", "type": "quantitative", "title": "Number of Hospitals"}

@@ -33,23 +33,24 @@ async function initChart() {
    STATE COLOUR MAP
 ══════════════════════════════════════════════════════════ */
 const STATE_COLORS = {
-    'Johor': '#1f4e79',
-    'Kedah': '#c57b1c',
-    'Kelantan': '#6b5ca5',
-    'Melaka': '#0f766e',
-    'Negeri Sembilan': '#8a5a2b',
-    'Pahang': '#355070',
-    'Perak': '#7c6a0a',
-    'Perlis': '#7a5195',
-    'Pulau Pinang': '#20639b',
-    'Sabah': '#8c564b',
-    'Sarawak': '#3b5b92',
-    'Selangor': '#264653',
-    'Terengganu': '#a16f00',
-    'Kuala Lumpur': '#bc6c25',
-    'Putrajaya': '#5e548e',
-    'WP Labuan': '#2a6f97'
+    'Johor': '#ADD8E6',          // light blue
+    'Kedah': '#FFE4E1',          // misty rose
+    'Kelantan': '#c5c5fb',       // lavender
+    'Melaka': '#FFFACD',         // lemon chiffon (soft yellow)
+    'Negeri Sembilan': '#D3D3D3',// light gray
+    'Pahang': '#AFEEEE',         // pale turquoise
+    'Perak': '#F5DEB3',          // wheat beige
+    'Perlis': '#E0FFFF',         // light cyan
+    'Pulau Pinang': '#FFB6C1',   // light pink
+    'Sabah': '#F0FFF0',          // honeydew
+    'Sarawak': '#c2a2d7',        // mauve
+    'Selangor': '#FFDAB9',       // peach puff
+    'Terengganu': '#e5edab',     // powder blue
+    'W.P. Kuala Lumpur': '#F5F5DC',   // beige
+    'W.P. Putrajaya': '#f5d1dd',      // lavender blush
+    'WP Labuan': '#C0C0C0'       // silver
 };
+
 
 /* ══════════════════════════════════════════════════════════
    PARSE + AGGREGATE
@@ -190,7 +191,7 @@ function buildChart() {
         {
             level: 1,
             borderWidth: 2,
-            borderColor: '#ffffff',
+            borderColor: 'grey',
             dataLabels: {
                 enabled: true,
                 useHTML: true,

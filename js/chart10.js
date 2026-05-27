@@ -16,7 +16,7 @@
         agg: '#4f5d75',
         center: '#243b53',
         provider: '#0f766e',
-        agg2: '#c57b1c',
+        agg2: '#7e7558',
         function: '#6b5ca5'
     };
 

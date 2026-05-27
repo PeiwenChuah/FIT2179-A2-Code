@@ -108,7 +108,7 @@
           "type": "nominal",
           "scale": {
             "domain": ["Rising rank", "Falling rank", "Unchanged"],
-            "range": ["darkorange", "#a02020", "#6b7a8d"]
+            "range": ["#4338CA", "#BE185D", "#475569"]
           },
           "legend": {
             "title": "Trajectory",
