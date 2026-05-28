@@ -72,7 +72,7 @@
           {"state": "Kuala Lumpur", "lon1": 100.385522, "lat1": 3.132668, "lon2": 101.6951, "lat2": 3.1483},
           {"state": "Putrajaya", "lon1": 100.583810, "lat1": 2.905202, "lon2": 101.6885, "lat2": 2.9394},
           {"state": "Selangor", "lon1": 100.518843, "lat1": 3.370843, "lon2": 101.4010, "lat2": 3.3789},
-          {"state": "Pulau Pinang", "lon1": 99.609136, "lat1": 5.599600, "lon2": 100.3283, "lat2": 5.3678},
+          {"state": "Pulau Pinang", "lon1": 99.9136, "lat1": 5.809600, "lon2": 100.3283, "lat2": 5.3678},
           {"state": "Negeri Sembilan", "lon1": 100.896697, "lat1": 2.514112, "lon2": 102.1461, "lat2": 2.7526},
           {"state": "Melaka", "lon1": 101.757084, "lat1": 2.222282, "lon2": 102.3183, "lat2": 2.2474}
         ]
@@ -93,6 +93,10 @@
 
     {
       "data": {"url": "data/state_info.csv"},
+      "transform": [
+        {"calculate": "datum.state === 'Pulau Pinang' ? 99.509136 : datum.longitude", "as": "longitude"},
+        {"calculate": "datum.state === 'Pulau Pinang' ? 5.809600 : datum.latitude", "as": "latitude"}
+      ],
       "mark": {
         "type": "text",
         "fontSize": 11,
@@ -112,6 +116,10 @@
 
     {
       "data": {"url": "data/state_info.csv"},
+      "transform": [
+        {"calculate": "datum.state === 'Pulau Pinang' ? 99.709136 : datum.longitude", "as": "longitude"},
+        {"calculate": "datum.state === 'Pulau Pinang' ? 5.809600 : datum.latitude", "as": "latitude"}
+      ],
       "mark": {
         "type": "text",
         "fontSize": 11,
