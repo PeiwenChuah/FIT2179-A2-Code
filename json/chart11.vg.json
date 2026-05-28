@@ -24,9 +24,9 @@
           "values": [
             {
               "Programme": "Medical",
-              "y_pos": 16650000000,
-              "label": [
-                "Medical Programmes",
+              "y_pos": 17800000000,
+              "title_label": "Medical Programmes",
+              "desc_label": [
                 "Largest share of spending, underscoring",
                 "Malaysia’s treatment heavy orientation",
                 "and the priority given to hospital services."
@@ -34,9 +34,9 @@
             },
             {
               "Programme": "Public Health",
-              "y_pos": 11000000000,
-              "label": [
-                "Public Health",
+              "y_pos": 11500000000,
+              "title_label": "Public Health",
+              "desc_label": [
                 "Consistently lower allocations, highlighting",
                 "the structural underinvestment in preventive",
                 "care compared to curative programmes."
@@ -44,9 +44,9 @@
             },
             {
               "Programme": "Research",
-              "y_pos": 5000000000,
-              "label": [
-                "Research",
+              "y_pos": 4500000000,
+              "title_label": "Research",
+              "desc_label": [
                 "Minimal allocations, showing limited",
                 "emphasis on long-term innovation."
               ]
@@ -54,7 +54,7 @@
           ]
         },
         "key": "Programme",
-        "fields": ["label", "y_pos"]
+        "fields": ["title_label", "desc_label", "y_pos"]
       }
     }
   ],
@@ -77,6 +77,10 @@
             "op": "max",
             "order": "descending"
           },
+          
+          "scale": {
+            "paddingInner": 0.55
+          },
 
           "axis": {
             "labelAngle": -30,
@@ -93,7 +97,10 @@
         "xOffset": {
           "field": "type_label",
           "type": "nominal",
-          "sort": ["Budget", "Actual Spending"]
+          "sort": ["Budget", "Actual Spending"],
+          "scale": {
+            "paddingInner": 0.05
+          }
         },
 
         "y": {
@@ -170,44 +177,72 @@
     {
       "transform": [
         {
-          "filter": "datum.type === 'Budget' && datum.label != null"
+          "filter": "datum.type === 'Budget' && datum.title_label != null"
         }
       ],
-
       "mark": {
         "type": "text",
         "align": "left",
-        "baseline": "bottom",
-
+        "baseline": "top",
         "dx": -25,
-        "dy": -10,
-
+        "dy": 0,
         "fontSize": 14,
-        "fontWeight": "normal",
-
-        "lineHeight": 20,
+        "fontWeight": "bold",
         "color": "black"
       },
-
       "encoding": {
         "x": {
           "field": "Programme",
           "type": "nominal",
-
           "sort": {
             "field": "budget_val",
             "op": "max",
             "order": "descending"
           }
         },
-
         "y": {
           "field": "y_pos",
           "type": "quantitative"
         },
-
         "text": {
-          "field": "label"
+          "field": "title_label"
+        }
+      }
+    },
+
+    {
+      "transform": [
+        {
+          "filter": "datum.type === 'Budget' && datum.desc_label != null"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "baseline": "top",
+        "dx": -25,
+        "dy": 20,
+        "fontSize": 14,
+        "fontWeight": "normal",
+        "lineHeight": 20,
+        "color": "black"
+      },
+      "encoding": {
+        "x": {
+          "field": "Programme",
+          "type": "nominal",
+          "sort": {
+            "field": "budget_val",
+            "op": "max",
+            "order": "descending"
+          }
+        },
+        "y": {
+          "field": "y_pos",
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "desc_label"
         }
       }
     }
@@ -215,16 +250,13 @@
 
   "config": {
     "background": "transparent",
-
     "view": {
       "stroke": "transparent"
     },
-
     "axis": {
       "domainColor": "#ccc",
       "tickColor": "#ccc"
     },
-
     "bar": {
       "cornerRadiusTopLeft": 2,
       "cornerRadiusTopRight": 2

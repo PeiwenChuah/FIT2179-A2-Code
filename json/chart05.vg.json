@@ -11,7 +11,7 @@
       "as": "type_label"
     }
   ],
-  "mark": { "type": "bar", "tooltip": true },
+  "mark": { "type": "bar", "tooltip": true, "size": 30 },
   "encoding": {
     "x": {
       "field": "year",

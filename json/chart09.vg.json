@@ -1,8 +1,6 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-
   "spacing": 12,
-
   "hconcat": [
     {
       "title": {
@@ -11,14 +9,11 @@
         "fontWeight": "normal",
         "color": "#3d4a5c"
       },
-
-      "width": 240,
-      "height": 366,
-
+      "width": 190,
+      "height": 395,
       "data": {
         "url": "data/Inpatient and Outpatient.csv"
       },
-
       "transform": [
         {
           "calculate": "toNumber(datum.Number)",
@@ -32,12 +27,11 @@
           "filter": "datum.ServiceType === 'Inpatient'"
         }
       ],
-
       "mark": {
         "type": "bar",
-        "tooltip": true
+        "tooltip": true,
+        "size": 32
       },
-
       "encoding": {
         "x": {
           "field": "sector_label",
@@ -49,20 +43,19 @@
           "title": "Sector",
           "axis": {
             "labelAngle": 0,
-            "labelFontSize": 12,
+            "labelFontSize": 11,
             "titleFontSize": 14,
             "titleFontWeight": "normal",
             "labelFontWeight": "normal",
             "titlePadding": 8
           }
         },
-
         "y": {
           "field": "count",
           "type": "quantitative",
           "title": "Visits",
           "axis": {
-            "labelFontSize": 12,
+            "labelFontSize": 11,
             "titleFontSize": 14,
             "labelFontWeight": "normal",
             "titleFontWeight": "normal",
@@ -72,7 +65,6 @@
             "gridOpacity": 1
           }
         },
-
         "color": {
           "field": "sector_label",
           "type": "nominal",
@@ -87,27 +79,13 @@
               "Private"
             ],
             "range": [
-              "#0F766E",
-              "#CA8A04",
-              "#9333EA"
+              "#FBBF24",
+              "#cbd5e1",
+              "#cbd5e1"
             ]
           },
-          "legend": {
-            "title": "Sector",
-            "titleOrient": "left",
-            "orient": "top",
-            "direction": "horizontal",
-            "titleAnchor": "start",
-            "titleFontSize": 14,
-            "labelFontSize": 14,
-            "titleFontWeight": "bold",
-            "labelFontWeight": "normal",
-            "symbolSize": 70,
-            "padding": 5,
-            "offset": 6
-          }
+          "legend": null
         },
-
         "tooltip": [
           {
             "field": "sector_label",
@@ -123,7 +101,6 @@
         ]
       }
     },
-
     {
       "title": {
         "text": "Outpatient",
@@ -131,14 +108,11 @@
         "fontWeight": "normal",
         "color": "#3d4a5c"
       },
-
-      "width": 240,
-      "height": 366,
-
+      "width": 190,
+      "height": 395,
       "data": {
         "url": "data/Inpatient and Outpatient.csv"
       },
-
       "transform": [
         {
           "calculate": "toNumber(datum.Number)",
@@ -152,12 +126,11 @@
           "filter": "datum.ServiceType === 'Outpatient'"
         }
       ],
-
       "mark": {
         "type": "bar",
-        "tooltip": true
+        "tooltip": true,
+        "size": 32
       },
-
       "encoding": {
         "x": {
           "field": "sector_label",
@@ -169,20 +142,19 @@
           "title": "Sector",
           "axis": {
             "labelAngle": 0,
-            "labelFontSize": 12,
+            "labelFontSize": 11,
             "titleFontSize": 14,
             "titleFontWeight": "normal",
             "labelFontWeight": "normal",
             "titlePadding": 8
           }
         },
-
         "y": {
           "field": "count",
           "type": "quantitative",
           "title": "Visits",
           "axis": {
-            "labelFontSize": 12,
+            "labelFontSize": 11,
             "titleFontSize": 14,
             "labelFontWeight": "normal",
             "titleFontWeight": "normal",
@@ -192,7 +164,6 @@
             "gridOpacity": 1
           }
         },
-
         "color": {
           "field": "sector_label",
           "type": "nominal",
@@ -207,14 +178,13 @@
               "Private"
             ],
             "range": [
-              "#2d5a8e",
-              "#c07a1a",
-              "#5b3fa0"
+              "#FBBF24",
+              "#cbd5e1",
+              "#cbd5e1"
             ]
           },
           "legend": null
         },
-
         "tooltip": [
           {
             "field": "sector_label",
@@ -231,19 +201,15 @@
       }
     }
   ],
-
   "config": {
     "background": "transparent",
-
     "view": {
       "stroke": "transparent"
     },
-
     "axis": {
       "domainColor": "#ccc",
       "tickColor": "#ccc"
     },
-
     "bar": {
       "cornerRadiusTopLeft": 2,
       "cornerRadiusTopRight": 2
