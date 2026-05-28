@@ -149,7 +149,7 @@ body {
 /* SECOND largest — section title */
 .section-title {
     font-family: 'Playfair Display', Georgia, serif;
-    font-size: clamp(1.7rem, 3.2vw, 2.3rem);
+    font-size: 38px;
     font-weight: 700;
     color: var(--text-dark);
     margin-bottom: 2.2rem;
@@ -207,7 +207,7 @@ body {
 /* THIRD largest — chart title (20 px) */
 .card-title {
     font-family: 'Playfair Display', Georgia, serif;
-    font-size: 20px;
+    font-size: 25px;
     font-weight: 700;
     color: var(--text-dark);
     margin-bottom: 1rem;
