@@ -58,7 +58,7 @@ if (container) {
     padding: 0.25rem 0.6rem;
     border: 1px solid #d9d9d9;
     border-radius: 6px;
-    margin-left: 0.4rem;
+    margin-left: 1.5rem;
     background: white;
     cursor: pointer;
   `;
@@ -112,7 +112,6 @@ if (container) {
     gap: 2rem;
     align-items: center;
     flex-wrap: wrap;
-
     margin-top: -0.4rem;
   `;
 
@@ -122,7 +121,6 @@ if (container) {
     display: inline-flex;
     align-items: center;
     gap: 0.4rem;
-
     font-size: 0.9rem;
     font-weight: 500;
     color: black;
@@ -150,7 +148,6 @@ if (container) {
     display: inline-flex;
     align-items: center;
     gap: 0.4rem;
-
     font-size: 0.9rem;
     font-weight: 500;
     color: black;
@@ -183,6 +180,7 @@ if (container) {
   const chartDiv = document.createElement('div');
   chartDiv.id = 'chart02-inner';
   chartDiv.style.width = '100%';
+  chartDiv.style.marginLeft = '1.5rem'; // Moves the chart to the right
 
   // Add to page
   container.appendChild(controlsWrapper);
@@ -193,13 +191,11 @@ if (container) {
     .then(result => {
 
       function updateChart() {
-
         const stateAVal = selectA.value;
         const stateBVal = selectB.value;
 
         result.view.signal('stateA', stateAVal);
         result.view.signal('stateB', stateBVal);
-
         result.view.runAsync();
 
         // Update legend text
@@ -212,7 +208,6 @@ if (container) {
 
       updateChart();
     })
-
     .catch(error => {
       console.error('Error embedding chart02:', error);
     });
