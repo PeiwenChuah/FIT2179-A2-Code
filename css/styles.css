@@ -126,7 +126,7 @@ body {
 .page {
     width: 90%;
     margin: 0 auto;
-    padding: 0 0 5rem;
+    padding: 0 0 1rem 1.5rem;
 }
 
 /* ── Section Wrapper ───────────────────────────────────── */

@@ -1,31 +1,32 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-
   "width": "container",
   "height": 340,
-  "padding": {"right": 20},
-
+  "padding": {
+    "right": 15
+  },
   "data": {
     "url": "data/birth_death.csv"
   },
-
   "layer": [
-
     {
       "mark": {
         "type": "rule",
-        "strokeDash": [5, 4],
+        "strokeDash": [
+          5,
+          4
+        ],
         "stroke": "#7F1D1D",
         "strokeWidth": 1.5,
         "opacity": 0.55
       },
-
       "data": {
         "values": [
-          { "x": "2020-01-01" }
+          {
+            "x": "2020-01-01"
+          }
         ]
       },
-
       "encoding": {
         "x": {
           "field": "x",
@@ -33,17 +34,15 @@
         }
       }
     },
-
     {
       "mark": {
         "type": "text",
         "align": "left",
         "dx": 5,
-        "fontSize": 14,
+        "fontSize": 13,
         "fontWeight": "normal",
         "color": "#7F1D1D"
       },
-
       "data": {
         "values": [
           {
@@ -53,61 +52,52 @@
           }
         ]
       },
-
       "encoding": {
         "x": {
           "field": "x",
           "type": "temporal"
         },
-
         "y": {
           "field": "y",
           "type": "quantitative"
         },
-
         "text": {
           "field": "label"
         }
       }
     },
-
     {
       "mark": {
         "type": "text",
         "align": "left",
         "dx": 5,
-        "fontSize": 14,
+        "fontSize": 13,
         "fontWeight": "normal",
         "color": "#7F1D1D"
       },
-
       "data": {
         "values": [
           {
             "x": "2020-01-01",
             "y": 8.4,
-            "label": "Death rate spiked in 2020"
+            "label": "Death rate spiked"
           }
         ]
       },
-
       "encoding": {
         "x": {
           "field": "x",
           "type": "temporal"
         },
-
         "y": {
           "field": "y",
           "type": "quantitative"
         },
-
         "text": {
           "field": "label"
         }
       }
     },
-
     {
       "mark": {
         "type": "line",
@@ -118,14 +108,11 @@
         "strokeWidth": 2.5,
         "tooltip": true
       },
-
       "encoding": {
-
         "x": {
           "field": "Date",
           "type": "temporal",
           "title": "Year",
-
           "axis": {
             "labelAngle": 0,
             "labelFontSize": 12,
@@ -135,12 +122,13 @@
             "grid": false
           }
         },
-
         "y": {
           "field": "Rate",
           "type": "quantitative",
           "title": "Cases per 1,000 population",
-
+          "scale": {
+            "domain": [0, 26]
+          },
           "axis": {
             "labelFontSize": 12,
             "titleFontSize": 14,
@@ -151,33 +139,33 @@
             "format": ".1f"
           }
         },
-
         "color": {
           "field": "Type",
           "type": "nominal",
           "title": "Indicator",
-
           "scale": {
-            "domain": ["Birth", "Death"],
-            "range": ["#0EA5A4", "#7F1D1D"]
+            "domain": [
+              "Birth",
+              "Death"
+            ],
+            "range": [
+              "#0EA5A4",
+              "#7F1D1D"
+            ]
           },
-
           "legend": {
-            "orient": "right",
+            "orient": "none",
+            "legendX": 15,
+            "legendY": 5,
+            "direction": "horizontal",
             "titleFontSize": 14,
             "labelFontSize": 14,
             "symbolSize": 100,
-
             "titleFontWeight": "bold",
             "labelFontWeight": "normal",
-
-            "offset": 0,
-            "padding": 0,
-            "legendX": 0,
-            "legendY": 80
+            "padding": 0
           }
         },
-
         "tooltip": [
           {
             "field": "Date",
@@ -198,16 +186,12 @@
         ]
       }
     }
-
   ],
-
   "config": {
     "background": "transparent",
-
     "view": {
       "stroke": "transparent"
     },
-
     "axis": {
       "domainColor": "#ccc",
       "tickColor": "#ccc"

@@ -130,13 +130,13 @@
       "data": {
         "values": [
           {"longitude": 111.8, "latitude": 7.1, "label": "Sabah & Sarawak"},
-          {"longitude": 99.2,  "latitude": 1.75, "label": "Selangor & Kuala Lumpur"},
+          {"longitude": 99.2,  "latitude": 1.75, "label": "Selangor, KL & Putrajaya"},
           {"longitude": 102.9, "latitude": 7.1, "label": "Northern Peninsular Malaysia"}
         ]
       },
       "mark": {
         "type": "text",
-        "fontSize": 14,
+        "fontSize": 13,
         "fontWeight": 700,
         "fill": "#7a2e0e",
         "baseline": "middle",
@@ -152,14 +152,14 @@
     {
       "data": {
         "values": [
-          {"longitude": 111.8, "latitude": 6.8, "label": "Significantly lower doctor density showing"},
-          {"longitude": 99.2,  "latitude": 1.45, "label": "Highest doctor density due to strong"},
+          {"longitude": 111.8, "latitude": 6.8, "label": "Significantly lower doctor density,"},
+          {"longitude": 99.2,  "latitude": 1.45, "label": "Highest doctor density due "},
           {"longitude": 102.9, "latitude": 6.8, "label": "Noticeably lower doctor density compared"}
         ]
       },
       "mark": {
         "type": "text",
-        "fontSize": 14,
+        "fontSize": 13,
         "fontWeight": 400,
         "fill": "#3d4a5c",
         "baseline": "middle",
@@ -175,14 +175,14 @@
     {
       "data": {
         "values": [
-          {"longitude": 111.8, "latitude": 6.5, "label": "healthcare access challenges across"},
-          {"longitude": 99.2,  "latitude": 1.15, "label": "urban healthcare infrastructure and"},
+          {"longitude": 111.8, "latitude": 6.5, "label": "healthcare access challenges in"},
+          {"longitude": 99.2,  "latitude": 1.15, "label": "to strong urban healthcare"},
           {"longitude": 102.9, "latitude": 6.5, "label": "to central and western healthcare hubs"}
         ]
       },
       "mark": {
         "type": "text",
-        "fontSize": 14,
+        "fontSize": 13,
         "fontWeight": 400,
         "fill": "#3d4a5c",
         "baseline": "middle",
@@ -199,7 +199,7 @@
       "data": {
         "values": [
           {"longitude": 111.8, "latitude": 6.2, "label": "vast rural and remote regions"},
-          {"longitude": 99.2,  "latitude": 0.85, "label": "metropolitan resource concentration"},
+          {"longitude": 99.2,  "latitude": 0.85, "label": "infrastructure and resources"},
           {"longitude": 102.9, "latitude": 6.2, "label": "highlighting regional workforce disparity"}
         ]
       },
