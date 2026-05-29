@@ -279,7 +279,7 @@
           "size": {"value": 36},
           "fill": {"scale": "color", "field": "category"},
           "opacity": {"value": 0.9},
-          "tooltip": {"signal": "{'State': datum.state, 'Metric': datum.key, 'Normalised score': format(datum.value, '.3f')}"}
+          "tooltip": {"signal": "{'State': datum.state, 'Metric': datum.key, 'Index': format(datum.value, '.3f')}"}
         }
       }
     }
