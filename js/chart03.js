@@ -39,7 +39,7 @@ const STATE_COLORS = {
     'Melaka': '#FFFACD',         
     'Negeri Sembilan': '#D3D3D3',
     'Pahang': '#AFEEEE',         
-    'Perak': '#F5DEB3',          
+    'Perak': '#d0c6b0',          
     'Perlis': '#E0FFFF',         
     'Pulau Pinang': '#FFB6C1',   
     'Sabah': '#F0FFF0',          
